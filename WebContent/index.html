@@ -23,6 +23,10 @@
 			</hgroup>
 		</header>
 		
+		<div id="taskBarDiv">
+			<input type="button" id="createVisitBtn" value="Create New Visit">
+		</div>
+		
 		<div id="searchDiv">
 			<input type="search" id="searchVisitQueryField" 
 				name=""searchVisitQueryField"" 
@@ -53,10 +57,190 @@
 			</table>
 		</div>
 		
-		<div id="taskBarDiv">
-			<input type="button" id="createVisitBtn" value="Create New Visit">
+		<div id="createVisitDialog" title="Visitor Information Sheet">
+			<form id="createVisitForm">
+				<div id="createVisitTabs">
+					<ul>
+						<li><a href="#visitOverviewTab">Visit Overview</a></li>
+						<li><a href="#visitorsListTab">Visitors</a></li>
+						<li><a href="#visitItineraryTab">Visit Itinerary</a></li>
+						<li><a href="#leadershipParticipationTab">Leadership Participation</a></li>
+					</ul>
+					
+					<div id="visitOverviewTab">
+						<fieldset id="visitTypeRadio">
+							<legend>Visit Type</legend>
+							<input type="radio" id="visitTypeChoiceI" name="visitTypeChoice" value="I">
+							<label for="visitTypeChoiceI">Only IBM</label>
+							<input type="radio" id="visitTypeChoiceC" name="visitTypeChoice" value="C">
+							<label for="visitTypeChoiceC">Only Client</label>
+							<input type="radio" id="visitTypeChoiceB" name="visitTypeChoice" value="B">
+							<label for="visitTypeChoiceB">Both</label>
+							<span class="on-screen-tips">* Please choose the visit type from the button set.</span>
+						</fieldset>
+						
+						<table>
+							<tbody>
+								<tr>
+									<td><label for="industry">Industry:</label></td>
+									<td><input name="industry" id="industry" type="text"></td>
+								</tr>
+								<tr>
+									<td><label for="accName">Account Name:</label></td>
+									<td><input name="accName" id="accName" type="text"></td>
+								</tr>
+								<tr>
+									<td><label for="palLFE">PAL/LFE:</label></td>
+									<td><input name="palLFE" id="palLFE" type="text"></td>
+								</tr>
+								<tr>
+									<td><label for="cbc">CBC</label></td>
+									<td>
+										<select>
+											<option value="Y">YES</option>
+											<option value="N">NO</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td><label for="hostMgr">Hosting Manager:</label></td>
+									<td><input name="hostMgr" id="hostMgr" type="text"></td>
+								</tr>
+								<tr>
+									<td><label for="visitAgenda">Primary Agenda of Visit:</label></td>
+									<td><input name="visitAgenda" id="visitAgenda" type="text"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					<div id="visitorsListTab">
+						<table id="visitorsList">
+							<thead>
+								<tr>
+									<th>Select</th>
+									<th>Visitor</th>
+									<th>Role</th>
+									<th>Primary(Yes/No)</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+						
+						<fieldset>
+							<legend>Enter Visitor Info:</legend>
+							<table>
+								<tbody>
+									<tr>
+										<td><label for="visitorNameTxt">Visitor</label></td>
+										<td><input type="text" id="visitorNameTxt"></td>
+									</tr>
+									<tr>
+										<td><label for="visitorRoleTxt">Role</label></td>
+										<td><input type="text" id="visitorRoleTxt"></td>
+									</tr>
+									<tr>
+										<td><label for="visitorPrimaryCheck">Primary</label></td>
+										<td>
+											<select name="visitorPrimaryCheck" id="visitorPrimaryCheck">
+												<option value="Y">YES</option>
+												<option value="N">NO</option>
+											</select>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</fieldset>
+						<input type="button" id="addVisitorBtn" value="Add Visitor">
+						<input type="button" id="removeVisitorsBtn" value="Remove Visitor">
+					</div>
+					
+					<div id="visitItineraryTab">
+						<table id="visitItineraryList">
+							<thead>
+								<tr>
+									<th>Select</th>
+									<th>Location</th>
+									<th>Start Date</th>
+									<th>End Date</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+						
+						<fieldset>
+							<legend>Enter Itinerary:</legend>
+							<table>
+								<tbody>
+									<tr>
+										<td><label for="itiLoc">Location:</label></td>
+										<td><input type="text" id="itiLoc" name="itiLoc"></td>
+									</tr>
+									<tr>
+										<td><label for="itiStart">Start Date:</label></td>
+										<td><input type="date" id="itiStart" name="itiStart"></td>
+									</tr>
+									<tr>
+										<td><label for="itiEnd">End Date:</label></td>
+										<td><input type="date" id="itiEnd" name="itiEnd"></td>
+									</tr>
+								</tbody>
+							</table>
+						</fieldset>
+						<input type="button" id="itiAddBtn" value="Add Itinerary">
+						<input type="button" id="itiRemoveBtn" value="Remove Itinerary">
+					</div>
+					
+					<div id="leadershipParticipationTab">
+						<table id="leadershipParticipationList">
+							<thead>
+								<tr>
+									<th>Select</th>
+									<th>Lotus Notes ID</th>
+									<th>BU</th>
+									<th>Attend/Inform</th>
+									<th>Location</th>
+									<th>Date</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+						
+						<fieldset>
+							<table>
+								<tbody>
+									<tr>
+										<td><label for="ldrLNID">Lotus Notes ID:</label></td>
+										<td><input type="text" name="ldrLNID" id="ldrLNID"></td>
+									</tr>
+									<tr>
+										<td><label for="ldrBU">BU</label></td>
+										<td><input type="text" name="ldrBU" id="ldrBU"></td>
+									</tr>
+									<tr>
+										<td><label for="ldrAttnd">Attend/Inform</label></td>
+										<td><input type="text" name="ldrAttnd" id="ldrAttnd"></td>
+									</tr>
+									<tr>
+										<td><label for="ldrLoc">Location</label></td>
+										<td><input type="text" name="ldrLoc" id="ldrLoc"></td>
+									</tr>
+									<tr>
+										<td><label for="ldrDate">Date</label></td>
+										<td><input type="date" name="ldrDate" id="ldrDate"></td>
+									</tr>
+								</tbody>
+							</table>
+						</fieldset>
+						<input type="button" id="ldrPartAdd" value="Add Leadership Participation">
+						<input type="button" id="ldrPartRemove" value="Remove Leadership Participation"> 
+					</div>
+				</div>
+			</form>
 		</div>
-		
 		
 		<script src="./index.js"></script>
 	</body>

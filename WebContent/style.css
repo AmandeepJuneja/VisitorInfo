@@ -62,10 +62,20 @@ tbody tr:nth-child(odd) {
 	background-color: #e0f2f1;
 }
 
+.on-screen-tips {
+	font-size: small;
+	color: #F44336;
+	padding: 4px;
+	margin: 4px;
+}
 
 #taskBarDiv {
 	padding: 4px;
 	margin: 4px;
+	position: absolute;
+	top: 6%;
+	left: 50%;
+	z-index: 29;
 }
 
 #searchDiv {
@@ -83,7 +93,7 @@ tbody tr:nth-child(odd) {
 	-moz-border-radius: 8px;
 }
 
-#searchWorkorderQueryField {
+#searchVisitQueryField {
 	height: 23px;
 	width: 72%;
 	border-radius: 8px;
