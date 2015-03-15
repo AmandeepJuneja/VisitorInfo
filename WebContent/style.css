@@ -40,6 +40,12 @@ header img {
 	-moz-transform: scale(2.45, 0.7);
 }
 
+fieldset {
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+}
+
 table {
 	width: 99%;
 	margin: 4px;
@@ -74,7 +80,7 @@ tbody tr:nth-child(odd) {
 	margin: 4px;
 	position: absolute;
 	top: 6%;
-	left: 50%;
+	left: 35%;
 	z-index: 29;
 }
 
@@ -107,4 +113,9 @@ tbody tr:nth-child(odd) {
 	color: #3e2723;
 	border-radius: 8px;
 	-moz-border-radius: 8px;
+}
+
+:disabled {
+	background-color: #B6B6B6;
+	color: #607D8B;
 }

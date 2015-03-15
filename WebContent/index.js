@@ -23,7 +23,7 @@ var  dialog = $('#createVisitDialog').dialog({
 
 var  form = dialog.find('form').on('submit', function(evt) {
 	evt.preventDefault();
-	createVisitDialog();
+	createVisitRecord();
 });
 
 function openVisitDialog() {
@@ -31,7 +31,108 @@ function openVisitDialog() {
 }
 
 function createVisitRecord() {
+	$('#createVisitForm').validate();
+}
+
+// This function creates a generic check box html item wrapped in a table cell.
+function createCheckBox() {
+	return $('<td><input type="checkbox"></td>');
+}
+
+// This function is used to add a visitor record line to the create visit form.
+function addVisitor() {
+	var visitorNameTxt = $('#visitorNameTxt').val();
+	var visitorRoleTxt = $('#visitorRoleTxt').val();
+	var visitorPrimaryCheck = $('#visitorPrimaryCheck').val();
 	
+	// Turn primary option off if primary visitor is being entered
+	if ( visitorPrimaryCheck === "Yes" ) {
+		$('#visitorPrimaryCheck > option[value="Yes"]').attr('disabled', 'disabled');
+		$('#visitorPrimaryCheck > option[value="No"]').attr('selected', true);
+	}
+	
+	if ( visitorPrimaryCheck != "Yes" ) {
+		visitorPrimaryCheck = "No";
+	}
+	
+	var insertRow = $('<tr></tr>').append(createCheckBox())
+					.append($('<td>' + visitorNameTxt + '</td>'))
+					.append($('<td>'+ visitorRoleTxt + '</td>'))
+					.append($('<td>' + visitorPrimaryCheck + '</td>'));
+	
+	$('#visitorsList > tbody').append(insertRow);
+}
+
+// This function is used to remove a visitor record line from the create visit form.
+function removeVisitor() {
+	// first get the table
+	$('#visitorsList > tbody > tr').each(function(index) {
+		var chkBox = $(this).find('td > input[type="checkbox"]');
+		if ( chkBox.prop('checked') == true ) {
+			// okay if this was a primary visitor, let's go ahead and re-enable primary
+			$(this).find('td').each(function(index){
+				if ( index == 3 ) {
+					if ( $(this).text() === "Yes" ) {
+						$('#visitorPrimaryCheck > option[value="Yes"]').removeAttr('disabled');
+						$('#visitorPrimaryCheck > option[value="Yes"]').attr('selected', true);
+					}
+				}
+			});
+			$(this).remove();
+		}
+	});
+}
+
+// This function is used to add an itinerary item to the create visit record form
+function addItinerary() {
+	var itiLoc = $('#itiLoc').val();
+	var itiStart = $('#itiStart').val();
+	var itiEnd = $('#itiEnd').val();
+	
+	var insertRow = $('<tr></tr>').append(createCheckBox())
+				.append($('<td>' + itiLoc + '</td>'))
+				.append($('<td>' + itiStart + '</td>'))
+				.append($('<td>' + itiEnd + '</td>'));
+	
+	$('#visitItineraryList > tbody').append(insertRow);
+}
+
+// This function is used to remove an itinerary item from the create visit record form
+function removeItinerary() {
+	$('#visitItineraryList > tbody > tr').each(function(index) {
+		var chkBox = $(this).find('td > input[type="checkbox"]');
+		if ( chkBox.prop('checked') == true ) {
+			$(this).remove();
+		}
+	});
+}
+
+// This function adds a Leadership Participation record to the create Visit form
+function addLdrPart() {
+	var ldrLNID = $('#ldrLNID').val();
+	var ldrBU = $('#ldrBU').val();
+	var ldrAttnd = $('#ldrAttnd').val();
+	var ldrLoc = $('#ldrLoc').val();
+	var ldrDate = $('#ldrDate').val();
+	
+	var insertRow = $('<tr></tr>').append(createCheckBox())
+				.append($('<td>' + ldrLNID + '</td>'))
+				.append($('<td>' + ldrBU + '</td>'))
+				.append($('<td>' + ldrAttnd + '</td>'))
+				.append($('<td>' + ldrLoc + '</td>'))
+				.append($('<td>' + ldrDate + '</td>'));
+	
+	$('#leadershipParticipationList > tbody').append(insertRow);
+}
+
+// This function removes a Leadership Participation record from the create visit form.
+function removeLdrPart() {
+	$('#leadershipParticipationList > tbody > tr').each(function(index) {
+		var chkBox = $(this).find('td > input[type="checkbox"]');
+		if ( chkBox.prop('checked') == true ) {
+			$(this).remove();
+		}
+	});
 }
 
 $(function() {
@@ -39,12 +140,17 @@ $(function() {
 	$('#messagesDiv').hide('slide');
 	$('#createVisitBtn').button().click(openVisitDialog);
 	$('#searchVisitBtn').button();
-	$('#addVisitorBtn').button();
-	$('#removeVisitorsBtn').button();
-	$('#itiAddBtn').button();
-	$('#itiRemoveBtn').button();
-	$('#ldrPartAdd').button();
-	$('#ldrPartRemove').button();
+	$('#addVisitorBtn').button().click(addVisitor);
+	$('#deleteVisitBtn').button();
+	$('#exportRptBtn').button();
+	$('#removeVisitorsBtn').button().click(removeVisitor);
+	$('#itiAddBtn').button().click(addItinerary);
+	$('#itiRemoveBtn').button().click(removeItinerary);
+	$('#ldrPartAdd').button().click(addLdrPart);
+	$('#ldrPartRemove').button().click(removeLdrPart);
 	$('#createVisitTabs').tabs();
 	$('#visitTypeRadio').buttonset();
+	$('#itiStart').datepicker();
+	$('#itiEnd').datepicker();
+	$('#ldrDate').datepicker();
 });

@@ -9,6 +9,7 @@
 		<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<link rel="stylesheet" href="./jquery-ui.min.css" />
 		<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
+		<script src="./scripts/jquery.validate.min.js"></script>
 		
 		<link rel="stylesheet" href="./style.css" />
 	</head>
@@ -25,6 +26,8 @@
 		
 		<div id="taskBarDiv">
 			<input type="button" id="createVisitBtn" value="Create New Visit">
+			<input type="button" id="deleteVisitBtn" value="Delete Visit(s)">
+			<input type="button" id="exportRptBtn" value="Export Report">
 		</div>
 		
 		<div id="searchDiv">
@@ -64,13 +67,13 @@
 						<li><a href="#visitOverviewTab">Visit Overview</a></li>
 						<li><a href="#visitorsListTab">Visitors</a></li>
 						<li><a href="#visitItineraryTab">Visit Itinerary</a></li>
-						<li><a href="#leadershipParticipationTab">Leadership Participation</a></li>
+						<li><a href="#leadershipParticipationTab">IBM India Leadership Participation</a></li>
 					</ul>
 					
 					<div id="visitOverviewTab">
 						<fieldset id="visitTypeRadio">
 							<legend>Visit Type</legend>
-							<input type="radio" id="visitTypeChoiceI" name="visitTypeChoice" value="I">
+							<input type="radio" id="visitTypeChoiceI" name="visitTypeChoice" value="I" checked>
 							<label for="visitTypeChoiceI">Only IBM</label>
 							<input type="radio" id="visitTypeChoiceC" name="visitTypeChoice" value="C">
 							<label for="visitTypeChoiceC">Only Client</label>
@@ -83,32 +86,52 @@
 							<tbody>
 								<tr>
 									<td><label for="industry">Industry:</label></td>
-									<td><input name="industry" id="industry" type="text"></td>
+									<td>
+										<select name="industry" id="industry" required>
+											<option value="Honda">Honda</option>
+											<option value="AMAT">AMAT</option>
+											<option value="Ericsson">Ericsson</option>
+											<option value="Medtronic+">Medtronic+</option>
+											<option value="Panasonic">Panasonic</option>
+											<option value="Sony+P Farnell">Sony+P Farnell</option>
+											<option value="BP">BP</option>
+											<option value="Shell">Shell</option>
+											<option value="Suncor+Huskey">Suncor+Huskey</option>
+											<option value="ADI">ADI</option>
+											<option value="BAS">BAS</option>
+											<option value="EA Oracle">EA Oracle</option>
+											<option value="EA SAp IP">EA SAp IP</option>
+											<option value="EA SAP C&P">EA SAP C&P</option>
+											<option value="EA SAP Auto/AD">EA SAP Auto/AD</option>
+											<option value="EA SAP Electronics">EA SAP Electronics</option>
+											<option value="iXM">iXM</option>
+										</select>
+									</td>
 								</tr>
 								<tr>
 									<td><label for="accName">Account Name:</label></td>
-									<td><input name="accName" id="accName" type="text"></td>
+									<td><input name="accName" id="accName" type="text" required></td>
 								</tr>
 								<tr>
 									<td><label for="palLFE">PAL/LFE:</label></td>
-									<td><input name="palLFE" id="palLFE" type="text"></td>
+									<td><input name="palLFE" id="palLFE" type="text" required></td>
 								</tr>
 								<tr>
 									<td><label for="cbc">CBC</label></td>
 									<td>
-										<select>
+										<select id="cbc" name="cbc" required>
 											<option value="Y">YES</option>
 											<option value="N">NO</option>
 										</select>
 									</td>
 								</tr>
 								<tr>
-									<td><label for="hostMgr">Hosting Manager:</label></td>
-									<td><input name="hostMgr" id="hostMgr" type="text"></td>
+									<td><label for="hostMgr" required>Hosting Manager:</label></td>
+									<td><input name="hostMgr" id="hostMgr" type="text" required></td>
 								</tr>
 								<tr>
 									<td><label for="visitAgenda">Primary Agenda of Visit:</label></td>
-									<td><input name="visitAgenda" id="visitAgenda" type="text"></td>
+									<td><input name="visitAgenda" id="visitAgenda" type="text" required></td>
 								</tr>
 							</tbody>
 						</table>
@@ -134,18 +157,18 @@
 								<tbody>
 									<tr>
 										<td><label for="visitorNameTxt">Visitor</label></td>
-										<td><input type="text" id="visitorNameTxt"></td>
+										<td><input type="text" id="visitorNameTxt" required></td>
 									</tr>
 									<tr>
 										<td><label for="visitorRoleTxt">Role</label></td>
-										<td><input type="text" id="visitorRoleTxt"></td>
+										<td><input type="text" id="visitorRoleTxt" required></td>
 									</tr>
 									<tr>
 										<td><label for="visitorPrimaryCheck">Primary</label></td>
 										<td>
-											<select name="visitorPrimaryCheck" id="visitorPrimaryCheck">
-												<option value="Y">YES</option>
-												<option value="N">NO</option>
+											<select name="visitorPrimaryCheck" id="visitorPrimaryCheck" required>
+												<option value="Yes">Yes</option>
+												<option value="No">No</option>
 											</select>
 										</td>
 									</tr>
@@ -176,7 +199,17 @@
 								<tbody>
 									<tr>
 										<td><label for="itiLoc">Location:</label></td>
-										<td><input type="text" id="itiLoc" name="itiLoc"></td>
+										<td>
+											<select name="itiLoc" id="itiLoc">
+												<option value="Chennai">Chennai</option>
+												<option value="Kolkata">Kolkata</option>
+												<option value="Bangalore">Bangalore</option>
+												<option value="Hyderabad">Hyderabad</option>
+												<option value="Pune">Pune</option>
+												<option value="NCR">NCR</option>
+												<option value="Mumbai">Mumbai</option>
+											</select>
+										</td>
 									</tr>
 									<tr>
 										<td><label for="itiStart">Start Date:</label></td>
@@ -210,6 +243,7 @@
 						</table>
 						
 						<fieldset>
+							<legend>Enter IBM India Leadership participation details:</legend>
 							<table>
 								<tbody>
 									<tr>
@@ -218,15 +252,35 @@
 									</tr>
 									<tr>
 										<td><label for="ldrBU">BU</label></td>
-										<td><input type="text" name="ldrBU" id="ldrBU"></td>
+										<td>
+											<select name="ldrBU" id="ldrBU">
+												<option value="GBS">GBS</option>
+												<option value="GTS">GTS</option>
+											</select>
+										</td>
 									</tr>
 									<tr>
 										<td><label for="ldrAttnd">Attend/Inform</label></td>
-										<td><input type="text" name="ldrAttnd" id="ldrAttnd"></td>
+										<td>
+											<select name="ldrAttnd" id="ldrAttnd">
+												<option value="Attend">Attend</option>
+												<option value="Inform">Inform</option>
+											</select>
+										</td>
 									</tr>
 									<tr>
 										<td><label for="ldrLoc">Location</label></td>
-										<td><input type="text" name="ldrLoc" id="ldrLoc"></td>
+										<td>
+											<select name="ldrLoc" id="ldrLoc">
+												<option value="Chennai">Chennai</option>
+												<option value="Kolkata">Kolkata</option>
+												<option value="Bangalore">Bangalore</option>
+												<option value="Hyderabad">Hyderabad</option>
+												<option value="Pune">Pune</option>
+												<option value="NCR">NCR</option>
+												<option value="Mumbai">Mumbai</option>
+											</select>
+										</td>
 									</tr>
 									<tr>
 										<td><label for="ldrDate">Date</label></td>
