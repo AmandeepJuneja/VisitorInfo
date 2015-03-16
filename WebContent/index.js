@@ -32,6 +32,53 @@ function openVisitDialog() {
 
 function createVisitRecord() {
 	$('#createVisitForm').validate();
+	
+	dialog.dialog('close');
+	
+	$('#messagesDiv').empty().append($('<p>Creating Visit Record ... ' + 
+			'<img src="./images/spinner.gif"></p>'));
+	
+	var visitTypeChoice = $('input[name="visitTypeChoice"]:checked').val();
+	var industry = $('#industry').val();
+	var accName = $('#accName').val();
+	var palLFE = $('#palLFE').val();
+	var cbc = $('#cbc').val();
+	
+	console.log('data values to be sent: ', 
+			visitTypeChoice, industry, accName, palLFE, cbc);
+	
+	$.ajax({
+		url: './api/visit',
+		type: 'POST',
+		traditional: true,
+		data: {
+			'visitTypeChoice': visitTypeChoice,
+			'industry': industry,
+			'accName': accName,
+			'palLFE': palLFE,
+			'cbc': cbc
+		},
+		dataType: 'json',
+		success: function(data, status, xhr) {
+			console.log('Success', data, status, xhr);
+			$('#messagesDiv').empty();
+			$('#messagesDiv').empty().append(
+					$('<p><img src="./images/complete_status.gif">'
+					+ 'Visit record '
+					+ ' created successfully.</p>')).show('scale')
+				.delay(2000)
+				.hide('scale');
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			$('#messagesDiv').empty();
+			$('#messagesDiv').empty().append(
+					$('<p><img src="./images/complete_error.gif">'
+					+ 'Operation Failed: ' 
+					+ errorThrown + '</p>')).show('scale')
+				.delay(2000)
+				.hide('scale');
+		}
+	});
 }
 
 // This function creates a generic check box html item wrapped in a table cell.

@@ -16,7 +16,7 @@ The Java Web starter application contains the following contents:
     
 *   src/
 
-    This directory contains the server side code (JAVA) of your application. In this simple starter application, there's only one class: 'com.ibm.cloudoe.samples.HelloResource'
+    This directory contains the server side code (JAVA) of your application. In this simple starter application, there's only one class: 'com.ibm.vis.resources.HelloResource'
     
 *   build.xml
 

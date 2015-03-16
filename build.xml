@@ -12,7 +12,33 @@
 	<property name="warname" value= "webStarterApp.war"/>
     <path id="classpathDir">
         <pathelement location="bin"/>
+    	<pathelement location="dep-jar/asm-3.3.1.jar"/>
         <pathelement location="dep-jar/com.ibm.ws.javaee.jaxrs.1.1_1.0.1.jar"/>
+    	<pathelement location="dep-jar/commons-fileupload-1.3.1.jar"/>
+        <pathelement location="dep-jar/commons-io-2.4.jar"/>
+        <pathelement location="dep-jar/el-api.jar"/>
+        <pathelement location="dep-jar/jsp-api.jar"/>
+        <pathelement location="dep-jar/servlet-api.jar"/>
+        <pathelement location="dep-jar/commons-codec-1.5.jar"/>
+        <pathelement location="dep-jar/commons-logging-1.1.jar"/>
+        <pathelement location="dep-jar/log4j-1.2.13.jar"/>
+        <pathelement location="dep-jar/poi-3.10-FINAL-20140208.jar"/>
+        <pathelement location="dep-jar/poi-excelant-3.10-FINAL-20140208.jar"/>
+        <pathelement location="dep-jar/poi-ooxml-3.10-FINAL-20140208.jar"/>
+        <pathelement location="dep-jar/poi-ooxml-schemas-3.10-FINAL-20140208.jar"/>
+        <pathelement location="dep-jar/poi-scratchpad-3.10-FINAL-20140208.jar"/>
+        <pathelement location="dep-jar/mongo-java-driver-2.9.3.jar"/>
+    	<pathelement location="dep-jar/slf4j-api-1.6.1.jar"/>
+    	<pathelement location="dep-jar/slf4j-jdk14-1.6.1.jar"/>
+    	<pathelement location="dep-jar/slf4j-log4j12-1.6.1.jar"/>
+    	<pathelement location="dep-jar/jersey-bundle-1.18.jar"/>
+    	<pathelement location="dep-jar/mailapi.jar"/>
+    	<pathelement location="dep-jar/mail.jar"/>
+    	<pathelement location="dep-jar/pop3.jar"/>
+    	<pathelement location="dep-jar/smtp.jar"/>
+    	<pathelement location="dep-jar/imap.jar"/>
+    	<pathelement location="dep-jar/dsn.jar"/>
+    	<pathelement location="dep-jar/commons-email-1.3.3.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
