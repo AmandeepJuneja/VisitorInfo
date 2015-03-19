@@ -21,7 +21,7 @@ var  dialog = $('#createVisitDialog').dialog({
 	}
 });
 
-$('#deleteConfirmationDialog').dialog({
+var deleteConfirmationDialog = $('#deleteConfirmationDialog').dialog({
 	resizable: false,
 	autoOpen: false,
 	hide: 'clip',
