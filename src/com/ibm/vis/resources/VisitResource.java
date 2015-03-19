@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -16,6 +17,7 @@ import org.json.JSONObject;
 import com.ibm.vis.utils.*;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 
 @Path("/visit")
 public class VisitResource {
@@ -104,4 +106,36 @@ public class VisitResource {
 		
 		return visitObj.toString();
 	}
+
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getVisits() {
+		System.out.println("GOT A REQUEST! *~*~*~*~*~*~*~ ");
+		
+		DBCollection collection = DBUtil.createInstance()
+		.getCollection(GlobalConsts.MDB_VISIT_REC_COLLECTION_NAME);
+		
+		BasicDBObject retObj = new BasicDBObject();
+		
+		DBCursor cursor = collection.find();
+		try {
+			if ( cursor.count() > 0 ) {
+				retObj.append("status", "success");
+				retObj.append("results", cursor.toArray());
+				retObj.append("count", cursor.count());
+			} else {
+				retObj.append("status", "failed");
+				retObj.append("msg", "No results found!");
+			}
+		} catch (Exception ex) {
+			retObj.append("status", "error");
+			retObj.append("msg", "An exception occured: " + ex.getMessage());
+		} finally {
+			cursor.close();
+		}
+		
+		return retObj.toString();
+	}
+	
 }

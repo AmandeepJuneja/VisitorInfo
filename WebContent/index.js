@@ -149,6 +149,20 @@ function createVisitRecord() {
 					+ ' created successfully.</p>')).show('scale')
 				.delay(2000)
 				.hide('scale');
+			
+			// Now add the new visit record row to the home page list / report
+			var insertRow = $('<tr></tr>').append(createCheckBox())
+							.append($('<td>' + /* TODO -- ADD VISIT ID LATER */ + '</td>'))
+							.append($('<td>' + visitTypeChoice + '</td>'))
+							.append($('<td>' + industry + '</td>'))
+							.append($('<td>' + accName + '</td>'))
+							.append($('<td>' + palLFE + '</td>'))
+							.append($('<td>' + cbc + '</td>'))
+							.append($('<td>' + hostMgr + '</td>'))
+							.append($('<td>' + visitAgenda + '</td>'));
+			
+			$('#visitRecordsTable').append(insertRow);
+			
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			$('#messagesDiv').empty();
