@@ -21,19 +21,22 @@ var  dialog = $('#createVisitDialog').dialog({
 	}
 });
 
-var deleteConfirmationDialog = $('#deleteConfirmationDialog').dialog({
-		resizable: false,
-		height:140,
-		modal: true,
-		buttons: {
-			"Delete selected vists": function() {
-				deleteSelectedVisitRecords();
-				$( this ).dialog( "close" );
-			},
-			Cancel: function() {
-				$( this ).dialog( "close" );
-			}
+$('#deleteConfirmationDialog').dialog({
+	resizable: false,
+	autoOpen: false,
+	hide: 'clip',
+	show: 'clip',
+	height:140,
+	modal: true,
+	buttons: {
+		"Delete selected vists": function() {
+			deleteSelectedVisitRecords();
+			$( this ).dialog( "close" );
+		},
+		Cancel: function() {
+			$( this ).dialog( "close" );
 		}
+	}
 });
 
 var  form = dialog.find('form').on('submit', function(evt) {
