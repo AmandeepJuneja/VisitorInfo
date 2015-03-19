@@ -88,23 +88,11 @@
 									<td><label for="industry">Industry:</label></td>
 									<td>
 										<select name="industry" id="industry" required>
-											<option value="Honda">Honda</option>
-											<option value="AMAT">AMAT</option>
-											<option value="Ericsson">Ericsson</option>
-											<option value="Medtronic+">Medtronic+</option>
-											<option value="Panasonic">Panasonic</option>
-											<option value="Sony+P Farnell">Sony+P Farnell</option>
-											<option value="BP">BP</option>
-											<option value="Shell">Shell</option>
-											<option value="Suncor+Huskey">Suncor+Huskey</option>
-											<option value="ADI">ADI</option>
-											<option value="BAS">BAS</option>
-											<option value="EA Oracle">EA Oracle</option>
-											<option value="EA SAp IP">EA SAp IP</option>
-											<option value="EA SAP C&P">EA SAP C&P</option>
-											<option value="EA SAP Auto/AD">EA SAP Auto/AD</option>
-											<option value="EA SAP Electronics">EA SAP Electronics</option>
-											<option value="iXM">iXM</option>
+											<option value="Electronics">Electronics</option>
+											<option value="Auto">Auto</option>
+											<option value="Industrial Products">Industrial Products</option>
+											<option value="C&P">C&P</option>
+											<option value="Aerospace & Defence">Aerospace & Defence</option>
 										</select>
 									</td>
 								</tr>
@@ -114,7 +102,28 @@
 								</tr>
 								<tr>
 									<td><label for="palLFE">PAL/LFE:</label></td>
-									<td><input name="palLFE" id="palLFE" type="text" required></td>
+									<td>
+										<input name="palLFE" id="palLFE" type="text" required list="palLFEChoice">
+										<datalist id="palLFEChoice">
+											<option value="Mohan Bachav">Mohan Bachav</option>
+											<option value="Shreenivas Kulkarni">Shreenivas Kulkarni</option>
+											<option value="Vandana Malaiya">Vandana Malaiya</option>
+											<option value="Chitralekha Datta">Chitralekha Datta</option>
+											<option value="Nikhil A Wadgaonkar">Nikhil A Wadgaonkar</option>
+											<option value="Kiran Papanna">Kiran Papanna</option>
+											<option value="Debkumar Mondal">Debkumar Mondal</option>
+											<option value="Suryadipta Datta">Suryadipta Datta</option>
+											<option value="Milind Kulkarni">Milind Kulkarni</option>
+											<option value="Santosh Agharkar">Santosh Agharkar</option>
+											<option value="Santosh Prasad">Santosh Prasad</option>
+											<option value="Pradeep Joshi">Pradeep Joshi</option>
+											<option value="Salil Ambat">Salil Ambat</option>
+											<option value="Arijit Mookherjee">Arijit Mookherjee</option>
+											<option value="Sandeep Debray">Sandeep Debray</option>
+											<option value="Rajeev Warrier">Rajeev Warrier</option>
+											<option value="Anindya Majumdar">Anindya Majumdar</option>
+										</datalist>
+									</td>
 								</tr>
 								<tr>
 									<td><label for="cbc">CBC</label></td>
@@ -142,7 +151,7 @@
 							<thead>
 								<tr>
 									<th>Select</th>
-									<th>Visitor</th>
+									<th>Visitor Name</th>
 									<th>Role</th>
 									<th>Primary(Yes/No)</th>
 								</tr>
@@ -156,7 +165,7 @@
 							<table>
 								<tbody>
 									<tr>
-										<td><label for="visitorNameTxt">Visitor</label></td>
+										<td><label for="visitorNameTxt">Visitor Name</label></td>
 										<td><input type="text" id="visitorNameTxt" required></td>
 									</tr>
 									<tr>
@@ -231,7 +240,7 @@
 							<thead>
 								<tr>
 									<th>Select</th>
-									<th>Lotus Notes ID</th>
+									<th>Leader Lotus Notes ID</th>
 									<th>BU</th>
 									<th>Attend/Inform</th>
 									<th>Location</th>
@@ -247,7 +256,7 @@
 							<table>
 								<tbody>
 									<tr>
-										<td><label for="ldrLNID">Lotus Notes ID:</label></td>
+										<td><label for="ldrLNID">Leader Lotus Notes ID:</label></td>
 										<td><input type="text" name="ldrLNID" id="ldrLNID"></td>
 									</tr>
 									<tr>
