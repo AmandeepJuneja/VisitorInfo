@@ -50,22 +50,31 @@ function fetchAllVisitRecords() {
 				.hide('scale');
 			
 			$.each(data.results, function(i, item){
-//				console.log('ITEM ID: ', item.id.$oid);
-				console.log(i, item);
+				console.log('ITEM ID# ', item._id.$oid);
+				console.log('VISIT CHOICE: ', item.visitTypeChoice);
+				console.log('INDUSTRY: ', item.industry);
+				console.log('ACCOUNT NAME: ', item.accName);
+				console.log('PAL/LFE:', item.palLFE);
+				console.log('CBC:', item.cbc);
+				console.log('HOSTING MANAGER: ', item.hostMgr);
+				console.log('PRIMARY AGENDA:', item.visitAgenda);
+//				console.log(i, item);
+				
+//				Now add the new visit record row to the home page list / report
+				var insertRow = $('<tr></tr>').append(createCheckBox())
+								.append($('<td>' + item._id.$oid + '</td>'))
+								.append($('<td>' + item.visitTypeChoice + '</td>'))
+								.append($('<td>' + item.industry + '</td>'))
+								.append($('<td>' + item.accName + '</td>'))
+								.append($('<td>' + item.palLFE + '</td>'))
+								.append($('<td>' + item.cbc + '</td>'))
+								.append($('<td>' + item.hostMgr + '</td>'))
+								.append($('<td>' + item.visitAgenda + '</td>'));
+				
+				$('#visitRecordsTable').append(insertRow);
 			});
 			
-			// Now add the new visit record row to the home page list / report
-//			var insertRow = $('<tr></tr>').append(createCheckBox())
-//							.append($('<td>' + /* TODO -- ADD VISIT ID LATER */ + '</td>'))
-//							.append($('<td>' + visitTypeChoice + '</td>'))
-//							.append($('<td>' + industry + '</td>'))
-//							.append($('<td>' + accName + '</td>'))
-//							.append($('<td>' + palLFE + '</td>'))
-//							.append($('<td>' + cbc + '</td>'))
-//							.append($('<td>' + hostMgr + '</td>'))
-//							.append($('<td>' + visitAgenda + '</td>'));
-//			
-//			$('#visitRecordsTable').append(insertRow);
+			
 			
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
