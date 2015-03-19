@@ -30,6 +30,56 @@ function openVisitDialog() {
 	dialog.dialog('open');
 }
 
+
+// This function is used to retrieve all visit records from the backend upon startup.
+function fetchAllVisitRecords() {
+	$('#messagesDiv').empty().append($('<p>Retrieving Visit Records ... ' + 
+		'<img src="./images/spinner.gif"></p>'));
+	
+	$.ajax({
+		url: './api/visit',
+		type: 'GET',
+		traditional: true,
+		success: function(data, status, xhr) {
+			console.log('Success', data, status, xhr);
+			$('#messagesDiv').empty();
+			$('#messagesDiv').empty().append(
+					$('<p><img src="./images/complete_status.gif">'
+					+ 'Retrieved visit records successfully.</p>')).show('scale')
+				.delay(2000)
+				.hide('scale');
+			
+			$.each(data.results, function(i, item){
+				console.log('ITEM ID: ', item.id.$oid);
+				console.log(i, item);
+			});
+			
+			// Now add the new visit record row to the home page list / report
+//			var insertRow = $('<tr></tr>').append(createCheckBox())
+//							.append($('<td>' + /* TODO -- ADD VISIT ID LATER */ + '</td>'))
+//							.append($('<td>' + visitTypeChoice + '</td>'))
+//							.append($('<td>' + industry + '</td>'))
+//							.append($('<td>' + accName + '</td>'))
+//							.append($('<td>' + palLFE + '</td>'))
+//							.append($('<td>' + cbc + '</td>'))
+//							.append($('<td>' + hostMgr + '</td>'))
+//							.append($('<td>' + visitAgenda + '</td>'));
+//			
+//			$('#visitRecordsTable').append(insertRow);
+			
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			$('#messagesDiv').empty();
+			$('#messagesDiv').empty().append(
+					$('<p><img src="./images/complete_error.gif">'
+					+ 'Operation Failed: ' 
+					+ errorThrown + '</p>')).show('scale')
+				.delay(2000)
+				.hide('scale');
+		}
+	});
+}
+
 function createVisitRecord() {
 	$('#createVisitForm').validate();
 	
