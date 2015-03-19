@@ -21,6 +21,28 @@ var  dialog = $('#createVisitDialog').dialog({
 	}
 });
 
+var deleteConfirmationDialog = $('#deleteConfirmationDialog').dialog({
+	autoOpen: false,
+	resizable: false,
+	height: 240,
+	width: 400,
+	hide: 'clip',
+	show: 'clip',
+	modal: true,
+	buttons: [{
+		text: "Delete all selected",
+		click: function() {
+			deleteSelectedVisitRecords();
+			$(this).dialog( "close" );
+		}},
+		{
+		text: "Cancel",	
+		click: function() {
+			$(this).dialog( "close" );
+		}
+	}]
+});
+
 
 var  form = dialog.find('form').on('submit', function(evt) {
 	evt.preventDefault();
@@ -32,24 +54,7 @@ function openVisitDialog() {
 }
 
 function openDeleteConfirmationDialog() {
-	$('#deleteConfirmationDialog').dialog({
-		resizable: false,
-		height: 240,
-		width: 400,
-		modal: true,
-		buttons: [{
-			text: "Delete all selected",
-			click: function() {
-				deleteSelectedVisitRecords();
-				$(this).dialog( "close" );
-			}},
-			{
-			text: "Cancel",	
-			click: function() {
-				$(this).dialog( "close" );
-			}
-		}]
-	});
+	deleteConfirmationDialog.dialog('open');
 }
 
 
