@@ -21,24 +21,6 @@ var  dialog = $('#createVisitDialog').dialog({
 	}
 });
 
-var deleteConfirmationDialog = $('#deleteConfirmationDialog').dialog({
-	resizable: false,
-	autoOpen: false,
-	hide: 'clip',
-	show: 'clip',
-	height: 140,
-	width: 400,
-	modal: true,
-	buttons: {
-		"Delete": function() {
-			deleteSelectedVisitRecords();
-			deleteConfirmationDialog.dialog( "close" );
-		},
-		Cancel: function() {
-			deleteConfirmationDialog.dialog( "close" );
-		}
-	}
-});
 
 var  form = dialog.find('form').on('submit', function(evt) {
 	evt.preventDefault();
@@ -50,7 +32,24 @@ function openVisitDialog() {
 }
 
 function openDeleteConfirmationDialog() {
-	deleteConfirmationDialog.dialog('open');
+	$('#deleteConfirmationDialog').dialog({
+		resizable: false,
+		height: 240,
+		width: 400,
+		modal: true,
+		buttons: [{
+			text: "Delete all selected",
+			click: function() {
+				deleteSelectedVisitRecords();
+				$(this).dialog( "close" );
+			}},
+			{
+			text: "Cancel",	
+			click: function() {
+				$(this).dialog( "close" );
+			}
+		}]
+	});
 }
 
 
@@ -410,7 +409,7 @@ $(function() {
 	$('#createVisitBtn').button().click(openVisitDialog);
 	$('#searchVisitBtn').button();
 	$('#addVisitorBtn').button().click(addVisitor);
-	$('#deleteVisitBtn').button().click(deleteConfirmationDialog);
+	$('#deleteVisitBtn').button().click(openDeleteConfirmationDialog);
 	$('#exportRptBtn').button();
 	$('#removeVisitorsBtn').button().click(removeVisitor);
 	$('#itiAddBtn').button().click(addItinerary);
