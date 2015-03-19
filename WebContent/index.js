@@ -276,9 +276,11 @@ function deleteSelectedVisitRecords() {
 					'<img src="./images/spinner.gif"></p>'));
 					
 					$.ajax({
-						url: './api/visit/' + id ,
+						url: './api/visit',
 						type: 'DELETE',
 						traditional: true,
+						data: {'id': id},
+						dataType: 'json',
 						success: function(data, status, xhr) {
 							console.log('Success', data, status, xhr);
 							$('#messagesDiv').empty();

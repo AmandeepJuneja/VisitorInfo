@@ -11,6 +11,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.json.JSONArray;
@@ -138,10 +139,8 @@ public class VisitResource {
 	}
 	
 	@DELETE
-	@Path("{id}")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String deleteVisits(@PathParam("id") String id) {
+	public String deleteVisits(@QueryParam(value="id") String id) {
 		BasicDBObject retObj = new BasicDBObject();
 		
 		try {
