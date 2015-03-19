@@ -26,15 +26,16 @@ var deleteConfirmationDialog = $('#deleteConfirmationDialog').dialog({
 	autoOpen: false,
 	hide: 'clip',
 	show: 'clip',
-	height:140,
+	height: 140,
+	width: 400,
 	modal: true,
 	buttons: {
-		"Delete selected vists": function() {
+		"Delete": function() {
 			deleteSelectedVisitRecords();
-			$( this ).dialog( "close" );
+			deleteConfirmationDialog.dialog( "close" );
 		},
 		Cancel: function() {
-			$( this ).dialog( "close" );
+			deleteConfirmationDialog.dialog( "close" );
 		}
 	}
 });
