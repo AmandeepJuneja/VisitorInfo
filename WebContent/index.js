@@ -50,7 +50,7 @@ function fetchAllVisitRecords() {
 				.hide('scale');
 			
 			$.each(data.results, function(i, item){
-				console.log('ITEM ID: ', item.id.$oid);
+//				console.log('ITEM ID: ', item.id.$oid);
 				console.log(i, item);
 			});
 			
