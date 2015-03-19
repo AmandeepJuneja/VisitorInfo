@@ -21,6 +21,21 @@ var  dialog = $('#createVisitDialog').dialog({
 	}
 });
 
+var deleteConfirmationDialog = $('#deleteConfirmationDialog').dialog({
+		resizable: false,
+		height:140,
+		modal: true,
+		buttons: {
+			"Delete selected vists": function() {
+				deleteSelectedVisitRecords();
+				$( this ).dialog( "close" );
+			},
+			Cancel: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+});
+
 var  form = dialog.find('form').on('submit', function(evt) {
 	evt.preventDefault();
 	createVisitRecord();
@@ -28,6 +43,10 @@ var  form = dialog.find('form').on('submit', function(evt) {
 
 function openVisitDialog() {
 	dialog.dialog('open');
+}
+
+function openDeleteConfirmationDialog() {
+	deleteConfirmationDialog.dialog('open');
 }
 
 
@@ -89,6 +108,7 @@ function fetchAllVisitRecords() {
 	});
 }
 
+// This function is used to actually create a visit record in the system.
 function createVisitRecord() {
 	$('#createVisitForm').validate();
 	
@@ -235,6 +255,49 @@ function createVisitRecord() {
 	});
 }
 
+// This function is used to delete selected visit records from the system
+function deleteSelectedVisitRecords() {
+	$('#visitRecordsTable > tbody > tr').each(function(index) {
+		var chkBox = $(this).find('td > input[type="checkbox"]');
+		if ( chkBox.prop('checked') == true ) {
+			$(this).find('td').each(function(index){
+				if (index == 1) {
+					var id = $(this).text();
+					// This is where we need to do some server side magic
+					$('#messagesDiv').empty().append($('<p>Deleting Visit Record # ' + id + '' + 
+					'<img src="./images/spinner.gif"></p>'));
+					
+					$.ajax({
+						url: './api/visit/' + id ,
+						type: 'DELETE',
+						traditional: true,
+						success: function(data, status, xhr) {
+							console.log('Success', data, status, xhr);
+							$('#messagesDiv').empty();
+							$('#messagesDiv').empty().append(
+									$('<p><img src="./images/complete_status.gif">'
+									+ 'Deleted visit record #' + id + 'successfully.</p>')).show('scale')
+								.delay(2000)
+								.hide('scale');
+						},
+						
+						error: function(jqXHR, textStatus, errorThrown) {
+							$('#messagesDiv').empty();
+							$('#messagesDiv').empty().append(
+									$('<p><img src="./images/complete_error.gif">'
+									+ 'Operation Failed: ' 
+									+ errorThrown + '</p>')).show('scale')
+								.delay(2000)
+								.hide('scale');
+						}
+					});
+				}
+			});
+			$(this).remove();
+		}
+	});
+}
+
 // This function creates a generic check box html item wrapped in a table cell.
 function createCheckBox() {
 	return $('<td><input type="checkbox"></td>');
@@ -343,7 +406,7 @@ $(function() {
 	$('#createVisitBtn').button().click(openVisitDialog);
 	$('#searchVisitBtn').button();
 	$('#addVisitorBtn').button().click(addVisitor);
-	$('#deleteVisitBtn').button();
+	$('#deleteVisitBtn').button().click(deleteConfirmationDialog);
 	$('#exportRptBtn').button();
 	$('#removeVisitorsBtn').button().click(removeVisitor);
 	$('#itiAddBtn').button().click(addItinerary);

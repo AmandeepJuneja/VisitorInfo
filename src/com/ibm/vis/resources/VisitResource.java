@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -21,6 +23,8 @@ import com.mongodb.DBCursor;
 
 @Path("/visit")
 public class VisitResource {
+	DBCollection collection = DBUtil.createInstance()
+			.getCollection(GlobalConsts.MDB_VISIT_REC_COLLECTION_NAME);	
 	
 	/**
 	 * This method is used to create new Visit record instances.
@@ -51,10 +55,7 @@ public class VisitResource {
 			@FormParam(value="ldrLoc") List<String> ldrLocs,
 			@FormParam(value="ldrDate") List<String> ldrDates) {
 		
-		System.out.println("GOT A REQUEST! *~*~*~*~*~*~*~ ");
-		
-		DBCollection collection = DBUtil.createInstance()
-		.getCollection(GlobalConsts.MDB_VISIT_REC_COLLECTION_NAME);		
+		System.out.println("GOT A REQUEST! *~*~*~*~*~*~*~ ");	
 		BasicDBObject visitObj = new BasicDBObject();
 		
 		visitObj.append("visitTypeChoice", visitTypeChoice);
@@ -113,8 +114,6 @@ public class VisitResource {
 	public String getVisits() {
 		System.out.println("GOT A REQUEST! *~*~*~*~*~*~*~ ");
 		
-		DBCollection collection = DBUtil.createInstance()
-		.getCollection(GlobalConsts.MDB_VISIT_REC_COLLECTION_NAME);
 		
 		BasicDBObject retObj = new BasicDBObject();
 		
@@ -138,4 +137,22 @@ public class VisitResource {
 		return retObj.toString();
 	}
 	
+	@DELETE
+	@Path("{id}")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String deleteVisits(@PathParam("id") String id) {
+		BasicDBObject retObj = new BasicDBObject();
+		
+		try {
+			collection.find(new BasicDBObject("_id", id)).remove();
+			retObj.append("status", "success");
+			retObj.append("msg", "ID # " + id + "deleted successfully!");
+		} catch ( Exception ex ) {
+			retObj.append("status", "error");
+			retObj.append("msg", "Could not delete due to error: " + ex.getMessage());
+		}
+		
+		return retObj.toString();
+	}
 }
