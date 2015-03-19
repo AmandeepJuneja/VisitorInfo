@@ -329,6 +329,7 @@ function removeLdrPart() {
 
 $(function() {
 	// bootstrap bill :)
+	// initializing GUI components...
 	$('#messagesDiv').hide('slide');
 	$('#createVisitBtn').button().click(openVisitDialog);
 	$('#searchVisitBtn').button();
@@ -345,4 +346,7 @@ $(function() {
 	$('#itiStart').datepicker();
 	$('#itiEnd').datepicker();
 	$('#ldrDate').datepicker();
+	
+	// loading data now
+	fetchAllVisitRecords();
 });
