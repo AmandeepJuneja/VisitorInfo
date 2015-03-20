@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -143,11 +144,14 @@ public class VisitResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String deleteVisits(@FormParam(value="id") String id) {
 		BasicDBObject retObj = new BasicDBObject();
+		
+		ObjectId objId = new ObjectId(id);
 		System.out.println("Received a request for deletion with id = " + id);
+		
 		try {
-			DBObject toBeDel =  collection.findOne(new BasicDBObject("_id", id));
+			DBObject toBeDel =  collection.findOne(new BasicDBObject("_id", objId));
+			System.out.println("About to delete object: " + toBeDel);
 			if ( toBeDel != null ) {
-				System.out.println("About to delete object: " + toBeDel.toString());
 				collection.remove(toBeDel);
 				retObj.append("status", "success");
 				retObj.append("msg", "ID # " + id + "deleted successfully!");
