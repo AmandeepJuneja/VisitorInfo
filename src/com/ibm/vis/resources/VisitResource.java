@@ -144,7 +144,7 @@ public class VisitResource {
 		BasicDBObject retObj = new BasicDBObject();
 		System.out.println("Received a request for deletion with id = " + id);
 		try {
-			collection.findAndRemove(new BasicDBObject("_id", id));
+			collection.remove(collection.findOne(new BasicDBObject("_id", id)));
 			retObj.append("status", "success");
 			retObj.append("msg", "ID # " + id + "deleted successfully!");
 		} catch ( Exception ex ) {
