@@ -140,7 +140,6 @@ public class VisitResource {
 	
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public String deleteVisits(@FormParam(value="id") String id) {
 		BasicDBObject retObj = new BasicDBObject();
 		System.out.println("Received a request for deletion with id = " + id);
