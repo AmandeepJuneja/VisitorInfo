@@ -21,6 +21,7 @@ import com.ibm.vis.utils.*;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 
 @Path("/visit")
 public class VisitResource {
@@ -144,9 +145,17 @@ public class VisitResource {
 		BasicDBObject retObj = new BasicDBObject();
 		System.out.println("Received a request for deletion with id = " + id);
 		try {
-			collection.remove(collection.findOne(new BasicDBObject("_id", id)));
-			retObj.append("status", "success");
-			retObj.append("msg", "ID # " + id + "deleted successfully!");
+			DBObject toBeDel =  collection.findOne(new BasicDBObject("_id", id));
+			if ( toBeDel != null ) {
+				System.out.println("About to delete object: " + toBeDel.toString());
+				collection.remove(toBeDel);
+				retObj.append("status", "success");
+				retObj.append("msg", "ID # " + id + "deleted successfully!");
+			} else {
+				retObj.append("status", "failed");
+				retObj.append("msg", "Could not delete document: no results");
+			}
+			
 		} catch ( Exception ex ) {
 			retObj.append("status", "error");
 			retObj.append("msg", "Could not delete due to error: " + ex.getMessage());
