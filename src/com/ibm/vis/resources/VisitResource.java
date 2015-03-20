@@ -140,9 +140,10 @@ public class VisitResource {
 	
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
-	public String deleteVisits(@QueryParam(value="id") String id) {
+	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
+	public String deleteVisits(@QueryParam("id") String id) {
 		BasicDBObject retObj = new BasicDBObject();
-		
+		System.out.println("Received a request for deletion with id = " + id);
 		try {
 			collection.findAndRemove(new BasicDBObject("_id", id));
 			retObj.append("status", "success");
