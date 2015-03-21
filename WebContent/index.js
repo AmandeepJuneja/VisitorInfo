@@ -57,6 +57,9 @@ var  form = dialog.find('form').on('submit', function(evt) {
 function findMinDate(dates){
 	var minDate = null;
 	
+	console.log('*********** Inside findMinDates function ***********');
+	console.log('Received dates array: ', dates);
+	
 	if ( dates instanceof Array ) {
 		minDate = dates[0];
 		if ( !(minDate instanceof Date) ) return null;
