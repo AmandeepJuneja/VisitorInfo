@@ -69,7 +69,7 @@ function findMinDate(dates){
 			minDate = new Date(dates[0]);
 			
 		} else {
-			minDate = new Date('01/01/1600');
+			minDate = new Date('01/01/9999');
 		}
 			
 		for ( var i = 1; i < dates.length; i++ ) {
