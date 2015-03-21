@@ -82,6 +82,7 @@ function findMinDate(dates){
 			
 		} else {
 			console.log('The first date was empty or not a string!');
+			console.log('First date was instance of ' + dates[0].constructor);
 			return minDate;
 		}
 	}
