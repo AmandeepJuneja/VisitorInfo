@@ -61,15 +61,30 @@ function findMinDate(dates){
 	console.log('Received dates array: ', dates);
 	
 	if ( dates instanceof Array ) {
-		minDate = dates[0];
-		if ( !(minDate instanceof Date) ) return null;
-		
-		for ( var i = 1; i < dates.length; i++ ) {
-			if ( !(dates[i] instanceof Date) ) return null;
-			if ( minDate == null || minDate == undefined ) minDate = dates[i];
-			if ( dates[i] != null && dates[i] != undefined && minDate > dates[i] ) minDate = dates[i];
+		if ( dates[0] != null 
+				&& dates[0] != undefined 
+				&& dates[0] instanceof String 
+				&& dates[0].trim().length > 0 ) {
+			
+			minDate = new Date(dates[0]);
+			
+			for ( var i = 1; i < dates.length; i++ ) {
+				if ( dates[i] != null 
+						&& dates[i] != undefined 
+						&& dates[i] instanceof String 
+						&& dates[i].trim.length() > 0 ) {
+					
+					var curDate = new Date(dates[i]);
+					if ( minDate > curDate ) minDate = curDate;
+					console.log('sorting min date = ' + minDate);
+				}
+			}
+			
+		} else {
+			console.log('The first date was empty or not a string!');
+			return minDate;
 		}
-	} 
+	}
 	
 	return minDate;
 }
