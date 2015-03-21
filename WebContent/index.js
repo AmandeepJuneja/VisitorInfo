@@ -62,9 +62,7 @@ function findMinDate(dates){
 	
 	if ( dates instanceof Array ) {
 		if ( dates[0] != null 
-				&& dates[0] != undefined 
-				&& dates[0] instanceof String 
-				&& dates[0].trim().length > 0 ) {
+				&& dates[0] != undefined ) {
 			
 			minDate = new Date(dates[0]);
 			
@@ -74,15 +72,17 @@ function findMinDate(dates){
 			
 		for ( var i = 1; i < dates.length; i++ ) {
 			if ( dates[i] != null 
-					&& dates[i] != undefined 
-					&& dates[i] instanceof String 
-					&& dates[i].trim.length() > 0 ) {
+					&& dates[i] != undefined ) {
 				
 				var curDate = new Date(dates[i]);
 				if ( minDate > curDate ) minDate = curDate;
 				console.log('sorting min date = ' + minDate);
 			}
 		}
+	}
+	
+	if ( minDate != null && minDate != undefined && minDate instanceof Date ) {
+		minDate = minDate.toDateString();
 	}
 	
 	return minDate;
