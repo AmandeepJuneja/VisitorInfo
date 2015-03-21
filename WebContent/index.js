@@ -115,7 +115,7 @@ function fetchAllVisitRecords() {
 				// find the minimum of the Itinerary dates
 				var itiDates = new Array();
 				$.each(item.itineraryRecords, function(idx, itiRec){
-					itiDates += itiRec.itiStart;
+					itiDates.push(itiRec.itiStart);
 				});
 				var visitStartDate = findMinDate(itiDates);
 				
