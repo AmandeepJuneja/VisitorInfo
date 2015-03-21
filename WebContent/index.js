@@ -49,6 +49,28 @@ var  form = dialog.find('form').on('submit', function(evt) {
 	createVisitRecord();
 });
 
+/*
+ * Global functions
+ */
+
+// Given an Array of Date objects, this function returns the lowest date
+function findMinDate(dates){
+	var minDate = null;
+	
+	if ( dates instanceof Array ) {
+		minDate = dates[0];
+		if ( !(minDate instanceof Date) ) return null;
+		
+		for ( var i = 1; i < dates.length; i++ ) {
+			if ( !(dates[i] instanceof Date) ) return null;
+			if ( minDate == null || minDate == undefined ) minDate = dates[i];
+			if ( dates[i] != null && dates[i] != undefined && minDate > dates[i] ) minDate = dates[i];
+		}
+	} 
+	
+	return minDate;
+}
+
 function openVisitDialog() {
 	dialog.dialog('open');
 }
@@ -88,9 +110,24 @@ function fetchAllVisitRecords() {
 //				console.log(i, item);
 				
 //				Now add the new visit record row to the home page list / report
+				if ( visitTypeChoice == 'I' ) {
+					visitTypeChoice = 'IBM Only';
+				} else if ( visitTypeChoice == 'C' ) {
+					visitTypeChoice = 'Client Only';
+				} else if ( visitTypeChoice == 'B' ) {
+					visitTypeChoice = 'Both IBM and Client';
+				}
+				
+				// find the minimum of the Itinerary dates
+				var itiDates = new Array();
+				$.each(item.itineraryRecords, function(idx, itiRec){
+					itiDates += itiRec.itiStart;
+				});
+				var visitStartDate = findMinDate(itiDates);
+				
 				var insertRow = $('<tr></tr>').append(createCheckBox())
 								.append($('<td>' + item._id.$oid + '</td>'))
-								.append($('<td>' + item.visitTypeChoice + '</td>'))
+								.append($('<td>' + visitStartDate + '</td>'))
 								.append($('<td>' + item.industry + '</td>'))
 								.append($('<td>' + item.accName + '</td>'))
 								.append($('<td>' + item.palLFE + '</td>'))
@@ -180,6 +217,9 @@ function createVisitRecord() {
 		});
 	});
 	
+	// find the minimum of the Itinerary dates
+	var visitStartDate = findMinDate(itiStart);
+	
 	// leadership data
 	$('#leadershipParticipationList > tbody > tr').each(function(index) {
 		var rowIdx = index;
@@ -238,9 +278,17 @@ function createVisitRecord() {
 				.hide('scale');
 			
 			// Now add the new visit record row to the home page list / report
+			if ( visitTypeChoice == 'I' ) {
+				visitTypeChoice = 'IBM Only';
+			} else if ( visitTypeChoice == 'C' ) {
+				visitTypeChoice = 'Client Only';
+			} else if ( visitTypeChoice == 'B' ) {
+				visitTypeChoice = 'Both IBM and Client';
+			}
+			
 			var insertRow = $('<tr></tr>').append(createCheckBox())
 							.append($('<td>' + /* TODO -- ADD VISIT ID LATER */ + '</td>'))
-							.append($('<td>' + visitTypeChoice + '</td>'))
+							.append($('<td>' + visitStartDate + '</td>'))
 							.append($('<td>' + industry + '</td>'))
 							.append($('<td>' + accName + '</td>'))
 							.append($('<td>' + palLFE + '</td>'))
