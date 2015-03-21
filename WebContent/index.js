@@ -109,15 +109,6 @@ function fetchAllVisitRecords() {
 				console.log('PRIMARY AGENDA:', item.visitAgenda);
 //				console.log(i, item);
 				
-//				Now add the new visit record row to the home page list / report
-				if ( visitTypeChoice == 'I' ) {
-					visitTypeChoice = 'IBM Only';
-				} else if ( visitTypeChoice == 'C' ) {
-					visitTypeChoice = 'Client Only';
-				} else if ( visitTypeChoice == 'B' ) {
-					visitTypeChoice = 'Both IBM and Client';
-				}
-				
 				// find the minimum of the Itinerary dates
 				var itiDates = new Array();
 				$.each(item.itineraryRecords, function(idx, itiRec){
@@ -276,15 +267,6 @@ function createVisitRecord() {
 					+ ' created successfully.</p>')).show('scale')
 				.delay(2000)
 				.hide('scale');
-			
-			// Now add the new visit record row to the home page list / report
-			if ( visitTypeChoice == 'I' ) {
-				visitTypeChoice = 'IBM Only';
-			} else if ( visitTypeChoice == 'C' ) {
-				visitTypeChoice = 'Client Only';
-			} else if ( visitTypeChoice == 'B' ) {
-				visitTypeChoice = 'Both IBM and Client';
-			}
 			
 			var insertRow = $('<tr></tr>').append(createCheckBox())
 							.append($('<td>' + /* TODO -- ADD VISIT ID LATER */ + '</td>'))
