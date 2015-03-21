@@ -68,22 +68,20 @@ function findMinDate(dates){
 			
 			minDate = new Date(dates[0]);
 			
-			for ( var i = 1; i < dates.length; i++ ) {
-				if ( dates[i] != null 
-						&& dates[i] != undefined 
-						&& dates[i] instanceof String 
-						&& dates[i].trim.length() > 0 ) {
-					
-					var curDate = new Date(dates[i]);
-					if ( minDate > curDate ) minDate = curDate;
-					console.log('sorting min date = ' + minDate);
-				}
-			}
-			
 		} else {
-			console.log('The first date was empty or not a string!');
-			console.log('First date was instance of ' + dates[0].constructor);
-			return minDate;
+			minDate = new Date('01/01/1600');
+		}
+			
+		for ( var i = 1; i < dates.length; i++ ) {
+			if ( dates[i] != null 
+					&& dates[i] != undefined 
+					&& dates[i] instanceof String 
+					&& dates[i].trim.length() > 0 ) {
+				
+				var curDate = new Date(dates[i]);
+				if ( minDate > curDate ) minDate = curDate;
+				console.log('sorting min date = ' + minDate);
+			}
 		}
 	}
 	
