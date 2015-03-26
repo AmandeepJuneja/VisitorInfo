@@ -67,7 +67,7 @@ function findMinDate(dates){
 			minDate = new Date(dates[0]);
 			
 		} else {
-			minDate = new Date('01/01/9999');
+			return null;
 		}
 			
 		for ( var i = 1; i < dates.length; i++ ) {
@@ -280,13 +280,14 @@ function createVisitRecord() {
 			$('#messagesDiv').empty();
 			$('#messagesDiv').empty().append(
 					$('<p><img src="./images/complete_status.gif">'
-					+ 'Visit record '
+					+ 'Visit record #'
+					+ data._id.$oid
 					+ ' created successfully.</p>')).show('scale')
 				.delay(2000)
 				.hide('scale');
 			
 			var insertRow = $('<tr></tr>').append(createCheckBox())
-							.append($('<td>' + /* TODO -- ADD VISIT ID LATER */ + '</td>'))
+							.append($('<td>' + data._id.$oid + '</td>'))
 							.append($('<td>' + visitStartDate + '</td>'))
 							.append($('<td>' + industry + '</td>'))
 							.append($('<td>' + accName + '</td>'))
