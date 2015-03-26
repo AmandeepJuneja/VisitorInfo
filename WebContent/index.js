@@ -178,7 +178,7 @@ function showValidationError(selectTabId, msgBoxId, errMsg) {
 	
 	// Do the harlem shake :P
 	console.log('Nudging...');
-	deleteConfirmationDialog.parent().effect('shake', {times: 3}, 80);
+	dialog.effect('shake', {times: 3}, 80);
 	
 	// Display the error
 	console.log('Displaying error...');
