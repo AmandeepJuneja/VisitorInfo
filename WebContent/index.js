@@ -644,6 +644,7 @@ function openSelectedVisitRecords() {
 							});
 							
 							visRecOvrvwDiv.append(visRecOvervwTable);
+							visRecVisDiv.append(visRecVisTable);
 							visRecItiDiv.append(visRecItiTable);
 							visRecLdrDiv.append(visRecLdrTable);
 							
