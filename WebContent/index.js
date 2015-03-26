@@ -168,8 +168,8 @@ function showValidationError(selectTabId, msgBoxId, errMsg) {
 	var selectTab = $('#' + selectTabId);
 	var msgBox = $('#' + msgBoxId);
 	
-	console.log('Message Box object: ' + msgBox);
-	console.log('Select tab Object: ' + selectTab);
+	console.log('Message Box object: ', msgBox);
+	console.log('Select tab Object: ', selectTab);
 	
 	// activate the tab
 	var selectTabIdx = $('#createVisitTabs').parent().index(selectTab);
