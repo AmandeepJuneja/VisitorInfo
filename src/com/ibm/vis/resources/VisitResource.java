@@ -114,7 +114,7 @@ public class VisitResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getVisits(@FormParam(value="id") String id) {
+	public String getVisits(@QueryParam(value="id") String id) {
 		System.out.println("GOT A REQUEST! *~*~*~*~*~*~*~ ");
 		
 		

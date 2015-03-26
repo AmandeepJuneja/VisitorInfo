@@ -454,7 +454,6 @@ function openSelectedVisitRecords() {
 						type: 'GET',
 						traditional: true,
 						data: {'id': id},
-						contentType: 'text/plain',
 						dataType: 'json',
 						success: function(data, status, xhr) {
 							console.log('Success', data, status, xhr);
