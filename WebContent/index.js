@@ -165,7 +165,7 @@ function fetchAllVisitRecords() {
 function showValidationError(selectTabId, msgBoxId, errMsg) {
 	// activate the tab
 	var selectTabIdx = $('#createVisitTabs').index($('#' + selectTabId));
-	$('#createVisitTabs').tabs('select', selectTabIdx);
+	$('#createVisitTabs').tabs({active: selectTabIdx});
 	
 	// Do the harlem shake :P
 	deleteConfirmationDialog.effect('shake');
