@@ -165,14 +165,22 @@ function fetchAllVisitRecords() {
 function showValidationError(selectTabId, msgBoxId, errMsg) {
 	console.log('inside validation logic now with params: ', selectTabId, msgBoxId, errMsg);
 	
-	var selectTab = $('#' + selectTabId);
+//	var selectTab = $('#' + selectTabId);
 	var msgBox = $('#' + msgBoxId);
 	
 	console.log('Message Box object: ', msgBox);
-	console.log('Select tab Object: ', selectTab);
+//	console.log('Select tab Object: ', selectTab);
 	
 	// activate the tab
-	var selectTabIdx = $('#createVisitTabs').parent().index(selectTab.parent());
+//	var selectTabIdx = $('#createVisitTabs').parent().index(selectTab.parent());
+	var selectTabIdx = 1;
+	
+	if ( selectTabId == 'visitItineraryTab' ) {
+		selectTabIdx = 2;
+	} else if ( selectTabId == 'leadershipParticipationTab' ) {
+		selectTabIdx = 3;
+	}
+	
 	console.log('Activating tab with index # ' + selectTabIdx + ' ...'); 
 	$('#createVisitTabs').tabs({active: selectTabIdx});
 	
