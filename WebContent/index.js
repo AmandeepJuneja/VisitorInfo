@@ -163,21 +163,30 @@ function fetchAllVisitRecords() {
 
 // This function is used to rub a validation error on the user's face :P
 function showValidationError(selectTabId, msgBoxId, errMsg) {
-	console.log('inside validation logic now');
+	console.log('inside validation logic now with params: ', selectTabId, msgBoxId, errMsg);
+	
+	var selectTab = $('#' + selectTabId);
+	var msgBox = $('#' + msgBoxId);
+	
+	console.log('Message Box object: ' + msgBox);
+	console.log('Select tab Object: ' + selectTab);
 	
 	// activate the tab
-//	var selectTabIdx = $('#createVisitTabs').index($('#' + selectTabId));
-//	$('#createVisitTabs').tabs({active: selectTabIdx});
+	var selectTabIdx = $('#createVisitTabs').parent().index(selectTab);
+	console.log('Activating tab with index # ' + selectTabIdx + ' ...'); 
+	$('#createVisitTabs').tabs({active: selectTabIdx});
 	
 	// Do the harlem shake :P
+	console.log('Nudging...');
 	deleteConfirmationDialog.effect('shake', {times: 3}, 80);
 	
 	// Display the error
-	$('#' + msgBoxId).empty()
+	console.log('Displaying error...');
+	msgBox.empty()
 		.append($('<p><img src="./images/complete_error.gif">'
 					+ 'Operation Failed: ' 
 					+ errMsg + '</p>')
-		.show()
+		.show('scale')
 		.delay(2000)
 		.hide('scale'));
 }
