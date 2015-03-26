@@ -164,14 +164,14 @@ function fetchAllVisitRecords() {
 // This function is used to rub a validation error on the user's face :P
 function showValidationError(selectTabId, msgBoxId, errMsg) {
 	// activate the tab
-	var selectTabIdx = $('#createVisitTabs').index($(selectTabId));
+	var selectTabIdx = $('#createVisitTabs').index($('#' + selectTabId));
 	$('#createVisitTabs').tabs('select', selectTabIdx);
 	
 	// Do the harlem shake :P
 	deleteConfirmationDialog.effect('shake');
 	
 	// Display the error
-	$(msgBoxId).empty()
+	$('#' + msgBoxId).empty()
 		.append($('<p><img src="./images/complete_error.gif">'
 					+ 'Operation Failed: ' 
 					+ errMsg + '</p>')
@@ -564,7 +564,7 @@ $(function() {
 //	$('#messagesDiv').hide('slide');
 	
 	$.each($('.message-box'), function(index, msgBox) {
-		msgBox.hide('slide');
+		$(msgBox).hide('slide');
 	});
 	
 	$('#createVisitBtn').button().click(openVisitDialog);
