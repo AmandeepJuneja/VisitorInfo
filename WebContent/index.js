@@ -170,7 +170,7 @@ function showValidationError(selectTabId, msgBoxId, errMsg) {
 //	$('#createVisitTabs').tabs({active: selectTabIdx});
 	
 	// Do the harlem shake :P
-	deleteConfirmationDialog.effect('shake');
+//	deleteConfirmationDialog.effect('shake');
 	
 	// Display the error
 	$('#' + msgBoxId).empty()
