@@ -68,6 +68,15 @@ tbody tr:nth-child(odd) {
 	background-color: #e0f2f1;
 }
 
+.message-box {
+	padding: 4px;
+	margin: 4px;
+	background-color: #fff59d;
+	color: #3e2723;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+}
+
 .on-screen-tips {
 	font-size: small;
 	color: #F44336;
@@ -102,15 +111,6 @@ tbody tr:nth-child(odd) {
 #searchVisitQueryField {
 	height: 23px;
 	width: 72%;
-	border-radius: 8px;
-	-moz-border-radius: 8px;
-}
-
-#messagesDiv {
-	padding: 4px;
-	margin: 4px;
-	background-color: #fff59d;
-	color: #3e2723;
 	border-radius: 8px;
 	-moz-border-radius: 8px;
 }

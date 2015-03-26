@@ -161,14 +161,27 @@ function fetchAllVisitRecords() {
 	});
 }
 
+// This function is used to rub a validation error on the user's face :P
+function showValidationError(selectTabId, msgBoxId, errMsg) {
+	// activate the tab
+	var selectTabIdx = $('#createVisitTabs').index($(selectTabId));
+	$('#createVisitTabs').tabs('select', selectTabIdx);
+	
+	// Do the harlem shake :P
+	deleteConfirmationDialog.effect('shake');
+	
+	// Display the error
+	$(msgBoxId).empty()
+		.append($('<p><img src="./images/complete_error.gif">'
+					+ 'Operation Failed: ' 
+					+ errMsg + '</p>')
+		.delay(2000)
+		.hide('scale'));
+}
+
 // This function is used to actually create a visit record in the system.
 function createVisitRecord() {
 	$('#createVisitForm').validate();
-	
-	dialog.dialog('close');
-	
-	$('#messagesDiv').empty().append($('<p>Creating Visit Record ... ' + 
-			'<img src="./images/spinner.gif"></p>'));
 	
 	var visitTypeChoice = $('input[name="visitTypeChoice"]:checked').val();
 	var industry = $('#industry').val();
@@ -245,6 +258,52 @@ function createVisitRecord() {
 			}
 		});
 	});
+	
+	// Okay, now that we have all the data, do some more validation here please
+	// Validate visitOverviewTab data first
+	if ( accName == null || accName == undefined || accName.trim().length <= 0 ) {
+		showValidationError('visitOverviewTab', 'visitOverviewMsgBox', 'You did not enter an Account Name');
+		return;
+	}
+	
+	if ( palLFE == null || palLFE == undefined || palLFE.trim().length <= 0 ) {
+		showValidationError('visitOverviewTab', 'visitOverviewMsgBox', 'You did not enter a PAL/LFE name');
+		return;
+	}
+	
+	if ( hostMgr == null || hostMgr == undefined || hostMgr.trim().length <= 0 ) {
+		showValidationError('visitOverviewTab', 'visitOverviewMsgBox', 'You did not enter a Hosting Manager name');
+		return;
+	}
+	
+	if ( visitAgenda == null || visitAgenda == undefined || visitAgenda.trim().length <= 0 ) {
+		showValidationError('visitOverviewTab', 'visitOverviewMsgBox', 'You did not enter a Visit Agenda');
+		return;
+	}
+	
+	// Now the visitorsListTab
+	if ( visitorName.length == undefined || visitorName.length <= 0 ) {
+		showValidationError('visitorsListTab', 'visitorsListTabMsgBox', 'You did not enter any Visitors');
+		return;
+	}
+	
+	// Now the visitItineraryTab, visitItineraryTabMsgBox
+	if ( itiLoc.length == undefined || itiLoc.length <= 0 ) {
+		showValidationError('visitItineraryTab', 'visitItineraryTabMsgBox', 'You did not enter any Visit Itineraries');
+		return;
+	}
+	
+	// Now the leadershipParticipationTab, ldrPartMsgBox
+	if ( ldrLNID.length == undefined || ldrLNID.length <= 0 ) {
+		showValidationError('leadershipParticipationTab', 'ldrPartMsgBox', 'You did not enter any Leadership Visit Records');
+		return;
+	}
+	
+	
+	dialog.dialog('close');
+	
+	$('#messagesDiv').empty().append($('<p>Creating Visit Record ... ' + 
+			'<img src="./images/spinner.gif"></p>'));
 	
 	postData = {
 			'visitTypeChoice': visitTypeChoice,
@@ -368,6 +427,18 @@ function addVisitor() {
 	var visitorRoleTxt = $('#visitorRoleTxt').val();
 	var visitorPrimaryCheck = $('#visitorPrimaryCheck').val();
 	
+	// Do validation here
+	// showValidationError('visitorsListTab', 'visitorsListTabMsgBox', '');
+	if ( visitorNameTxt == null || visitorNameTxt == undefined || visitorNameTxt.trim().length  <= 0 ) {
+		showValidationError('visitorsListTab', 'visitorsListTabMsgBox', 'You did not enter a Visitor Name');
+		return;
+	}
+	
+	if ( visitorRoleTxt == null || visitorRoleTxt == undefined || visitorRoleTxt.trim().length <= 0 ) {
+		showValidationError('visitorsListTab', 'visitorsListTabMsgBox', 'You did not enter a visitor Role');
+		return;
+	}
+	
 	// Turn primary option off if primary visitor is being entered
 	if ( visitorPrimaryCheck === "Yes" ) {
 		$('#visitorPrimaryCheck > option[value="Yes"]').attr('disabled', 'disabled');
@@ -412,6 +483,19 @@ function addItinerary() {
 	var itiStart = $('#itiStart').val();
 	var itiEnd = $('#itiEnd').val();
 	
+	// Do validation here
+	// showValidationError('visitItineraryTab', 'visitItineraryTabMsgBox', '');
+	
+	if ( itiStart == null || itiStart == undefined || itiStart.length <= 0 ){
+		showValidationError('visitItineraryTab', 'visitItineraryTabMsgBox', 'You did not select the start date');
+		return;
+	}
+	
+	if ( itiEnd == null || itiEnd == undefined || itiEnd.length <= 0 ) {
+		showValidationError('visitItineraryTab', 'visitItineraryTabMsgBox', 'You did not select the end date');
+		return;
+	}
+	
 	var insertRow = $('<tr></tr>').append(createCheckBox())
 				.append($('<td>' + itiLoc + '</td>'))
 				.append($('<td>' + itiStart + '</td>'))
@@ -438,6 +522,20 @@ function addLdrPart() {
 	var ldrLoc = $('#ldrLoc').val();
 	var ldrDate = $('#ldrDate').val();
 	
+	// Do validation here
+	// showValidationError('leadershipParticipationTab', 'ldrPartMsgBox', '');
+	// return;
+	
+	if ( ldrLNID == null || ldrLNID == undefined || ldrLNID.trim().length <= 0 ) {
+		showValidationError('leadershipParticipationTab', 'ldrPartMsgBox', 'You did not enter Leader LN ID');
+		return;
+	}
+	
+	if ( ldrDate == null || ldrDate == undefined || ldrDate.trim().length <= 0 ) {
+		showValidationError('leadershipParticipationTab', 'ldrPartMsgBox', 'You did not enter Leader Participation Date');
+		return;
+	}
+	
 	var insertRow = $('<tr></tr>').append(createCheckBox())
 				.append($('<td>' + ldrLNID + '</td>'))
 				.append($('<td>' + ldrBU + '</td>'))
@@ -461,7 +559,14 @@ function removeLdrPart() {
 $(function() {
 	// bootstrap bill :)
 	// initializing GUI components...
-	$('#messagesDiv').hide('slide');
+	
+	// Hide all message boxes
+//	$('#messagesDiv').hide('slide');
+	
+	$.each($('.message-box'), function(index, msgBox) {
+		msgBox.hide('slide');
+	});
+	
 	$('#createVisitBtn').button().click(openVisitDialog);
 	$('#searchVisitBtn').button();
 	$('#addVisitorBtn').button().click(addVisitor);
