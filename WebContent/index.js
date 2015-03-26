@@ -457,12 +457,76 @@ function openSelectedVisitRecords() {
 						dataType: 'json',
 						success: function(data, status, xhr) {
 							console.log('Success', data, status, xhr);
+							
+							// Open the visit record
+							var visitRec = data.results[0];	
+							var visRecDiv = $('<div id="visRecWin'+ visitRec._id.$oid +'"></div>');
+							var visRecTabDiv = $('<div id="visRecTab' + visitRec._id.$oid + '"></div>');
+							var visRecTabUl = $('<ul></ul>');
+							var visRecOvrvwDiv = $('<div id="visRecOvrvw' + visitRec._id.$oid + '"></div>');
+							var visRecVisDiv = $('<div id="visRecVis' + visitRec._id.$oid + '"></div>');
+							var visRecItiDiv = $('<div id="visRecIti' + visitRec._id.$oid + '"></div>');
+							var visRecLdrDiv = $('<div id="visRecLdr' + visitRec._id.$oid + '"></div>');
+							
+							var visRecOvervwTable = $('<table></table>').append(
+									$('<tbody></tbody>').append(
+											$('<tr></tr>').append(
+												$('<td>Visit ID #</td>')	
+											).append(
+												$('<td>' + visitRec._id.$oid + '</td>')
+											)
+										).append(
+											$('<tr></tr>').append(
+												$('<td>Visit Type: </td>')	
+											).append(
+												$('<td>' + visitRec.visitTypeChoice + '</td>')
+											)
+										)
+									);
+							
+							
+							visRecTabUl.append($('<li><a href="#visRecOvrvw' 
+											+ visitRec._id.$oid + '">Visit Overview</a></li>'))
+									.append($('<li><a href="#visRecVis' 
+											+ visitRec._id.$oid + '">Visitors</a></li>'))
+									.append($('<li><a href="#visRecIti' 
+											+ visitRec._id.$oid + '">Visit Itinerary</a></li>'))
+									.append($('<li><a href="#visRecLdr' 
+											+ visitRec._id.$oid + '">IBM India Leadership Participation</a></li>'));
+							
+							visRecTabDiv.append(visRecTabUl)
+								.append(visRecOvrvwDiv)
+								.append(visRecVisDiv)
+								.append(visRecItiDiv)
+								.append(visRecLdrDiv);
+							visRecTabDiv.tabs();
+							
+							visRecDiv.append(visRecTabDiv);
+							visRecDiv.dialog({
+								height: 600,
+								width: 800,
+								modal: false,
+								hide: 'clip',
+								show: 'clip',
+								buttons: {
+									'Close': function() {
+										$(this).dialog('close');
+										$(this).destroy();
+									}
+								},
+								close: function() {
+									$(this).dialog('close');
+									$(this).destroy();
+								}
+							});
+							
 							$('#messagesDiv').empty();
 							$('#messagesDiv').empty().append(
 									$('<p><img src="./images/complete_status.gif">'
 									+ 'Opened visit record #' + id + 'successfully.</p>')).show('scale')
 								.delay(2000)
 								.hide('scale');
+							
 						},
 						
 						error: function(jqXHR, textStatus, errorThrown) {
