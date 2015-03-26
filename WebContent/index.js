@@ -460,7 +460,7 @@ function openSelectedVisitRecords() {
 							
 							// Open the visit record
 							var visitRec = data.results[0];	
-							var visRecDiv = $('<div id="visRecWin'+ visitRec._id.$oid +'"></div>');
+							var visRecDiv = $('<div id="visRecWin'+ visitRec._id.$oid +'" title="Visit Record # ' + visitRec._id.$oid  + '"></div>');
 							var visRecTabDiv = $('<div id="visRecTab' + visitRec._id.$oid + '"></div>');
 							var visRecTabUl = $('<ul></ul>');
 							var visRecOvrvwDiv = $('<div id="visRecOvrvw' + visitRec._id.$oid + '"></div>');
@@ -470,19 +470,182 @@ function openSelectedVisitRecords() {
 							
 							var visRecOvervwTable = $('<table></table>').append(
 									$('<tbody></tbody>').append(
-											$('<tr></tr>').append(
+											$('<tr></tr>')
+										.append(
 												$('<td>Visit ID #</td>')	
 											).append(
 												$('<td>' + visitRec._id.$oid + '</td>')
 											)
-										).append(
+										)
+										.append(
 											$('<tr></tr>').append(
 												$('<td>Visit Type: </td>')	
 											).append(
 												$('<td>' + visitRec.visitTypeChoice + '</td>')
 											)
 										)
+										.append(
+											$('<tr></tr>').append(
+												$('<td>Industry: </td>')	
+											).append(
+												$('<td>' + visitRec.industry + '</td>')
+											)
+										)
+										.append(
+											$('<tr></tr>').append(
+												$('<td>Account Name: </td>')	
+											).append(
+												$('<td>' + visitRec.accName + '</td>')
+											)
+										)
+										.append(
+											$('<tr></tr>').append(
+												$('<td>PAL/LFE: </td>')	
+											).append(
+												$('<td>' + visitRec.palLFE + '</td>')
+											)
+										)
+										.append(
+											$('<tr></tr>').append(
+												$('<td>CBC: </td>')	
+											).append(
+												$('<td>' + visitRec.cbc + '</td>')
+											)
+										)
+										.append(
+											$('<tr></tr>').append(
+												$('<td>Hosting Manager: </td>')	
+											).append(
+												$('<td>' + visitRec.hostMgr + '</td>')
+											)
+										)
+										.append(
+											$('<tr></tr>').append(
+												$('<td>Primary Agenda of Visit: </td>')	
+											).append(
+												$('<td>' + visitRec.visitAgenda + '</td>')
+											)
+										)
 									);
+							
+							var visRecVisTable = $('<table></table>').append(
+								$('<thead></thead>').append(
+									$('<tr></tr>')
+									.append(
+										$('<th>Visitor Name</th>')
+									)
+									.append(
+										$('<th>Visitor Role</th>')
+									)
+									.append(
+										$('<th>Is Primary?</th>')
+									)
+								)
+							).append(
+								$('<tbody></tbody>')	
+							);
+							
+							var visRecItiTable = $('<table></table>')
+							.append(
+								$('<thead></thead>')
+								.append(
+									$('<tr></tr>')
+									.append(
+										$('<th>Location</th>')
+									)
+									.append(
+										$('<th>Start Date</th>')
+									)
+									.append(
+										$('<th>End Date</th>')
+									)
+								)
+							).append(
+								$('<tbody></tbody>')
+							);
+							
+							var visRecLdrTable = $('<table></table>')
+							.append(
+									$('<thead></thead>')
+									.append(
+										$('<tr></tr>')
+										.append(
+											$('<th>Leader Lotus Notes ID</th>')
+										)
+										.append(
+											$('<th>BU</th>')
+										)
+										.append(
+											$('<th>Attend/Inform</th>')
+										)
+										.append(
+											$('<th>Location</th>')
+										)
+										.append(
+											$('<th>Date</th>')
+										)
+									)
+								).append(
+									$('<tbody></tbody>')
+								);
+							
+							$.each(visitRec.visitorRecords, function(index, visitorRec){
+								visRecVisTable.find('tbody')
+								.append(
+									$('<tr></tr>')
+									.append(
+											$('<td>' + visitorRec.visitorName + '</td>')
+									)
+									.append(
+											$('<td>' + visitorRec.visitorRole + '</td>')
+									)
+									.append(
+											$('<td>' + visitorRec.visitorPrimary + '</td>')
+									)
+								);
+							});
+							
+							$.each(visitRec.itineraryRecords, function(index, itiRec) {
+								visRecItiTable.find('tbody')
+								.append(
+									$('<tr></tr>')
+									.append(
+										$('<td>' + itiRec.itiLoc + '</td>')
+									)
+									.append(
+										$('<td>' + itiRec.itiStart + '</td>')
+									)
+									.append(
+										$('<td>' + itiRec.itiEnd + '</td>')
+									)
+								);
+							});
+							
+							$.each(visitRec.leadershipRecords, function(index, ldrRec) {
+								visRecLdrTable.find('tbody')
+								.append(
+									$('<tr></tr>')
+									.append(
+										$('<td>' + ldrRec.ldrLNID + '</td>')
+									)
+									.append(
+										$('<td>' + ldrRec.ldrBU + '</td>')
+									)
+									.append(
+										$('<td>' + ldrRec.ldrAttnd + '</td>')
+									)
+									.append(
+										$('<td>' + ldrRec.ldrLoc + '</td>')
+									)
+									.append(
+										$('<td>' + ldrRec.ldrDate + '</td>')
+									)
+								);
+							});
+							
+							visRecOvrvwDiv.append(visRecOvervwTable);
+							visRecItiDiv.append(visRecItiTable);
+							visRecLdrDiv.append(visRecLdrTable);
 							
 							
 							visRecTabUl.append($('<li><a href="#visRecOvrvw' 
@@ -511,12 +674,12 @@ function openSelectedVisitRecords() {
 								buttons: {
 									'Close': function() {
 										$(this).dialog('close');
-										$(this).destroy();
+										$(this).dialog('destroy');
 									}
 								},
 								close: function() {
 									$(this).dialog('close');
-									$(this).destroy();
+									$(this).dialog('destroy');
 								}
 							});
 							
