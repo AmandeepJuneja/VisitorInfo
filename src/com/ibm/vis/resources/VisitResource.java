@@ -114,13 +114,24 @@ public class VisitResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getVisits() {
+	public String getVisits(@FormParam(value="id") String id) {
 		System.out.println("GOT A REQUEST! *~*~*~*~*~*~*~ ");
 		
 		
 		BasicDBObject retObj = new BasicDBObject();
+		DBCursor cursor = null;
 		
-		DBCursor cursor = collection.find();
+		if ( id != null ) {
+//			
+			ObjectId objId = new ObjectId(id);
+			System.out.println("Received a request for deletion with id = " + id);
+			cursor = collection.find(new BasicDBObject("_id", objId));
+		} else { 
+			cursor = collection.find();
+		}
+		
+		
+		
 		try {
 			if ( cursor.count() > 0 ) {
 				retObj.append("status", "success");

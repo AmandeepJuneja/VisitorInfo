@@ -96,11 +96,10 @@ function openDeleteConfirmationDialog() {
 	deleteConfirmationDialog.dialog('open');
 }
 
-
 // This function is used to retrieve all visit records from the backend upon startup.
 function fetchAllVisitRecords() {
 	$('#messagesDiv').empty().append($('<p>Retrieving Visit Records ... ' + 
-		'<img src="./images/spinner.gif"></p>'));
+		'<img src="./images/spinner.gif"></p>')).show('scale');
 	
 	$.ajax({
 		url: './api/visit',
@@ -438,6 +437,51 @@ function deleteSelectedVisitRecords() {
 	});
 }
 
+//This function is used to open selected visit records from the system in popup dialogs
+function openSelectedVisitRecords() {
+	$('#visitRecordsTable > tbody > tr').each(function(index) {
+		var chkBox = $(this).find('td > input[type="checkbox"]');
+		if ( chkBox.prop('checked') == true ) {
+			$(this).find('td').each(function(index){
+				if (index == 1) {
+					var id = $(this).text();
+					// This is where we need to do some server side magic
+					$('#messagesDiv').empty().append($('<p>Opening Visit Record # ' + id + '' + 
+					'<img src="./images/spinner.gif"></p>')).show('scale');
+					
+					$.ajax({
+						url: './api/visit',
+						type: 'GET',
+						traditional: true,
+						data: {'id': id},
+						contentType: 'text/plain',
+						dataType: 'json',
+						success: function(data, status, xhr) {
+							console.log('Success', data, status, xhr);
+							$('#messagesDiv').empty();
+							$('#messagesDiv').empty().append(
+									$('<p><img src="./images/complete_status.gif">'
+									+ 'Opened visit record #' + id + 'successfully.</p>')).show('scale')
+								.delay(2000)
+								.hide('scale');
+						},
+						
+						error: function(jqXHR, textStatus, errorThrown) {
+							$('#messagesDiv').empty();
+							$('#messagesDiv').empty().append(
+									$('<p><img src="./images/complete_error.gif">'
+									+ 'Operation Failed: ' 
+									+ errorThrown + '</p>')).show('scale')
+								.delay(2000)
+								.hide('scale');
+						}
+					});
+				}
+			});
+		}
+	});
+}
+
 // This function creates a generic check box html item wrapped in a table cell.
 function createCheckBox() {
 	return $('<td><input type="checkbox"></td>');
@@ -589,7 +633,11 @@ $(function() {
 		$(msgBox).hide('slide');
 	});
 	
+	// activate tooltips
+	$( document ).tooltip();
+	
 	$('#createVisitBtn').button().click(openVisitDialog);
+	$('#openVisitBtn').button().click(openSelectedVisitRecords);
 	$('#searchVisitBtn').button();
 	$('#addVisitorBtn').button().click(addVisitor);
 	$('#deleteVisitBtn').button().click(openDeleteConfirmationDialog);
