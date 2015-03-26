@@ -172,23 +172,23 @@ function showValidationError(selectTabId, msgBoxId, errMsg) {
 	console.log('Select tab Object: ', selectTab);
 	
 	// activate the tab
-	var selectTabIdx = $('#createVisitTabs').parent().index(selectTab);
+	var selectTabIdx = $('#createVisitTabs').parent().index(selectTab.parent());
 	console.log('Activating tab with index # ' + selectTabIdx + ' ...'); 
 	$('#createVisitTabs').tabs({active: selectTabIdx});
 	
 	// Do the harlem shake :P
 	console.log('Nudging...');
-	deleteConfirmationDialog.effect('shake', {times: 3}, 80);
+	deleteConfirmationDialog.parent().effect('shake', {times: 3}, 80);
 	
 	// Display the error
 	console.log('Displaying error...');
 	msgBox.empty()
 		.append($('<p><img src="./images/complete_error.gif">'
 					+ 'Operation Failed: ' 
-					+ errMsg + '</p>')
+					+ errMsg + '</p>'))
 		.show('scale')
 		.delay(2000)
-		.hide('scale'));
+		.hide('scale');
 }
 
 // This function is used to actually create a visit record in the system.
