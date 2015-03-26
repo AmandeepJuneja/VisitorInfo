@@ -173,12 +173,15 @@ function showValidationError(selectTabId, msgBoxId, errMsg) {
 	
 	// activate the tab
 //	var selectTabIdx = $('#createVisitTabs').parent().index(selectTab.parent());
-	var selectTabIdx = 1;
+	
+	var selectTabIdx = 0;
 	
 	if ( selectTabId == 'visitItineraryTab' ) {
 		selectTabIdx = 2;
 	} else if ( selectTabId == 'leadershipParticipationTab' ) {
 		selectTabIdx = 3;
+	} else if ( selectTabId == 'visitorsListTab' ) {
+		selectTabIdx = 1;
 	}
 	
 	console.log('Activating tab with index # ' + selectTabIdx + ' ...'); 
