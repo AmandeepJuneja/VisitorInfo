@@ -164,6 +164,7 @@ function fetchAllVisitRecords() {
 // This function is used to rub a validation error on the user's face :P
 function showValidationError(selectTabId, msgBoxId, errMsg) {
 	// activate the tab
+	console.log('inside validation logic now');
 	var selectTabIdx = $('#createVisitTabs').index($('#' + selectTabId));
 	$('#createVisitTabs').tabs({active: selectTabIdx});
 	
@@ -181,8 +182,7 @@ function showValidationError(selectTabId, msgBoxId, errMsg) {
 
 // This function is used to actually create a visit record in the system.
 function createVisitRecord() {
-	$('#createVisitForm').validate();
-	
+	console.log('Inside create visit record');
 	var visitTypeChoice = $('input[name="visitTypeChoice"]:checked').val();
 	var industry = $('#industry').val();
 	var accName = $('#accName').val();
@@ -260,6 +260,7 @@ function createVisitRecord() {
 	});
 	
 	// Okay, now that we have all the data, do some more validation here please
+	console.log('Validating gathered data');
 	// Validate visitOverviewTab data first
 	if ( accName == null || accName == undefined || accName.trim().length <= 0 ) {
 		showValidationError('visitOverviewTab', 'visitOverviewMsgBox', 'You did not enter an Account Name');
