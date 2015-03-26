@@ -163,10 +163,11 @@ function fetchAllVisitRecords() {
 
 // This function is used to rub a validation error on the user's face :P
 function showValidationError(selectTabId, msgBoxId, errMsg) {
-	// activate the tab
 	console.log('inside validation logic now');
-	var selectTabIdx = $('#createVisitTabs').index($('#' + selectTabId));
-	$('#createVisitTabs').tabs({active: selectTabIdx});
+	
+	// activate the tab
+//	var selectTabIdx = $('#createVisitTabs').index($('#' + selectTabId));
+//	$('#createVisitTabs').tabs({active: selectTabIdx});
 	
 	// Do the harlem shake :P
 	deleteConfirmationDialog.effect('shake');
@@ -238,9 +239,6 @@ function createVisitRecord() {
 		});
 	});
 	
-	// find the minimum of the Itinerary dates
-	var visitStartDate = findMinDate(itiStart);
-	
 	// leadership data
 	$('#leadershipParticipationList > tbody > tr').each(function(index) {
 		var rowIdx = index;
@@ -300,6 +298,8 @@ function createVisitRecord() {
 		return;
 	}
 	
+	// find the minimum of the Itinerary dates
+	var visitStartDate = findMinDate(itiStart);
 	
 	dialog.dialog('close');
 	
