@@ -170,13 +170,14 @@ function showValidationError(selectTabId, msgBoxId, errMsg) {
 //	$('#createVisitTabs').tabs({active: selectTabIdx});
 	
 	// Do the harlem shake :P
-//	deleteConfirmationDialog.effect('shake');
+	deleteConfirmationDialog.effect('shake', {times: 3}, 80);
 	
 	// Display the error
 	$('#' + msgBoxId).empty()
 		.append($('<p><img src="./images/complete_error.gif">'
 					+ 'Operation Failed: ' 
 					+ errMsg + '</p>')
+		.show()
 		.delay(2000)
 		.hide('scale'));
 }
