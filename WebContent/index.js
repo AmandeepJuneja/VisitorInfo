@@ -851,12 +851,14 @@ function removeLdrPart() {
 
 // This function clears up the entire visit record creation form
 function clearCreateVisitRecordForm() {
+	$('#visitTypeChoiceI').prop('checked', false);
+	$('#visitTypeChoiceB').prop('checked', false);
+	$('#visitTypeChoiceC').prop('checked', true);
 	
-	var visitTypeChoice = $('input[name="visitTypeChoice"]:checked').val();
 	$('#industry').val('Electronics');
 	$('#accName').val('');
 	$('#palLFE').val('Mohan Bachav');
-	$('#cbc').val('Yes');
+	$('#cbc').val('YES');
 	$('#hostMgr').val('');
 	$('#visitAgenda').val('');
 	
