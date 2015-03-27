@@ -377,7 +377,7 @@ function createVisitRecord() {
 							.append($('<td>' + visitAgenda + '</td>'));
 			
 			$('#visitRecordsTable').append(insertRow);
-			
+			clearCreateVisitRecordForm();
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			$('#messagesDiv').empty();
@@ -847,6 +847,30 @@ function removeLdrPart() {
 			$(this).remove();
 		}
 	});
+}
+
+// This function clears up the entire visit record creation form
+function clearCreateVisitRecordForm() {
+	
+	var visitTypeChoice = $('input[name="visitTypeChoice"]:checked').val();
+	$('#industry').val('Electronics');
+	$('#accName').val('');
+	$('#palLFE').val('Mohan Bachav');
+	$('#cbc').val('Yes');
+	$('#hostMgr').val('');
+	$('#visitAgenda').val('');
+	
+	$('#leadershipParticipationList > tbody > tr').each(function(index) {
+		$(this).remove();
+	});
+	
+	$('#visitItineraryList > tbody > tr').each(function(index) {
+		$(this).remove();
+	});
+	
+	$('#visitorsList > tbody > tr').each(function(index) {
+		$(this).remove();
+	});	
 }
 
 $(function() {
