@@ -19,7 +19,9 @@
         <pathelement location="dep-jar/el-api.jar"/>
         <pathelement location="dep-jar/jsp-api.jar"/>
         <pathelement location="dep-jar/servlet-api.jar"/>
-        <pathelement location="dep-jar/commons-codec-1.5.jar"/>
+        <pathelement location="dep-jar/commons-codec-1.10.jar"/>
+    	<pathelement location="dep-jar/cloudant-client-2.2.0.jar"/>
+    	<pathelement location="dep-jar/gson-2.5.jar"/>
         <pathelement location="dep-jar/commons-logging-1.1.jar"/>
         <pathelement location="dep-jar/log4j-1.2.13.jar"/>
         <pathelement location="dep-jar/poi-3.10-FINAL-20140208.jar"/>
