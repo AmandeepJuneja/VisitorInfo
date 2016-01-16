@@ -135,6 +135,7 @@ public class CloudVisit {
 		
 		// TODO add some error handling mechanism here
 		visitObj.addProperty("save_response", response.toString());
+		visitObj.addProperty("_id", response.getId());
 		
 		return visitObj.toString();
 	}
