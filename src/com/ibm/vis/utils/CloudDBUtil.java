@@ -62,8 +62,8 @@ public class CloudDBUtil {
 		return client;
 	}
 	
-	public Database getDB(String dbName, boolean createFlag) {
-		return client.database(dbName, createFlag);
+	public Database getDB(String dbName, boolean createFlag) throws MalformedURLException {
+		return getClient().database(dbName, createFlag);
 	}
 	
 	public static final CloudDBUtil createInstance() {

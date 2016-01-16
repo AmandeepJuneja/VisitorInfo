@@ -6,6 +6,7 @@
 package com.ibm.vis.resources;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,8 +47,13 @@ import com.mongodb.DBObject;
 @Path("/cloudvisit")
 public class CloudVisit {
 	protected Logger logger = Logger.getLogger(CloudVisit.class.getName());
-	protected Database database = CloudDBUtil.createInstance()
-			.getDB(GlobalConsts.CLOUDANT_DB_NAME, false);
+	protected Database database;
+	
+	public CloudVisit() throws MalformedURLException {
+		super();
+		database = CloudDBUtil.createInstance()
+				.getDB(GlobalConsts.CLOUDANT_DB_NAME, false);
+	}
 	
 	/**
 	 * This method is used to create new Visit record instances.
