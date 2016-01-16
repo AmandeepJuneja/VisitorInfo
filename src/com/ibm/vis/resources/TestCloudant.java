@@ -19,6 +19,8 @@ import org.json.JSONObject;
 
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
+import com.cloudant.client.api.Database;
+import com.cloudant.client.api.model.DbInfo;
 
 /**
  * The purpose of this class is to test out the Cloudant NoSQL database in BlueMix
@@ -60,17 +62,20 @@ public class TestCloudant {
 			messages.append("connected to cloudant couchdb server version " + client.serverVersion());
 			
 			// Get a List of all the databases this Cloudant account
-			messages.append("reading databases...");
+			messages.append("reading databases...\n");
 			List<String> databases = client.getAllDbs();
 			messages.append("[OK]\n");
 			for ( String database : databases ) {
 				messages.append(database + " ");
 			}
+			messages.append("\n");
 			
 			// Get a Database instance to interact with, but don't create it if it doesn't already exist
-//			messages.append("getting database instance...");
-//			Database db = client.database("example_db", false);
-			
+			messages.append("getting database instance information...");
+			Database db = client.database("vis", false);
+			DbInfo dbInfo = db.info();
+			messages.append("[OK]\n");
+			messages.append(dbInfo + "\n");
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
