@@ -102,7 +102,7 @@ function fetchAllVisitRecords() {
 		'<img src="./images/spinner.gif"></p>')).show('scale');
 	
 	$.ajax({
-		url: './api/visit',
+		url: './api/cloudvisit',
 		type: 'GET',
 		traditional: true,
 		success: function(data, status, xhr) {
@@ -350,7 +350,7 @@ function createVisitRecord() {
 	console.log('data values to be sent: ', postData);
 	
 	$.ajax({
-		url: './api/visit',
+		url: './api/cloudvisit',
 		type: 'POST',
 		traditional: true,
 		data: postData,
@@ -404,7 +404,7 @@ function deleteSelectedVisitRecords() {
 					'<img src="./images/spinner.gif"></p>'));
 					
 					$.ajax({
-						url: './api/visit',
+						url: './api/cloudvisit',
 						type: 'DELETE',
 						traditional: true,
 						data: {'id': id},
@@ -450,7 +450,7 @@ function openSelectedVisitRecords() {
 					'<img src="./images/spinner.gif"></p>')).show('scale');
 					
 					$.ajax({
-						url: './api/visit',
+						url: './api/cloudvisit',
 						type: 'GET',
 						traditional: true,
 						data: {'id': id},
