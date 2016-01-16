@@ -115,7 +115,7 @@ function fetchAllVisitRecords() {
 				.hide('scale');
 			
 			$.each(data.results, function(i, item){
-				console.log('ITEM ID# ', item._id.$oid);
+				console.log('ITEM ID# ', item._id);
 				console.log('VISIT CHOICE: ', item.visitTypeChoice);
 				console.log('INDUSTRY: ', item.industry);
 				console.log('ACCOUNT NAME: ', item.accName);
@@ -133,7 +133,7 @@ function fetchAllVisitRecords() {
 				var visitStartDate = findMinDate(itiDates);
 				
 				var insertRow = $('<tr></tr>').append(createCheckBox())
-								.append($('<td>' + item._id.$oid + '</td>'))
+								.append($('<td>' + item._id + '</td>'))
 								.append($('<td>' + visitStartDate + '</td>'))
 								.append($('<td>' + item.industry + '</td>'))
 								.append($('<td>' + item.accName + '</td>'))
@@ -361,13 +361,13 @@ function createVisitRecord() {
 			$('#messagesDiv').empty().append(
 					$('<p><img src="./images/complete_status.gif">'
 					+ 'Visit record #'
-					+ data._id.$oid
+					+ data._id
 					+ ' created successfully.</p>')).show('scale')
 				.delay(2000)
 				.hide('scale');
 			
 			var insertRow = $('<tr></tr>').append(createCheckBox())
-							.append($('<td>' + data._id.$oid + '</td>'))
+							.append($('<td>' + data._id + '</td>'))
 							.append($('<td>' + visitStartDate + '</td>'))
 							.append($('<td>' + industry + '</td>'))
 							.append($('<td>' + accName + '</td>'))
@@ -460,13 +460,13 @@ function openSelectedVisitRecords() {
 							
 							// Open the visit record
 							var visitRec = data.results[0];	
-							var visRecDiv = $('<div id="visRecWin'+ visitRec._id.$oid +'" title="Visit Record # ' + visitRec._id.$oid  + '"></div>');
-							var visRecTabDiv = $('<div id="visRecTab' + visitRec._id.$oid + '"></div>');
+							var visRecDiv = $('<div id="visRecWin'+ visitRec._id +'" title="Visit Record # ' + visitRec._id  + '"></div>');
+							var visRecTabDiv = $('<div id="visRecTab' + visitRec._id + '"></div>');
 							var visRecTabUl = $('<ul></ul>');
-							var visRecOvrvwDiv = $('<div id="visRecOvrvw' + visitRec._id.$oid + '"></div>');
-							var visRecVisDiv = $('<div id="visRecVis' + visitRec._id.$oid + '"></div>');
-							var visRecItiDiv = $('<div id="visRecIti' + visitRec._id.$oid + '"></div>');
-							var visRecLdrDiv = $('<div id="visRecLdr' + visitRec._id.$oid + '"></div>');
+							var visRecOvrvwDiv = $('<div id="visRecOvrvw' + visitRec._id + '"></div>');
+							var visRecVisDiv = $('<div id="visRecVis' + visitRec._id + '"></div>');
+							var visRecItiDiv = $('<div id="visRecIti' + visitRec._id + '"></div>');
+							var visRecLdrDiv = $('<div id="visRecLdr' + visitRec._id + '"></div>');
 							
 							var visRecOvervwTable = $('<table></table>').append(
 									$('<tbody></tbody>').append(
@@ -474,7 +474,7 @@ function openSelectedVisitRecords() {
 										.append(
 												$('<td>Visit ID #</td>')	
 											).append(
-												$('<td>' + visitRec._id.$oid + '</td>')
+												$('<td>' + visitRec._id + '</td>')
 											)
 										)
 										.append(
@@ -650,13 +650,13 @@ function openSelectedVisitRecords() {
 							
 							
 							visRecTabUl.append($('<li><a href="#visRecOvrvw' 
-											+ visitRec._id.$oid + '">Visit Overview</a></li>'))
+											+ visitRec._id + '">Visit Overview</a></li>'))
 									.append($('<li><a href="#visRecVis' 
-											+ visitRec._id.$oid + '">Visitors</a></li>'))
+											+ visitRec._id + '">Visitors</a></li>'))
 									.append($('<li><a href="#visRecIti' 
-											+ visitRec._id.$oid + '">Visit Itinerary</a></li>'))
+											+ visitRec._id + '">Visit Itinerary</a></li>'))
 									.append($('<li><a href="#visRecLdr' 
-											+ visitRec._id.$oid + '">IBM India Leadership Participation</a></li>'));
+											+ visitRec._id + '">IBM India Leadership Participation</a></li>'));
 							
 							visRecTabDiv.append(visRecTabUl)
 								.append(visRecOvrvwDiv)
