@@ -8,9 +8,12 @@ package com.ibm.vis.resources;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.json.JSONObject;
 
@@ -25,6 +28,7 @@ import com.cloudant.client.api.CloudantClient;
 @Path("/testcloudant")
 public class TestCloudant {
 	@GET
+	@Produces(MediaType.TEXT_PLAIN)
 	public String helloCloudant() {
 		StringBuffer messages = new StringBuffer();
 		messages.append("reading configurations...");
@@ -54,6 +58,20 @@ public class TestCloudant {
 					.build();
 			messages.append("[OK]\n");
 			messages.append("connected to cloudant couchdb server version " + client.serverVersion());
+			
+			// Get a List of all the databases this Cloudant account
+			messages.append("reading databases...");
+			List<String> databases = client.getAllDbs();
+			messages.append("[OK]\n");
+			for ( String database : databases ) {
+				messages.append(database + " ");
+			}
+			
+			// Get a Database instance to interact with, but don't create it if it doesn't already exist
+//			messages.append("getting database instance...");
+//			Database db = client.database("example_db", false);
+			
+			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
