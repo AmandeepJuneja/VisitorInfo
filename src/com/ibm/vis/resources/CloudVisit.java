@@ -144,15 +144,20 @@ public class CloudVisit {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getVisits(@QueryParam(value="id") String id) {
 		JsonObject retObj = new JsonObject();
+		JsonArray retArray = new JsonArray();
 		
 		if ( id != null ) {
-			retObj = database.find(JsonObject.class, id);
+			
+			JsonObject resultObj = database.find(JsonObject.class, id);
+			retArray.add(resultObj);
+			retObj.add("results", retArray);
 			retObj.addProperty("status", "success");
+			retObj.addProperty("count", "" + retArray.size());
 		} else { 
 			List<String> allDocIds;
 			try {
 				allDocIds = database.getAllDocsRequestBuilder().build().getResponse().getDocIds();
-				JsonArray retArray = new JsonArray();
+				
 				for (String docId : allDocIds) {
 					JsonObject visitObj = database.find(JsonObject.class, docId);
 					retArray.add(visitObj);
