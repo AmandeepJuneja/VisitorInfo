@@ -1,3 +1,8 @@
+/*
+ * VisitResource.java
+ * (C) 2016 Siddhartha Ghosh / IBM India Pvt. Ltd.
+ * All Rights Reserved.
+ */
 package com.ibm.vis.resources;
 
 import java.util.ArrayList;
@@ -24,6 +29,12 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+/**
+ * This is the older Visit Resource RESTful service handler class 
+ * that relied on the MongoDB NoSQL database backend. Soon to be deprecated.
+ * @author Siddhartha Ghosh (siddhartha.ghosh@in.ibm.com)
+ *
+ */
 @Path("/visit")
 public class VisitResource {
 	DBCollection collection = DBUtil.createInstance()

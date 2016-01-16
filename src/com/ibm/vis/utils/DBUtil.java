@@ -1,3 +1,8 @@
+/*
+ * DBUtil.java
+ * (C) 2016 Siddhartha Ghosh / IBM India Pvt. Ltd.
+ * All Rights Reserved.
+ */
 package com.ibm.vis.utils;
 
 import java.net.UnknownHostException;
@@ -12,7 +17,11 @@ import com.mongodb.DBCollection;
 import com.mongodb.Mongo;
 import com.mongodb.MongoURI;
 
-
+/**
+ * This is a database utility wrapper. 
+ * @author Siddhartha Ghosh (siddhartha.ghosh@in.ibm.com)
+ *
+ */
 public class DBUtil {
 	
 	private static DBUtil singletonMe;

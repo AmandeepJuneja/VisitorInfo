@@ -1,9 +1,19 @@
+/*
+ * HelloResource.java
+ * (C) 2016 Siddhartha Ghosh / IBM India Pvt. Ltd.
+ * All Rights Reserved
+ */
+
 package com.ibm.vis.resources;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
-
+/**
+ * This is just a simple Hello World service.
+ * @author Siddhartha Ghosh (siddhartha.ghosh@in.ibm.com)
+ *
+ */
 @Path("/hello")
 public class HelloResource {
 
