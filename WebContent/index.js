@@ -380,12 +380,33 @@ function createVisitRecord() {
 			clearCreateVisitRecordForm();
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
+			if ( textStatus != null && textStatus != undefined && textStatus == 'parsererror') {
+				console.log('Possible timeout scenario detected...');
+				$('#messagesDiv').empty();
+				$('#messagesDiv').empty().append(
+						$('<p><img src="./images/session_redirect"> Session timedout, redirecting to login screen...'
+						+ '' + '</p>')).show('scale')
+					.delay(3000)
+					.hide('scale');
+				
+				if ( jqXHR.responseText != undefined && jqXHR.responseText != null ) {
+					var retHTML = $(jqXHR.responseText);
+					retHTML.filter('script').each(function(){
+			            $.globalEval(this.text || this.textContent || this.innerHTML || '');
+			        });					
+				} else {
+					console.log('Doomed! no jqXHR.responseText');
+				}
+				
+				return;
+			}
+			
 			$('#messagesDiv').empty();
 			$('#messagesDiv').empty().append(
 					$('<p><img src="./images/complete_error.gif">'
 					+ 'Operation Failed: ' 
 					+ errorThrown + '</p>')).show('scale')
-				.delay(2000)
+				.delay(3000)
 				.hide('scale');
 		}
 	});
