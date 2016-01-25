@@ -967,7 +967,7 @@ $(function() {
 	$('#createVisitTabs').tabs();
 	$('#visitTypeRadio').buttonset();
 	$('#deliveryTypeRadio').buttonset();
-	$('#deliveryTypeChoiceN').on('change', deliveryTypeChangeListener);
+	$('#deliveryTypeRadio').on('change', deliveryTypeChangeListener);
 	$('#itiStart').datepicker();
 	$('#itiEnd').datepicker();
 	$('#ldrDate').datepicker();
