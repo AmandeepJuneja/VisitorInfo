@@ -927,6 +927,7 @@ function clearCreateVisitRecordForm() {
 function deliveryTypeChangeListener() {
 	console.log('Delivery type change detected....');
 	var deliveryTypeVal = $('#deliveryTypeRadio :radio:checked').val();
+	console.log('Delivery type:', deliveryTypeVal);
 	if ( deliveryTypeVal != null && deliveryTypeVal != undefined && deliveryTypeVal == 'N') {
 		console.log('New Opportunity Detected...');
 		$('#opportunityTCVTR').show('clip');
