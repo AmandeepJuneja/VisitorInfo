@@ -132,10 +132,11 @@ function fetchAllVisitRecords() {
 					itiDates.push(itiRec.itiStart);
 					itiObjs[new Date(itiRec.itiStart).toString()] = itiRec.itiLoc;
 				});
-				console.log('DEBUG: itinerary dates object: ', itiObjs);
-				console.log('DEBUG: visit start date: ', visitStartDate);
+				
 				var visitStartDate = findMinDate(itiDates);
 				var visitStartCenter = itiObjs[visitStartDate.toString()];
+				console.log('DEBUG: itinerary dates object: ', itiObjs);
+				console.log('DEBUG: visit start date: ', visitStartDate);
 				
 				var insertRow = $('<tr></tr>').append(createCheckBox())
 								.append($('<td>' + item._id + '</td>'))
