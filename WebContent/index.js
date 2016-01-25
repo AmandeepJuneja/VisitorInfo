@@ -130,10 +130,10 @@ function fetchAllVisitRecords() {
 				var itiObjs = {};
 				$.each(item.itineraryRecords, function(idx, itiRec){
 					itiDates.push(itiRec.itiStart);
-					itiObjs[new Date(itiRec.itiStart)] = itiRec.itiLoc;
+					itiObjs[new Date(itiRec.itiStart).toString()] = itiRec.itiLoc;
 				});
 				var visitStartDate = findMinDate(itiDates);
-				var visitStartCenter = itiObjs[visitStartDate];
+				var visitStartCenter = itiObjs[visitStartDate.toString()];
 				
 				var insertRow = $('<tr></tr>').append(createCheckBox())
 								.append($('<td>' + item._id + '</td>'))
@@ -261,7 +261,7 @@ function createVisitRecord() {
 			} else if ( index == 3 ) {
 				itiEnd[rowIdx] = $(this).text();
 			}
-			itiObjs[new Date(itiStart[rowIdx])] = itiLoc[rowIdx];
+			itiObjs[new Date(itiStart[rowIdx]).toString()] = itiLoc[rowIdx];
 		});
 	});
 	
@@ -326,7 +326,7 @@ function createVisitRecord() {
 	
 	// find the minimum of the Itinerary dates
 	var visitStartDate = findMinDate(itiStart);
-	var visitPrimaryCenter = itiObjs[visitStartDate];
+	var visitPrimaryCenter = itiObjs[visitStartDate.toString()];
 	
 	dialog.dialog('close');
 	
