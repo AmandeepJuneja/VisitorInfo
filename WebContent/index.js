@@ -327,6 +327,23 @@ function createVisitRecord() {
 		return;
 	}
 	
+	// Also we need to validate if the user has actually entered values for new opportunity
+	var deliveryTypeVal = $('#deliveryTypeRadio :radio:checked').val();
+	var execOwnerTCV = $('#execOwnerTCV').val();
+	var opportunityTCV = $('#opportunityTCV').val();
+	if ( deliveryTypeVal != null && deliveryTypeVal != undefined && deliveryTypeVal == 'N') {
+		console.log('New opportunity detected...');
+		if ( execOwnerTCV == null || execOwnerTCV == undefined || execOwnerTCV.trim().length <= 0 ) {
+			showValidationError('visitOverviewTab', 'visitOverviewMsgBox', 'You did not enter the Executive owner of the TCV for New Opportunity');
+			return;
+		}
+		
+		if ( opportunityTCV == null || opportunityTCV == undefined || opportunityTCV.trim().length <= 0 ) {
+			showValidationError('visitOverviewTab', 'visitOverviewMsgBox', 'You did not enter the New Opportunity TCV');
+			return;
+		}
+	} 
+	
 	// find the minimum of the Itinerary dates
 	var visitStartDate = findMinDate(itiStart);
 	var visitPrimaryCenter = itiObjs[visitStartDate];
@@ -907,6 +924,20 @@ function clearCreateVisitRecordForm() {
 	});	
 }
 
+function deliveryTypeChangeListener() {
+	console.log('Delivery type change detected....');
+	var deliveryTypeVal = $('#deliveryTypeRadio :radio:checked').val();
+	if ( deliveryTypeVal != null && deliveryTypeVal != undefined && deliveryTypeVal == 'N') {
+		console.log('New Opportunity Detected...');
+		$('#opportunityTCVTR').show('clip');
+		$('#execOwnerTCVTR').show('clip');
+	} else {
+		console.log('Existing Delivery Detected...');
+		$('#opportunityTCVTR').hide('clip');
+		$('#execOwnerTCVTR').hide('clip');
+	}
+}
+
 $(function() {
 	// bootstrap bill :)
 	// initializing GUI components...
@@ -934,6 +965,8 @@ $(function() {
 	$('#ldrPartRemove').button().click(removeLdrPart);
 	$('#createVisitTabs').tabs();
 	$('#visitTypeRadio').buttonset();
+	$('#deliveryTypeRadio').buttonset();
+	$('#deliveryTypeChoiceN').on('change', deliveryTypeChangeListener);
 	$('#itiStart').datepicker();
 	$('#itiEnd').datepicker();
 	$('#ldrDate').datepicker();

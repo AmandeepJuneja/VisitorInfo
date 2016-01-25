@@ -100,6 +100,15 @@
 							<span class="on-screen-tips">* Please choose the visit type from the button set.</span>
 						</fieldset>
 						
+						<fieldset id="deliveryTypeRadio">
+							<legend>Delivery Type</legend>
+							<input type="radio" id="deliveryTypeChoiceE" name="deliveryTypeChoice" value="E">
+							<label for="deliveryTypeChoiceE">Existing Delivery</label>
+							<input type="radio" id="deliveryTypeChoiceN" name="deliveryTypeChoice" value="N">
+							<label for="deliveryTypeChoiceN">New Opportunity</label>
+							<span class="on-screen-tips">* Please choose the delivery type from the button set.</span>
+						</fieldset>
+						
 						<table>
 							<tbody>
 								<tr>
@@ -158,6 +167,14 @@
 								<tr>
 									<td><label for="visitAgenda">Primary Agenda of Visit:</label></td>
 									<td><input name="visitAgenda" id="visitAgenda" type="text" required></td>
+								</tr>
+								<tr id="opportunityTCVTR">
+									<td><label for="opportunityTCV">Opportunity TCV in $M</label></td>
+									<td><input name="opportunityTCV" id="opportunityTCV" type="number" min="0"></td>
+								</tr>
+								<tr id="execOwnerTCVTR">
+									<td><label for="execOwnerTCV">Executive owner for TCV > 10 Million</label></td>
+									<td><input name="execOwnerTCV" id="execOwnerTCV" type="text"></td>
 								</tr>
 							</tbody>
 						</table>
