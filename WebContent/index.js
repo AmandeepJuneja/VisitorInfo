@@ -526,7 +526,6 @@ function openSelectedVisitRecords() {
 							var visRecItiDiv = $('<div id="visRecIti' + visitRec._id + '"></div>');
 							var visRecLdrDiv = $('<div id="visRecLdr' + visitRec._id + '"></div>');
 							
-
 							if ( visitRec['visitTypeChoice'] == 'I' ) {
 								visitRec['visitTypeChoice'] = 'IBM Only'
 							} else if (visitRec['visitTypeChoice'] == 'C') {
@@ -534,8 +533,7 @@ function openSelectedVisitRecords() {
 							} else if (visitRec['visitTypeChoice'] == 'B') {
 								visitRec['visitTypeChoice'] = 'Both Client & IBM'
 							}
-							
-							
+														
 							var visRecOvervwTableBody = $('<tbody></tbody>').append(
 									$('<tr></tr>')
 									.append(
@@ -594,12 +592,13 @@ function openSelectedVisitRecords() {
 										)
 									); 
 							
+
 							if ( visitRec['deliveryTypeChoice'] == null || visitRec['deliveryTypeChoice'] == undefined || visitRec['deliveryTypeChoice'] == 'E' ) {
 								visitRec['deliveryTypeChoice'] = 'Existing Delivery'; // Assuming Existing delivery to be default.
 							} else if ( visitRec['deliveryTypeChoice'] == 'N' ) {
 								visitRec['deliveryTypeChoice'] = 'New Opportunity';
 							}
-							
+
 							visRecOvervwTableBody.append(
 									$('<tr></tr>').append(
 											$('<td>Delivery Type: </td>')	
