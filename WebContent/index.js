@@ -526,65 +526,110 @@ function openSelectedVisitRecords() {
 							var visRecItiDiv = $('<div id="visRecIti' + visitRec._id + '"></div>');
 							var visRecLdrDiv = $('<div id="visRecLdr' + visitRec._id + '"></div>');
 							
-							var visRecOvervwTable = $('<table></table>').append(
-									$('<tbody></tbody>').append(
-											$('<tr></tr>')
-										.append(
-												$('<td>Visit ID #</td>')	
-											).append(
-												$('<td>' + visitRec._id + '</td>')
-											)
+
+							if ( visitRec['visitTypeChoice'] == 'I' ) {
+								visitRec['visitTypeChoice'] = 'IBM Only'
+							} else if (visitRec['visitTypeChoice'] == 'C') {
+								visitRec['visitTypeChoice'] = 'Client Only'
+							} else if (visitRec['visitTypeChoice'] == 'B') {
+								visitRec['visitTypeChoice'] = 'Both Client & IBM'
+							}
+							
+							
+							var visRecOvervwTableBody = $('<tbody></tbody>').append(
+									$('<tr></tr>')
+									.append(
+											$('<td>Visit ID #</td>')	
+										).append(
+											$('<td>' + visitRec._id + '</td>')
 										)
-										.append(
-											$('<tr></tr>').append(
-												$('<td>Visit Type: </td>')	
-											).append(
-												$('<td>' + visitRec.visitTypeChoice + '</td>')
-											)
+									)
+									.append(
+										$('<tr></tr>').append(
+											$('<td>Visit Type: </td>')	
+										).append(
+											$('<td>' + visitRec.visitTypeChoice + '</td>')
 										)
-										.append(
-											$('<tr></tr>').append(
-												$('<td>Industry: </td>')	
-											).append(
-												$('<td>' + visitRec.industry + '</td>')
-											)
+									)
+									.append(
+										$('<tr></tr>').append(
+											$('<td>Industry: </td>')	
+										).append(
+											$('<td>' + visitRec.industry + '</td>')
 										)
-										.append(
-											$('<tr></tr>').append(
-												$('<td>Account Name: </td>')	
-											).append(
-												$('<td>' + visitRec.accName + '</td>')
-											)
+									)
+									.append(
+										$('<tr></tr>').append(
+											$('<td>Account Name: </td>')	
+										).append(
+											$('<td>' + visitRec.accName + '</td>')
 										)
-										.append(
-											$('<tr></tr>').append(
-												$('<td>PAL/LFE: </td>')	
-											).append(
-												$('<td>' + visitRec.palLFE + '</td>')
-											)
+									)
+									.append(
+										$('<tr></tr>').append(
+											$('<td>PAL/LFE: </td>')	
+										).append(
+											$('<td>' + visitRec.palLFE + '</td>')
 										)
-										.append(
-											$('<tr></tr>').append(
-												$('<td>CBC: </td>')	
-											).append(
-												$('<td>' + visitRec.cbc + '</td>')
-											)
+									)
+									.append(
+										$('<tr></tr>').append(
+											$('<td>CBC: </td>')	
+										).append(
+											$('<td>' + visitRec.cbc + '</td>')
 										)
-										.append(
-											$('<tr></tr>').append(
-												$('<td>Hosting Manager: </td>')	
-											).append(
-												$('<td>' + visitRec.hostMgr + '</td>')
-											)
+									)
+									.append(
+										$('<tr></tr>').append(
+											$('<td>Hosting Manager: </td>')	
+										).append(
+											$('<td>' + visitRec.hostMgr + '</td>')
 										)
-										.append(
-											$('<tr></tr>').append(
-												$('<td>Primary Agenda of Visit: </td>')	
-											).append(
-												$('<td>' + visitRec.visitAgenda + '</td>')
-											)
+									)
+									.append(
+										$('<tr></tr>').append(
+											$('<td>Primary Agenda of Visit: </td>')	
+										).append(
+											$('<td>' + visitRec.visitAgenda + '</td>')
 										)
-									);
+									); 
+							
+							if ( visitRec['deliveryTypeChoice'] == null || visitRec['deliveryTypeChoice'] == undefined || visitRec['deliveryTypeChoice'] == 'E' ) {
+								visitRec['deliveryTypeChoice'] = 'Existing Delivery'; // Assuming Existing delivery to be default.
+							} else if ( visitRec['deliveryTypeChoice'] == 'N' ) {
+								visitRec['deliveryTypeChoice'] = 'New Opportunity';
+							}
+							
+							visRecOvervwTableBody.append(
+									$('<tr></tr>').append(
+											$('<td>Delivery Type: </td>')	
+										).append(
+											$('<td>' + visitRec['deliveryTypeChoice'] + '</td>')
+										)
+									); 
+							
+							if ( visitRec['execOwnerTCV'] != null && visitRec['execOwnerTCV'] != undefined ) {
+								visRecOvervwTableBody.append(
+										$('<tr></tr>').append(
+												$('<td>Executive owner for TCV > $10M: </td>')	
+											).append(
+												$('<td>' + visitRec['execOwnerTCV'] + '</td>')
+											)
+										); 
+							}
+							
+							if ( visitRec['opportunityTCV'] != null && visitRec['opportunityTCV'] != undefined ) {
+								visRecOvervwTableBody.append(
+										$('<tr></tr>').append(
+												$('<td>Opportunity TCV in $M: </td>')	
+											).append(
+												$('<td>' + visitRec['opportunityTCV'] + '</td>')
+											)
+										); 
+							}
+							
+							
+							var visRecOvervwTable = $('<table></table>').append(visRecOvervwTableBody);
 							
 							var visRecVisTable = $('<table></table>').append(
 								$('<thead></thead>').append(
