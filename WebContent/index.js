@@ -130,7 +130,7 @@ function fetchAllVisitRecords() {
 				var itiObjs = {};
 				$.each(item.itineraryRecords, function(idx, itiRec){
 					itiDates.push(itiRec.itiStart);
-					itiObjs[itiRec.itiStart] = itiRec.itiLoc;
+					itiObjs[new Date(itiRec.itiStart)] = itiRec.itiLoc;
 				});
 				var visitStartDate = findMinDate(itiDates);
 				var visitStartCenter = itiObjs[visitStartDate];
@@ -261,7 +261,7 @@ function createVisitRecord() {
 			} else if ( index == 3 ) {
 				itiEnd[rowIdx] = $(this).text();
 			}
-			itiObjs[itiStart[rowIdx]] = itiLoc[rowIdx];
+			itiObjs[new Date(itiStart[rowIdx])] = itiLoc[rowIdx];
 		});
 	});
 	
