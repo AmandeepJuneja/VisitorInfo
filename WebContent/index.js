@@ -127,14 +127,18 @@ function fetchAllVisitRecords() {
 				
 				// find the minimum of the Itinerary dates
 				var itiDates = new Array();
+				var itiObjs = {};
 				$.each(item.itineraryRecords, function(idx, itiRec){
 					itiDates.push(itiRec.itiStart);
+					itiObjs[itiRec.itiStart] = itiRec.itiLoc;
 				});
 				var visitStartDate = findMinDate(itiDates);
+				var visitStartCenter = itiObjs[visitStartDate];
 				
 				var insertRow = $('<tr></tr>').append(createCheckBox())
 								.append($('<td>' + item._id + '</td>'))
 								.append($('<td>' + visitStartDate + '</td>'))
+								.append($('<td>' + visitStartCenter + '</td>'))
 								.append($('<td>' + item.industry + '</td>'))
 								.append($('<td>' + item.accName + '</td>'))
 								.append($('<td>' + item.palLFE + '</td>'))
@@ -246,6 +250,7 @@ function createVisitRecord() {
 	});
 	
 	// itinerary data
+	var itiObjs = {};
 	$('#visitItineraryList > tbody > tr').each(function(index) {
 		var rowIdx = index;
 		$(this).find('td').each(function(index){
@@ -256,6 +261,7 @@ function createVisitRecord() {
 			} else if ( index == 3 ) {
 				itiEnd[rowIdx] = $(this).text();
 			}
+			itiObjs[itiStart[rowIdx]] = itiLoc[rowIdx];
 		});
 	});
 	
@@ -320,6 +326,7 @@ function createVisitRecord() {
 	
 	// find the minimum of the Itinerary dates
 	var visitStartDate = findMinDate(itiStart);
+	var visitPrimaryCenter = itiObjs[visitStartDate];
 	
 	dialog.dialog('close');
 	
@@ -369,6 +376,7 @@ function createVisitRecord() {
 			var insertRow = $('<tr></tr>').append(createCheckBox())
 							.append($('<td>' + data._id + '</td>'))
 							.append($('<td>' + visitStartDate + '</td>'))
+							.append($('<td>' + visitPrimaryCenter + '</td>'))
 							.append($('<td>' + industry + '</td>'))
 							.append($('<td>' + accName + '</td>'))
 							.append($('<td>' + palLFE + '</td>'))
