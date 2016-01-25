@@ -355,6 +355,7 @@ function createVisitRecord() {
 	
 	postData = {
 			'visitTypeChoice': visitTypeChoice,
+			'deliveryTypeChoice': deliveryTypeVal,
 			'industry': industry,
 			'accName': accName,
 			'palLFE': palLFE,
@@ -371,8 +372,16 @@ function createVisitRecord() {
 			'ldrBU': ldrBU,
 			'ldrAttnd': ldrAttnd,
 			'ldrLoc': ldrLoc,
-			'ldrDate': ldrDate
+			'ldrDate': ldrDate,
 		};
+	
+	if ( execOwnerTCV != null && execOwnerTCV != undefined && execOwnerTCV.trim().length >= 0 ) {
+		postData['execOwnerTCV'] = execOwnerTCV;
+	}
+	
+	if ( opportunityTCV != null && opportunityTCV != undefined && opportunityTCV.trim().length >= 0 ) {
+		postData['opportunityTCV'] = opportunityTCV;
+	}
 	
 	console.log('data values to be sent: ', postData);
 	

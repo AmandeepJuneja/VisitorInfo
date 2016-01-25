@@ -82,7 +82,10 @@ public class CloudVisit {
 			@FormParam(value="ldrBU") List<String> ldrBUs,
 			@FormParam(value="ldrAttnd") List<String> ldrAttnds,
 			@FormParam(value="ldrLoc") List<String> ldrLocs,
-			@FormParam(value="ldrDate") List<String> ldrDates) {
+			@FormParam(value="ldrDate") List<String> ldrDates,
+			@FormParam(value="execOwnerTCV") String execOwnerTCV,
+			@FormParam(value="opportunityTCV") String opportunityTCV,
+			@FormParam(value="deliveryTypeChoice") String deliveryTypeChoice) {
 		
 		JsonObject visitObj = new JsonObject();
 		
@@ -93,6 +96,9 @@ public class CloudVisit {
 		visitObj.addProperty("cbc", cbc);
 		visitObj.addProperty("hostMgr", hostMgr);
 		visitObj.addProperty("visitAgenda", visitAgenda);
+		visitObj.addProperty("execOwnerTCV", execOwnerTCV);
+		visitObj.addProperty("opportunityTCV", opportunityTCV);
+		visitObj.addProperty("deliveryTypeChoice", deliveryTypeChoice);
 		
 		JsonArray visitorRecords = new JsonArray();
 		for ( int i = 0; i < visitorNames.size(); i++ ) {
