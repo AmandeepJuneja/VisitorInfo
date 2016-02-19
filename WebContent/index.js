@@ -171,7 +171,7 @@ function fetchAllVisitRecords() {
 				insertRow.push(hostMgr);
 				insertRow.push(visitAgenda);
 				
-				visitRecordsTable.add(insertRow).draw();
+				visitRecordsTable.row.add(insertRow).draw();
 				
 				console.log('***DEBUG: inserted record #' + i + ' item ', item);
 			});
