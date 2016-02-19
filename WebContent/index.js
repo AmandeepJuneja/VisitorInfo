@@ -491,6 +491,41 @@ function createVisitRecord() {
 // This function is used to delete selected visit records from the system
 function deleteSelectedVisitRecords() {
 	var selectedRecord = visitRecordsTable.row('.selected').data();
+	var id = selectedRecord[0];
+	
+	// This is where we need to do some server side magic
+	$('#messagesDiv').empty().append($('<p>Deleting Visit Record # ' + id + '' + 
+	'<img src="./images/spinner.gif"></p>'));
+	
+	$.ajax({
+		url: './api/cloudvisit',
+		type: 'DELETE',
+		traditional: true,
+		data: {'id': id},
+		contentType: 'text/plain',
+		dataType: 'json',
+		success: function(data, status, xhr) {
+			console.log('Success', data, status, xhr);
+			$('#messagesDiv').empty();
+			$('#messagesDiv').empty().append(
+					$('<p><img src="./images/complete_status.gif">'
+					+ 'Deleted visit record #' + id + 'successfully.</p>')).show('scale')
+				.delay(2000)
+				.hide('scale');
+		},
+		
+		error: function(jqXHR, textStatus, errorThrown) {
+			$('#messagesDiv').empty();
+			$('#messagesDiv').empty().append(
+					$('<p><img src="./images/complete_error.gif">'
+					+ 'Operation Failed: ' 
+					+ errorThrown + '</p>')).show('scale')
+				.delay(2000)
+				.hide('scale');
+		}
+	});
+	
+	visitRecordsTable.row('.selected').remove().draw();
 	
 	console.log('Selected record for deletion: ',  selectedRecord);
 	
@@ -543,6 +578,310 @@ function deleteSelectedVisitRecords() {
 //This function is used to open selected visit records from the system in popup dialogs
 function openSelectedVisitRecords() {
 	var selectedRecord = visitRecordsTable.row('.selected').data();
+	var id = selectedRecord[0];
+	
+	// This is where we need to do some server side magic
+	$('#messagesDiv').empty().append($('<p>Opening Visit Record # ' + id + '' + 
+	'<img src="./images/spinner.gif"></p>')).show('scale');
+	
+	$.ajax({
+		url: './api/cloudvisit',
+		type: 'GET',
+		traditional: true,
+		data: {'id': id},
+		dataType: 'json',
+		success: function(data, status, xhr) {
+			console.log('Success', data, status, xhr);
+			
+			// Open the visit record
+			var visitRec = data.results[0];	
+			var visRecDiv = $('<div id="visRecWin'+ visitRec._id +'" title="Visit Record # ' + visitRec._id  + '"></div>');
+			var visRecTabDiv = $('<div id="visRecTab' + visitRec._id + '"></div>');
+			var visRecTabUl = $('<ul></ul>');
+			var visRecOvrvwDiv = $('<div id="visRecOvrvw' + visitRec._id + '"></div>');
+			var visRecVisDiv = $('<div id="visRecVis' + visitRec._id + '"></div>');
+			var visRecItiDiv = $('<div id="visRecIti' + visitRec._id + '"></div>');
+			var visRecLdrDiv = $('<div id="visRecLdr' + visitRec._id + '"></div>');
+			
+			if ( visitRec['visitTypeChoice'] == 'I' ) {
+				visitRec['visitTypeChoice'] = 'IBM Only'
+			} else if (visitRec['visitTypeChoice'] == 'C') {
+				visitRec['visitTypeChoice'] = 'Client Only'
+			} else if (visitRec['visitTypeChoice'] == 'B') {
+				visitRec['visitTypeChoice'] = 'Both Client & IBM'
+			}
+										
+			var visRecOvervwTableBody = $('<tbody></tbody>').append(
+					$('<tr></tr>')
+					.append(
+							$('<td>Visit ID #</td>')	
+						).append(
+							$('<td>' + visitRec._id + '</td>')
+						)
+					)
+					.append(
+						$('<tr></tr>').append(
+							$('<td>Visit Type: </td>')	
+						).append(
+							$('<td>' + visitRec.visitTypeChoice + '</td>')
+						)
+					)
+					.append(
+						$('<tr></tr>').append(
+							$('<td>Industry: </td>')	
+						).append(
+							$('<td>' + visitRec.industry + '</td>')
+						)
+					)
+					.append(
+						$('<tr></tr>').append(
+							$('<td>Account Name: </td>')	
+						).append(
+							$('<td>' + visitRec.accName + '</td>')
+						)
+					)
+					.append(
+						$('<tr></tr>').append(
+							$('<td>PAL/LFE: </td>')	
+						).append(
+							$('<td>' + visitRec.palLFE + '</td>')
+						)
+					)
+					.append(
+						$('<tr></tr>').append(
+							$('<td>CBC: </td>')	
+						).append(
+							$('<td>' + visitRec.cbc + '</td>')
+						)
+					)
+					.append(
+						$('<tr></tr>').append(
+							$('<td>Hosting Manager: </td>')	
+						).append(
+							$('<td>' + visitRec.hostMgr + '</td>')
+						)
+					)
+					.append(
+						$('<tr></tr>').append(
+							$('<td>Primary Agenda of Visit: </td>')	
+						).append(
+							$('<td>' + visitRec.visitAgenda + '</td>')
+						)
+					); 
+			
+
+			if ( visitRec['deliveryTypeChoice'] == null || visitRec['deliveryTypeChoice'] == undefined || visitRec['deliveryTypeChoice'] == 'E' ) {
+				visitRec['deliveryTypeChoice'] = 'Existing Delivery'; // Assuming Existing delivery to be default.
+			} else if ( visitRec['deliveryTypeChoice'] == 'N' ) {
+				visitRec['deliveryTypeChoice'] = 'New Opportunity';
+			}
+
+			visRecOvervwTableBody.append(
+					$('<tr></tr>').append(
+							$('<td>Delivery Type: </td>')	
+						).append(
+							$('<td>' + visitRec['deliveryTypeChoice'] + '</td>')
+						)
+					); 
+			
+			if ( visitRec['execOwnerTCV'] != null && visitRec['execOwnerTCV'] != undefined ) {
+				visRecOvervwTableBody.append(
+						$('<tr></tr>').append(
+								$('<td>Executive owner for TCV > $10M: </td>')	
+							).append(
+								$('<td>' + visitRec['execOwnerTCV'] + '</td>')
+							)
+						); 
+			}
+			
+			if ( visitRec['opportunityTCV'] != null && visitRec['opportunityTCV'] != undefined ) {
+				visRecOvervwTableBody.append(
+						$('<tr></tr>').append(
+								$('<td>Opportunity TCV in $M: </td>')	
+							).append(
+								$('<td>' + visitRec['opportunityTCV'] + '</td>')
+							)
+						); 
+			}
+			
+			
+			var visRecOvervwTable = $('<table></table>').append(visRecOvervwTableBody);
+			
+			var visRecVisTable = $('<table></table>').append(
+				$('<thead></thead>').append(
+					$('<tr></tr>')
+					.append(
+						$('<th>Visitor Name</th>')
+					)
+					.append(
+						$('<th>Visitor Role</th>')
+					)
+					.append(
+						$('<th>Is Primary?</th>')
+					)
+				)
+			).append(
+				$('<tbody></tbody>')	
+			);
+			
+			var visRecItiTable = $('<table></table>')
+			.append(
+				$('<thead></thead>')
+				.append(
+					$('<tr></tr>')
+					.append(
+						$('<th>Location</th>')
+					)
+					.append(
+						$('<th>Start Date</th>')
+					)
+					.append(
+						$('<th>End Date</th>')
+					)
+				)
+			).append(
+				$('<tbody></tbody>')
+			);
+			
+			var visRecLdrTable = $('<table></table>')
+			.append(
+					$('<thead></thead>')
+					.append(
+						$('<tr></tr>')
+						.append(
+							$('<th>Leader Lotus Notes ID</th>')
+						)
+						.append(
+							$('<th>BU</th>')
+						)
+						.append(
+							$('<th>Attend/Inform</th>')
+						)
+						.append(
+							$('<th>Location</th>')
+						)
+						.append(
+							$('<th>Date</th>')
+						)
+					)
+				).append(
+					$('<tbody></tbody>')
+				);
+			
+			$.each(visitRec.visitorRecords, function(index, visitorRec){
+				visRecVisTable.find('tbody')
+				.append(
+					$('<tr></tr>')
+					.append(
+							$('<td>' + visitorRec.visitorName + '</td>')
+					)
+					.append(
+							$('<td>' + visitorRec.visitorRole + '</td>')
+					)
+					.append(
+							$('<td>' + visitorRec.visitorPrimary + '</td>')
+					)
+				);
+			});
+			
+			$.each(visitRec.itineraryRecords, function(index, itiRec) {
+				visRecItiTable.find('tbody')
+				.append(
+					$('<tr></tr>')
+					.append(
+						$('<td>' + itiRec.itiLoc + '</td>')
+					)
+					.append(
+						$('<td>' + itiRec.itiStart + '</td>')
+					)
+					.append(
+						$('<td>' + itiRec.itiEnd + '</td>')
+					)
+				);
+			});
+			
+			$.each(visitRec.leadershipRecords, function(index, ldrRec) {
+				visRecLdrTable.find('tbody')
+				.append(
+					$('<tr></tr>')
+					.append(
+						$('<td>' + ldrRec.ldrLNID + '</td>')
+					)
+					.append(
+						$('<td>' + ldrRec.ldrBU + '</td>')
+					)
+					.append(
+						$('<td>' + ldrRec.ldrAttnd + '</td>')
+					)
+					.append(
+						$('<td>' + ldrRec.ldrLoc + '</td>')
+					)
+					.append(
+						$('<td>' + ldrRec.ldrDate + '</td>')
+					)
+				);
+			});
+			
+			visRecOvrvwDiv.append(visRecOvervwTable);
+			visRecVisDiv.append(visRecVisTable);
+			visRecItiDiv.append(visRecItiTable);
+			visRecLdrDiv.append(visRecLdrTable);
+			
+			
+			visRecTabUl.append($('<li><a href="#visRecOvrvw' 
+							+ visitRec._id + '">Visit Overview</a></li>'))
+					.append($('<li><a href="#visRecVis' 
+							+ visitRec._id + '">Visitors</a></li>'))
+					.append($('<li><a href="#visRecIti' 
+							+ visitRec._id + '">Visit Itinerary</a></li>'))
+					.append($('<li><a href="#visRecLdr' 
+							+ visitRec._id + '">IBM India Leadership Participation</a></li>'));
+			
+			visRecTabDiv.append(visRecTabUl)
+				.append(visRecOvrvwDiv)
+				.append(visRecVisDiv)
+				.append(visRecItiDiv)
+				.append(visRecLdrDiv);
+			visRecTabDiv.tabs();
+			
+			visRecDiv.append(visRecTabDiv);
+			visRecDiv.dialog({
+				height: 600,
+				width: 800,
+				modal: false,
+				hide: 'clip',
+				show: 'clip',
+				buttons: {
+					'Close': function() {
+						$(this).dialog('close');
+						$(this).dialog('destroy');
+					}
+				},
+				close: function() {
+					$(this).dialog('close');
+					$(this).dialog('destroy');
+				}
+			});
+			
+			$('#messagesDiv').empty();
+			$('#messagesDiv').empty().append(
+					$('<p><img src="./images/complete_status.gif">'
+					+ 'Opened visit record #' + id + 'successfully.</p>')).show('scale')
+				.delay(2000)
+				.hide('scale');
+			
+		},
+		
+		error: function(jqXHR, textStatus, errorThrown) {
+			$('#messagesDiv').empty();
+			$('#messagesDiv').empty().append(
+					$('<p><img src="./images/complete_error.gif">'
+					+ 'Operation Failed: ' 
+					+ errorThrown + '</p>')).show('scale')
+				.delay(2000)
+				.hide('scale');
+		}
+	});
 	
 	console.log('Selected record for open: ',  selectedRecord);
 	/*
