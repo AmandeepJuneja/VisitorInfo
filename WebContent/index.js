@@ -490,6 +490,11 @@ function createVisitRecord() {
 
 // This function is used to delete selected visit records from the system
 function deleteSelectedVisitRecords() {
+	var selectedRecord = visitRecordsTable.row('.selected').data();
+	
+	console.log('Selected record for deletion: ',  selectedRecord);
+	
+	/*
 	$('#visitRecordsTable > tbody > tr').each(function(index) {
 		var chkBox = $(this).find('td > input[type="checkbox"]');
 		if ( chkBox.prop('checked') == true ) {
@@ -531,7 +536,8 @@ function deleteSelectedVisitRecords() {
 			});
 			$(this).remove();
 		}
-	});
+	}); 
+	*/
 }
 
 //This function is used to open selected visit records from the system in popup dialogs
@@ -1031,6 +1037,18 @@ function deliveryTypeChangeListener() {
 	}
 }
 
+// Allows the visit records table to respond to selection events
+function initVisitRecordSelection() {
+	$('#visitRecordsTable tbody').on('click', 'tr', function() {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		} else {
+			visitRecordsTable.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+}
+
 $(function() {
 	// bootstrap bill :)
 	// initializing GUI components...
@@ -1063,6 +1081,8 @@ $(function() {
 	$('#itiStart').datepicker();
 	$('#itiEnd').datepicker();
 	$('#ldrDate').datepicker();
+	
+	initVisitRecordSelection();
 	
 	// loading data now
 	fetchAllVisitRecords();
