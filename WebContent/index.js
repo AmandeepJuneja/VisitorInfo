@@ -49,9 +49,7 @@ var  form = dialog.find('form').on('submit', function(evt) {
 	createVisitRecord();
 });
 
-var visitRecordsTable = $('#visitRecordsTable').DataTable({
-	
-});
+var visitRecordsTable = $('#visitRecordsTable').DataTable();
 
 /*
  * Global functions
