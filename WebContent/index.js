@@ -162,12 +162,12 @@ function fetchAllVisitRecords() {
 				insertRow.push(item._id);
 				insertRow.push(visitStartDate);
 				insertRow.push(visitStartCenter);
-				insertRow.push(industry);
-				insertRow.push(accName);
-				insertRow.push(palLFE);
-				insertRow.push(cbc);
-				insertRow.push(hostMgr);
-				insertRow.push(visitAgenda);
+				insertRow.push(item.industry);
+				insertRow.push(item.accName);
+				insertRow.push(item.palLFE);
+				insertRow.push(item.cbc);
+				insertRow.push(item.hostMgr);
+				insertRow.push(item.visitAgenda);
 				
 				visitRecordsTable.row.add(insertRow).draw();
 				
@@ -424,6 +424,7 @@ function createVisitRecord() {
 				.delay(2000)
 				.hide('scale');
 			
+			/*
 			var insertRow = $('<tr></tr>').append(createCheckBox())
 							.append($('<td>' + data._id + '</td>'))
 							.append($('<td>' + visitStartDate + '</td>'))
@@ -436,6 +437,22 @@ function createVisitRecord() {
 							.append($('<td>' + visitAgenda + '</td>'));
 			
 			$('#visitRecordsTable').append(insertRow);
+			*/
+			
+			var insertRow = [];
+			
+			insertRow.push(data._id);
+			insertRow.push(visitStartDate);
+			insertRow.push(visitPrimaryCenter);
+			insertRow.push(industry);
+			insertRow.push(accName);
+			insertRow.push(palLFE);
+			insertRow.push(cbc);
+			insertRow.push(hostMgr);
+			insertRow.push(visitAgenda);
+			
+			visitRecordsTable.row.add(insertRow).draw();
+			
 			clearCreateVisitRecordForm();
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
