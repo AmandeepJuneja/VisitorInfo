@@ -150,6 +150,8 @@ function fetchAllVisitRecords() {
 								.append($('<td>' + item.visitAgenda + '</td>'));
 				
 				$('#visitRecordsTable').append(insertRow);
+				
+				console.log('***DEBUG: inserted record #' + i + ' item ', item);
 			});
 			
 			
