@@ -1042,9 +1042,11 @@ function initVisitRecordSelection() {
 	$('#visitRecordsTable tbody').on('click', 'tr', function() {
 		if ( $(this).hasClass('selected') ) {
 			$(this).removeClass('selected');
+			console.log('selection removed');
 		} else {
 			visitRecordsTable.$('tr.selected').removeClass('selected');
 			$(this).addClass('selected');
+			console.log('selection added');
 		}
 	});
 }

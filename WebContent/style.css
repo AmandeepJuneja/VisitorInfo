@@ -68,6 +68,11 @@ tbody tr:nth-child(odd) {
 	background-color: #e0f2f1;
 }
 
+.selected {
+	background-color: #03A9F4;
+	color: #ffffff;
+}
+
 .message-box {
 	padding: 4px;
 	margin: 4px;
