@@ -49,6 +49,10 @@ var  form = dialog.find('form').on('submit', function(evt) {
 	createVisitRecord();
 });
 
+var visitRecordsTable = $('#visitRecordsTable').DataTable({
+	
+});
+
 /*
  * Global functions
  */
@@ -114,6 +118,8 @@ function fetchAllVisitRecords() {
 				.delay(2000)
 				.hide('scale');
 			
+			visitRecordsTable.clear();
+			
 			$.each(data.results, function(i, item){
 				console.log('ITEM ID# ', item._id);
 				console.log('VISIT CHOICE: ', item.visitTypeChoice);
@@ -138,6 +144,7 @@ function fetchAllVisitRecords() {
 				console.log('DEBUG: itinerary dates object: ', itiObjs);
 				console.log('DEBUG: visit start date: ', visitStartDate);
 				
+				/*
 				var insertRow = $('<tr></tr>').append(createCheckBox())
 								.append($('<td>' + item._id + '</td>'))
 								.append($('<td>' + visitStartDate + '</td>'))
@@ -148,8 +155,23 @@ function fetchAllVisitRecords() {
 								.append($('<td>' + item.cbc + '</td>'))
 								.append($('<td>' + item.hostMgr + '</td>'))
 								.append($('<td>' + item.visitAgenda + '</td>'));
+								
 				
 				$('#visitRecordsTable').append(insertRow);
+				*/
+				
+				var insertRow = [];
+				insertRow.push(item._id);
+				insertRow.push(visitStartDate);
+				insertRow.push(visitStartCenter);
+				insertRow.push(industry);
+				insertRow.push(accName);
+				insertRow.push(palLFE);
+				insertRow.push(cbc);
+				insertRow.push(hostMgr);
+				insertRow.push(visitAgenda);
+				
+				visitRecordsTable.add(insertRow).draw();
 				
 				console.log('***DEBUG: inserted record #' + i + ' item ', item);
 			});
