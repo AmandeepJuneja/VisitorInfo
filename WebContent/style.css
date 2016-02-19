@@ -120,6 +120,10 @@ tbody tr:nth-child(odd) {
 	-moz-border-radius: 8px;
 }
 
+#visitRecordsTable tbody {
+	cursor: pointer;
+}
+
 :disabled {
 	background-color: #B6B6B6;
 	color: #607D8B;
