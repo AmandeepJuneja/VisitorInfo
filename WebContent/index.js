@@ -542,6 +542,10 @@ function deleteSelectedVisitRecords() {
 
 //This function is used to open selected visit records from the system in popup dialogs
 function openSelectedVisitRecords() {
+	var selectedRecord = visitRecordsTable.row('.selected').data();
+	
+	console.log('Selected record for open: ',  selectedRecord);
+	/*
 	$('#visitRecordsTable > tbody > tr').each(function(index) {
 		var chkBox = $(this).find('td > input[type="checkbox"]');
 		if ( chkBox.prop('checked') == true ) {
@@ -854,6 +858,8 @@ function openSelectedVisitRecords() {
 			});
 		}
 	});
+	
+	*/
 }
 
 // This function creates a generic check box html item wrapped in a table cell.
