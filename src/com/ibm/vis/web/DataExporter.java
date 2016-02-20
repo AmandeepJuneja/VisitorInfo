@@ -114,9 +114,9 @@ public class DataExporter extends HttpServlet {
 			if ( visitObj.get("visitorRecords") != null ) {
 				JsonArray visitorRecords = visitObj.get("visitorRecords").getAsJsonArray();
 				Cell cell = dataRow.createCell(7);
-				CellStyle style = workbook.createCellStyle();
-			    style.setWrapText(true);
-			    cell.setCellStyle(style);
+//				CellStyle style = workbook.createCellStyle();
+//			    style.setWrapText(true);
+//			    cell.setCellStyle(style);
 			    StringBuffer visitorsBuffer = new StringBuffer();
 				for ( JsonElement visitorRecordElement : visitorRecords ) {
 					String visitorName = visitorRecordElement.getAsJsonObject().get("visitorName").getAsString();
@@ -137,9 +137,9 @@ public class DataExporter extends HttpServlet {
 			if ( visitObj.get("itineraryRecords") != null ) {
 				JsonArray itineraryRecords = visitObj.get("itineraryRecords").getAsJsonArray();
 				Cell cell = dataRow.createCell(8);
-				CellStyle style = workbook.createCellStyle();
-			    style.setWrapText(true);
-			    cell.setCellStyle(style);
+//				CellStyle style = workbook.createCellStyle();
+//			    style.setWrapText(true);
+//			    cell.setCellStyle(style);
 			    StringBuffer itineraryBuffer = new StringBuffer();
 			    for ( JsonElement itineraryElement : itineraryRecords ) {
 			    	itineraryBuffer.append(itineraryElement.getAsJsonObject().get("itiLoc").getAsString());
@@ -154,9 +154,9 @@ public class DataExporter extends HttpServlet {
 			if ( visitObj.get("leadershipRecords") != null ) {
 				JsonArray leadershipRecords = visitObj.get("leadershipRecords").getAsJsonArray();
 				Cell cell = dataRow.createCell(9);
-				CellStyle style = workbook.createCellStyle();
-			    style.setWrapText(true);
-			    cell.setCellStyle(style);
+//				CellStyle style = workbook.createCellStyle();
+//			    style.setWrapText(true);
+//			    cell.setCellStyle(style);
 			    StringBuffer leadershipBuffer = new StringBuffer();
 			    for ( JsonElement leadershipElement : leadershipRecords ) {
 			    	leadershipBuffer.append(leadershipElement.getAsJsonObject().get("ldrLNID").getAsString());
