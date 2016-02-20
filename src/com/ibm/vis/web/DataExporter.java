@@ -143,8 +143,8 @@ public class DataExporter extends HttpServlet {
 			    StringBuffer itineraryBuffer = new StringBuffer();
 			    for ( JsonElement itineraryElement : itineraryRecords ) {
 			    	itineraryBuffer.append(itineraryElement.getAsJsonObject().get("itiLoc").getAsString());
-			    	itineraryBuffer.append(" (From: " + itineraryElement.getAsJsonObject().get("").getAsString());
-			    	itineraryBuffer.append(" To: " + itineraryElement.getAsJsonObject().get("").getAsString() + ")");
+			    	itineraryBuffer.append(" (From: " + itineraryElement.getAsJsonObject().get("itiStart").getAsString());
+			    	itineraryBuffer.append(" To: " + itineraryElement.getAsJsonObject().get("itiEnd").getAsString() + ")");
 			    	itineraryBuffer.append("\n");
 			    }
 			    cell.setCellValue(itineraryBuffer.toString());
@@ -162,8 +162,8 @@ public class DataExporter extends HttpServlet {
 			    	leadershipBuffer.append(leadershipElement.getAsJsonObject().get("ldrLNID").getAsString());
 			    	leadershipBuffer.append(" (" + leadershipElement.getAsJsonObject().get("ldrBU").getAsString() + ")");
 			    	leadershipBuffer.append(" (" + leadershipElement.getAsJsonObject().get("ldrAttnd").getAsString() + ")");
-			    	leadershipBuffer.append(" (" + leadershipElement.getAsJsonObject().get("").getAsString() + ")");
-			    	leadershipBuffer.append(" (" + leadershipElement.getAsJsonObject().get("").getAsString() + ")");
+			    	leadershipBuffer.append(" (" + leadershipElement.getAsJsonObject().get("ldrLoc").getAsString() + ")");
+			    	leadershipBuffer.append(" (" + leadershipElement.getAsJsonObject().get("ldrDate").getAsString() + ")");
 			    	leadershipBuffer.append("\n");
 			    }
 			    cell.setCellValue(leadershipBuffer.toString());
