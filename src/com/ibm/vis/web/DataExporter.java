@@ -181,15 +181,16 @@ public class DataExporter extends HttpServlet {
 			
 			if ( visitObj.get("deliveryTypeChoice") != null ) {
 				String deliveryTypeChoice = visitObj.get("deliveryTypeChoice").getAsString();
-				switch(deliveryTypeChoice) {
-				case "E":
-					dataRow.createCell(12).setCellValue("Existing Delivery");
-					break;
-				case "N":
-					dataRow.createCell(12).setCellValue("New Opportunity");
-					break;
-				default:
-					dataRow.createCell(12).setCellValue("Unknown");
+				if (deliveryTypeChoice != null) {
+					if ( deliveryTypeChoice.equals("E") ) {
+						dataRow.createCell(12).setCellValue("Existing Delivery");
+					} else if ( deliveryTypeChoice.equals("N") ) {
+						dataRow.createCell(12).setCellValue("New Opportunity");
+					} else {
+						dataRow.createCell(12).setCellValue("Unknown");
+					}
+				} else {
+					dataRow.createCell(12).setCellValue("Null");
 				}
 				
 			}
