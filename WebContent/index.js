@@ -1400,6 +1400,12 @@ function initVisitRecordSelection() {
 	});
 }
 
+// Export click handler
+function exportReport() {
+	var exportWindow = window.open("/xport", "ExportWindow", "location=no,resizable=no,scrollbars=no");
+	
+}
+
 $(function() {
 	// bootstrap bill :)
 	// initializing GUI components...
@@ -1419,7 +1425,7 @@ $(function() {
 	$('#searchVisitBtn').button();
 	$('#addVisitorBtn').button().click(addVisitor);
 	$('#deleteVisitBtn').button().click(openDeleteConfirmationDialog);
-	$('#exportRptBtn').button();
+	$('#exportRptBtn').button().click(exportReport);
 	$('#removeVisitorsBtn').button().click(removeVisitor);
 	$('#itiAddBtn').button().click(addItinerary);
 	$('#itiRemoveBtn').button().click(removeItinerary);
