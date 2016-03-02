@@ -1,7 +1,9 @@
 /*
  * GlobalConsts.java
- * (C) 2016 Siddhartha Ghosh / IBM India Pvt. Ltd.
+ * (C) 2016 IBM India Pvt. Ltd.
  * All Rights Reserved.
+ * 
+ * This program is a part of the VisitorInformationManagement System.
  */
 package com.ibm.vis.utils;
 
@@ -17,4 +19,5 @@ public final class GlobalConsts {
 	public static final String MDB_VISIT_REC_COLLECTION_NAME = "vis_visit";
 	
 	public static final String CLOUDANT_DB_NAME = "vis";
+	public static final String CLOUDANT_TEST_DB_NAME = "vis_testbed";
 }

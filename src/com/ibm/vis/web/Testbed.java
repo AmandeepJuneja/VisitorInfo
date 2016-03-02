@@ -10,6 +10,8 @@ package com.ibm.vis.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +19,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cloudant.client.api.Database;
+import com.google.gson.JsonObject;
+import com.ibm.vis.utils.CloudDBUtil;
+import com.ibm.vis.utils.GlobalConsts;
 import com.ibm.vis.utils.IdGenerator;
 
 /**
@@ -27,13 +33,17 @@ import com.ibm.vis.utils.IdGenerator;
 @WebServlet(description = "A testing servlet meant to test out certain scenarios.", urlPatterns = { "/test.do" })
 public class Testbed extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private Database database;
+	
        
     /**
+     * @throws MalformedURLException 
      * @see HttpServlet#HttpServlet()
      */
-    public Testbed() {
+    public Testbed() throws MalformedURLException {
         super();
-        // TODO Auto-generated constructor stub
+        database = CloudDBUtil.createInstance()
+				.getDB(GlobalConsts.CLOUDANT_TEST_DB_NAME, false);
     }
 
 	/**
@@ -43,8 +53,18 @@ public class Testbed extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/plain");
 		PrintWriter pw = response.getWriter();
-		for ( int i = 0; i < 10; i++ ) {
-			pw.println(IdGenerator.nextVisitId());
+		List<String> allDocIds;
+		
+		allDocIds = database.getAllDocsRequestBuilder().build().getResponse().getDocIds();	
+		
+		for (String docId : allDocIds) {
+			JsonObject visitObj = database.find(JsonObject.class, docId);
+			JsonObject clone = visitObj.getAsJsonObject();
+			clone.remove("_rev");
+			clone.remove("_id");
+			clone.addProperty("_id", IdGenerator.nextVisitId());
+			database.remove(visitObj);
+			database.save(clone);
 		}
 	}
 
