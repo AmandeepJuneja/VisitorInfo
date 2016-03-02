@@ -241,6 +241,7 @@ function createVisitRecord() {
 	console.log('Inside create visit record');
 	var visitTypeChoice = $('input[name="visitTypeChoice"]:checked').val();
 	var industry = $('#industry').val();
+	var sector = $('#sector').val();
 	var accName = $('#accName').val();
 	var palLFE = $('#palLFE').val();
 	var cbc = $('#cbc').val();
@@ -385,6 +386,7 @@ function createVisitRecord() {
 			'visitTypeChoice': visitTypeChoice,
 			'deliveryTypeChoice': deliveryTypeVal,
 			'industry': industry,
+			'sector': sector,
 			'accName': accName,
 			'palLFE': palLFE,
 			'cbc': cbc,
@@ -1452,7 +1454,8 @@ function fetchSectorMap() {
 			
 			sectorSelect.change(function() {
 				var selectedSector = $('#sector option:selected').text();
-				for ( industry in sectorMap[selectedSector] ) {
+				for ( var i = 0; i < sectorMap[selectedSector]; i++ ) {
+					var industry = sectorMap[selectedSector][i];
 					var industryOpt = $('<option>' + industry + '</option>');
 					industryOpt.attr('value', industry);
 					industrySelect.append(industryOpt);

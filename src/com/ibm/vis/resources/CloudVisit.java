@@ -73,6 +73,7 @@ public class CloudVisit {
 			@Context HttpServletRequest req,
 			@FormParam(value="visitTypeChoice") String visitTypeChoice,
 			@FormParam(value="industry") String industry,
+			@FormParam(value="sector") String sector,
 			@FormParam(value="accName") String accName,
 			@FormParam(value="palLFE") String palLFE,
 			@FormParam(value="cbc") String cbc,
@@ -101,6 +102,7 @@ public class CloudVisit {
 		visitObj.addProperty("createdBy", req.getRemoteUser());
 		visitObj.addProperty("visitTypeChoice", visitTypeChoice);
 		visitObj.addProperty("industry", industry);
+		visitObj.addProperty("sector", sector);
 		visitObj.addProperty("accName", accName);
 		visitObj.addProperty("palLFE", palLFE);
 		visitObj.addProperty("cbc", cbc);
