@@ -11,7 +11,9 @@ package com.ibm.vis.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cloudant.client.api.Database;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.ibm.vis.utils.CloudDBUtil;
 import com.ibm.vis.utils.GlobalConsts;
@@ -59,11 +62,21 @@ public class Testbed extends HttpServlet {
 		
 		for (String docId : allDocIds) {
 			JsonObject visitObj = database.find(JsonObject.class, docId);
-			JsonObject clone = visitObj.getAsJsonObject();
+			JsonObject clone = new JsonObject();
+			
+			Iterator<Entry<String, JsonElement>> iterator = visitObj.entrySet().iterator();
+			while (iterator.hasNext()) {
+				Entry<String, JsonElement> entry = iterator.next();
+				clone.add(entry.getKey(), entry.getValue());
+			}
+			
 			clone.remove("_rev");
 			clone.remove("_id");
 			clone.addProperty("_id", IdGenerator.nextVisitId());
+			
+			pw.println("Removing original object: " + visitObj.toString());
 			database.remove(visitObj);
+			pw.println("Adding cloned object: " + clone.toString()); 
 			database.save(clone);
 		}
 	}
