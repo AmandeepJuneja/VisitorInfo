@@ -46,7 +46,7 @@ public class Testbed extends HttpServlet {
     public Testbed() throws MalformedURLException {
         super();
         database = CloudDBUtil.createInstance()
-				.getDB(GlobalConsts.CLOUDANT_TEST_DB_NAME, false);
+				.getDB(GlobalConsts.CLOUDANT_DB_NAME, false);
     }
 
 	/**
