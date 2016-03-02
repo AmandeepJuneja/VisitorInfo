@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -19,6 +20,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
@@ -65,6 +67,7 @@ public class CloudVisit {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String createVisit(
+			@Context HttpServletRequest req,
 			@FormParam(value="visitTypeChoice") String visitTypeChoice,
 			@FormParam(value="industry") String industry,
 			@FormParam(value="accName") String accName,
@@ -89,6 +92,10 @@ public class CloudVisit {
 		
 		JsonObject visitObj = new JsonObject();
 		
+		visitObj.addProperty("_id", IdGenerator.nextVisitId());
+		visitObj.addProperty("type", "com.ibm.vis.visit_record");
+		visitObj.addProperty("lastUpdatedBy", req.getRemoteUser());
+		visitObj.addProperty("createdBy", req.getRemoteUser());
 		visitObj.addProperty("visitTypeChoice", visitTypeChoice);
 		visitObj.addProperty("industry", industry);
 		visitObj.addProperty("accName", accName);

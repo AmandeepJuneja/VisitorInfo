@@ -76,7 +76,7 @@ public class Testbed extends HttpServlet {
 			clone.addProperty("sector", "Industrial");
 			clone.addProperty("type", "com.ibm.vis.visit_record");
 			clone.addProperty("createdBy", "system");
-			clone.addProperty("lastUpdatedBy", "system");
+			clone.addProperty("lastUpdatedBy", request.getRemoteUser());
 			
 			pw.println("Removing original object: " + visitObj.toString());
 			database.remove(visitObj);
