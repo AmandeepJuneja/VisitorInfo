@@ -18,14 +18,11 @@ import java.util.Calendar;
  */
 public class IdGenerator {
 	
-	public static final String SEED_ENV_NAME = "ID_GEN_SEED";
-	public static final String PREFIX_ENV_NAME = "ID_GEN_PREFIX";
-	
 	private static String seed;
 	private static int counter;
 	
 	static { 
-		seed = System.getenv(SEED_ENV_NAME);
+		seed = System.getenv(GlobalConsts.ENV_SEED);
 		counter = Integer.parseInt(seed);
 	}
 
@@ -35,8 +32,8 @@ public class IdGenerator {
 	 * @return the next visit id in sequence in the format VIS_DDYY-CC
 	 */
 	public static String nextVisitId() {
-		String seed = System.getenv(SEED_ENV_NAME);
-		String prefix = System.getenv(PREFIX_ENV_NAME);
+		String seed = System.getenv(GlobalConsts.ENV_SEED);
+		String prefix = System.getenv(GlobalConsts.ENV_PREFIX);
 		
 		Calendar cal = Calendar.getInstance();
 		String dayOfYear = "" + cal.get(Calendar.DAY_OF_YEAR);

@@ -1,7 +1,11 @@
 /*
- * VisitResource.java
- * (C) 2016 Siddhartha Ghosh / IBM India Pvt. Ltd.
+ * CloudVisit.java
+ * 
+ * (C) 2016 IBM India Pvt. Ltd.
  * All Rights Reserved.
+ * 
+ * This program is a part of the VisitorInformationManagement System.
+ * 
  */
 package com.ibm.vis.resources;
 
@@ -41,9 +45,8 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 /**
- * This is the older Visit Resource RESTful service handler class 
- * that relied on the MongoDB NoSQL database backend. Soon to be deprecated.
- * @author Siddhartha Ghosh (siddhartha.ghosh@in.ibm.com)
+ * This is the new Cloudant based Visit handler resource..
+ * @author <a href="mailto:siddhartha.ghosh@in.ibm.com">Siddhartha Ghosh</a>
  *
  */
 @Path("/cloudvisit")

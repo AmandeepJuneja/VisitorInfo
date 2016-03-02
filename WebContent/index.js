@@ -3,6 +3,8 @@
  */
 
 /* GLOBALS */
+var sectorMap = {};
+
 var  dialog = $('#createVisitDialog').dialog({
 	autoOpen: false,
 	height: 600,
@@ -877,6 +879,27 @@ function openSelectedVisitRecords() {
 		},
 		
 		error: function(jqXHR, textStatus, errorThrown) {
+			if ( textStatus != null && textStatus != undefined && textStatus == 'parsererror') {
+				console.log('Possible timeout scenario detected...');
+				$('#messagesDiv').empty();
+				$('#messagesDiv').empty().append(
+						$('<p><img src="./images/session_redirect"> Session timedout, redirecting to login screen...'
+						+ '' + '</p>')).show('scale')
+					.delay(3000)
+					.hide('scale');
+				
+				if ( jqXHR.responseText != undefined && jqXHR.responseText != null ) {
+					var retHTML = $(jqXHR.responseText);
+					retHTML.filter('script').each(function(){
+			            $.globalEval(this.text || this.textContent || this.innerHTML || '');
+			        });					
+				} else {
+					console.log('Doomed! no jqXHR.responseText');
+				}
+				
+				return;
+			}
+			
 			$('#messagesDiv').empty();
 			$('#messagesDiv').empty().append(
 					$('<p><img src="./images/complete_error.gif">'
@@ -1406,6 +1429,77 @@ function exportReport() {
 	
 }
 
+// Retrieve the Sector-Industry Mapping configuration from the server
+function fetchSectorMap() {
+	console.log('Fetching sector - industry mapping...');
+	$.ajax({
+		url: './api/sectormap',
+		type: 'GET',
+		traditional: true,
+		dataType: 'json',
+		success: function(data, status, xhr) {
+			console.log('Success', data, status, xhr);
+			
+			sectorMap = data;
+			
+			var sectorSelect = $('#sector');
+			var industrySelect = $('#industry');
+			for ( sector in sectorMap ) {
+				var sectorOpt = $('<option>' + sector + '</option>');
+				sectorOpt.attr('value', sector);
+				sectorSelect.append(sectorOpt);
+			}
+			
+			sectorSelect.change(function() {
+				var selectedSector = $('#sector option:selected').text();
+				for ( industry in sectorMap[selectedSector] ) {
+					var industryOpt = $('<option>' + industry + '</option>');
+					industryOpt.attr('value', industry);
+					industrySelect.append(industryOpt);
+				}
+			});
+			
+			$('#messagesDiv').empty();
+			$('#messagesDiv').empty().append(
+					$('<p><img src="./images/complete_status.gif">'
+					+ 'Succesfully retreived sector - industry map</p>')).show('scale')
+				.delay(2000)
+				.hide('scale');
+		},
+		
+		error: function(jqXHR, textStatus, errorThrown) {
+			if ( textStatus != null && textStatus != undefined && textStatus == 'parsererror') {
+				console.log('Possible timeout scenario detected...');
+				$('#messagesDiv').empty();
+				$('#messagesDiv').empty().append(
+						$('<p><img src="./images/session_redirect"> Session timedout, redirecting to login screen...'
+						+ '' + '</p>')).show('scale')
+					.delay(3000)
+					.hide('scale');
+				
+				if ( jqXHR.responseText != undefined && jqXHR.responseText != null ) {
+					var retHTML = $(jqXHR.responseText);
+					retHTML.filter('script').each(function(){
+			            $.globalEval(this.text || this.textContent || this.innerHTML || '');
+			        });					
+				} else {
+					console.log('Doomed! no jqXHR.responseText');
+				}
+				
+				return;
+			}
+			
+			$('#messagesDiv').empty();
+			$('#messagesDiv').empty().append(
+					$('<p><img src="./images/complete_error.gif">'
+					+ 'Operation Failed: ' 
+					+ errorThrown + '</p>')).show('scale')
+				.delay(2000)
+				.hide('scale');
+		}
+	});
+}
+
 $(function() {
 	// bootstrap bill :)
 	// initializing GUI components...
@@ -1442,5 +1536,6 @@ $(function() {
 	initVisitRecordSelection();
 	
 	// loading data now
+	fetchSectorMap();
 	fetchAllVisitRecords();
 });
