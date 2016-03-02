@@ -1454,8 +1454,10 @@ function fetchSectorMap() {
 			
 			sectorSelect.change(function() {
 				var selectedSector = $('#sector option:selected').text();
+				console.log('on change triggered.', selectedSector, sectorMap[selectedSector]);
 				for ( var i = 0; i < sectorMap[selectedSector]; i++ ) {
 					var industry = sectorMap[selectedSector][i];
+					console.log(industry);
 					var industryOpt = $('<option>' + industry + '</option>');
 					industryOpt.attr('value', industry);
 					industrySelect.append(industryOpt);
