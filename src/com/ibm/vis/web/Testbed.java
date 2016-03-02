@@ -58,31 +58,31 @@ public class Testbed extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		List<String> allDocIds;
 		
-		allDocIds = database.getAllDocsRequestBuilder().build().getResponse().getDocIds();	
-		
-		for (String docId : allDocIds) {
-			JsonObject visitObj = database.find(JsonObject.class, docId);
-			JsonObject clone = new JsonObject();
-			
-			Iterator<Entry<String, JsonElement>> iterator = visitObj.entrySet().iterator();
-			while (iterator.hasNext()) {
-				Entry<String, JsonElement> entry = iterator.next();
-				clone.add(entry.getKey(), entry.getValue());
-			}
-			
-			clone.remove("_rev");
-			clone.remove("_id");
-			clone.addProperty("_id", IdGenerator.nextVisitId());
-			clone.addProperty("sector", "Industrial");
-			clone.addProperty("type", "com.ibm.vis.visit_record");
-			clone.addProperty("createdBy", "system");
-			clone.addProperty("lastUpdatedBy", request.getRemoteUser());
-			
-			pw.println("Removing original object: " + visitObj.toString());
-			database.remove(visitObj);
-			pw.println("Adding cloned object: " + clone.toString()); 
-			database.save(clone);
-		}
+//		allDocIds = database.getAllDocsRequestBuilder().build().getResponse().getDocIds();	
+//		
+//		for (String docId : allDocIds) {
+//			JsonObject visitObj = database.find(JsonObject.class, docId);
+//			JsonObject clone = new JsonObject();
+//			
+//			Iterator<Entry<String, JsonElement>> iterator = visitObj.entrySet().iterator();
+//			while (iterator.hasNext()) {
+//				Entry<String, JsonElement> entry = iterator.next();
+//				clone.add(entry.getKey(), entry.getValue());
+//			}
+//			
+//			clone.remove("_rev");
+//			clone.remove("_id");
+//			clone.addProperty("_id", IdGenerator.nextVisitId());
+//			clone.addProperty("sector", "Industrial");
+//			clone.addProperty("type", "com.ibm.vis.visit_record");
+//			clone.addProperty("createdBy", "system");
+//			clone.addProperty("lastUpdatedBy", request.getRemoteUser());
+//			
+//			pw.println("Removing original object: " + visitObj.toString());
+//			database.remove(visitObj);
+//			pw.println("Adding cloned object: " + clone.toString()); 
+//			database.save(clone);
+//		}
 	}
 
 }
