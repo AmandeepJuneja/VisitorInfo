@@ -168,6 +168,7 @@ function fetchAllVisitRecords() {
 				insertRow.push(item._id);
 				insertRow.push(visitStartDate);
 				insertRow.push(visitStartCenter);
+				insertRow.push(item.sector);
 				insertRow.push(item.industry);
 				insertRow.push(item.accName);
 				insertRow.push(item.palLFE);
@@ -241,6 +242,7 @@ function createVisitRecord() {
 	console.log('Inside create visit record');
 	var visitTypeChoice = $('input[name="visitTypeChoice"]:checked').val();
 	var industry = $('#industry').val();
+	var sector = $('#sector').val();
 	var sector = $('#sector').val();
 	var accName = $('#accName').val();
 	var palLFE = $('#palLFE').val();
@@ -452,6 +454,7 @@ function createVisitRecord() {
 			insertRow.push(data._id);
 			insertRow.push(visitStartDate);
 			insertRow.push(visitPrimaryCenter);
+			insertRow.push(sector);
 			insertRow.push(industry);
 			insertRow.push(accName);
 			insertRow.push(palLFE);
@@ -610,6 +613,7 @@ function openSelectedVisitRecords() {
 			var visRecVisDiv = $('<div id="visRecVis' + visitRec._id + '"></div>');
 			var visRecItiDiv = $('<div id="visRecIti' + visitRec._id + '"></div>');
 			var visRecLdrDiv = $('<div id="visRecLdr' + visitRec._id + '"></div>');
+			var visRecAudDiv = $('<div id="visRecAud' + visitRec._id + '"></div>');
 			
 			if ( visitRec['visitTypeChoice'] == 'I' ) {
 				visitRec['visitTypeChoice'] = 'IBM Only'
@@ -632,6 +636,13 @@ function openSelectedVisitRecords() {
 							$('<td>Visit Type: </td>')	
 						).append(
 							$('<td>' + visitRec.visitTypeChoice + '</td>')
+						)
+					)
+					.append(
+						$('<tr></tr>').append(
+							$('<td>Sector: </td>')	
+						).append(
+							$('<td>' + visitRec.sector + '</td>')
 						)
 					)
 					.append(
@@ -830,10 +841,21 @@ function openSelectedVisitRecords() {
 				);
 			});
 			
+			var visRecAudTable = $('<table></table>');
+			visRecAudTable.append($('<tbody></tbody>'));
+			visRecAudTable.find('tbody')
+				.append($('<tr></tr>')
+						.append($('<td>Created By: </td>'))
+						.append($('<td>' + visitRec.createdBy + '</td>')))
+				.append($('<tr></tr>')
+						.append($('<td>Last Modified By: </td>'))
+						.append($('<td>' + visitRec.lastUpdatedBy + '</td>')));
+			
 			visRecOvrvwDiv.append(visRecOvervwTable);
 			visRecVisDiv.append(visRecVisTable);
 			visRecItiDiv.append(visRecItiTable);
 			visRecLdrDiv.append(visRecLdrTable);
+			visRecAudDiv.append(visRecAudTable);
 			
 			
 			visRecTabUl.append($('<li><a href="#visRecOvrvw' 
@@ -843,13 +865,16 @@ function openSelectedVisitRecords() {
 					.append($('<li><a href="#visRecIti' 
 							+ visitRec._id + '">Visit Itinerary</a></li>'))
 					.append($('<li><a href="#visRecLdr' 
-							+ visitRec._id + '">IBM India Leadership Participation</a></li>'));
+							+ visitRec._id + '">IBM India Leadership Participation</a></li>'))
+					.append($('<li><a href="#visRecAud' 
+							+ visitRec._id + '">Audit</a></li>'));
 			
 			visRecTabDiv.append(visRecTabUl)
 				.append(visRecOvrvwDiv)
 				.append(visRecVisDiv)
 				.append(visRecItiDiv)
-				.append(visRecLdrDiv);
+				.append(visRecLdrDiv)
+				.append(visRecAudDiv);
 			visRecTabDiv.tabs();
 			
 			visRecDiv.append(visRecTabDiv);
