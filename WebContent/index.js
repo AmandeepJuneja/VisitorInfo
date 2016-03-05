@@ -105,7 +105,7 @@ function openDeleteConfirmationDialog() {
 }
 
 // This function is used to retrieve all visit records from the backend upon startup.
-function fetchAllVisitRecords() {
+function fetchAllVisitRecords(nextChain) {
 	$('#messagesDiv').empty().append($('<p>Retrieving Visit Records ... ' + 
 		'<img src="./images/spinner.gif"></p>')).show('scale');
 	
@@ -192,6 +192,9 @@ function fetchAllVisitRecords() {
 					+ errorThrown + '</p>')).show('scale')
 				.delay(2000)
 				.hide('scale');
+		},
+		complete: function(jqXHR, textStatus) {
+			nextChain();
 		}
 	});
 }
@@ -1567,6 +1570,5 @@ $(function() {
 	initVisitRecordSelection();
 	
 	// loading data now
-	fetchSectorMap();
-	fetchAllVisitRecords();
+	fetchAllVisitRecords(fetchSectorMap);
 });
