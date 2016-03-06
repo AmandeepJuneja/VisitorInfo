@@ -812,7 +812,6 @@ function openSelectedVisitRecords() {
 				                          visitorRec.visitorRole,
 				                          visitorRec.visitorPrimary]);				
 			});
-			visRecVisTableDT.draw();
 			
 			$.each(visitRec.itineraryRecords, function(index, itiRec) {
 				visRecItiTable.find('tbody')
