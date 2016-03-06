@@ -789,11 +789,12 @@ function openSelectedVisitRecords() {
 				).append(
 					$('<tbody></tbody>')
 				);
-						
+			
 			visRecVisTable.addClass('cell-border');
 			visRecVisTable.addClass('hover');
 			visRecVisTable.addClass('display');
 			visRecVisTable.addClass('dyn-selectable-table');
+			visRecVisTable.attr('width', '100%');
 			visRecVisTable.find('tbody').on('click', 'tr', function() {
 				if ( $(this).hasClass('selected') ) {
 					$(this).removeClass('selected');
@@ -832,6 +833,7 @@ function openSelectedVisitRecords() {
 			visRecItiTable.addClass('hover');
 			visRecItiTable.addClass('display');
 			visRecItiTable.addClass('dyn-selectable-table');
+			visRecItiTable.attr('width', '100%');
 			visRecItiTable.find('tbody').on('click', 'tr', function() {
 				if ( $(this).hasClass('selected') ) {
 					$(this).removeClass('selected');
@@ -871,6 +873,7 @@ function openSelectedVisitRecords() {
 			visRecLdrTable.addClass('hover');
 			visRecLdrTable.addClass('display');
 			visRecLdrTable.addClass('dyn-selectable-table');
+			visRecLdrTable.attr('width', '100%');
 			visRecLdrTable.find('tbody').on('click', 'tr', function() {
 				if ( $(this).hasClass('selected') ) {
 					$(this).removeClass('selected');
@@ -926,24 +929,71 @@ function openSelectedVisitRecords() {
 			
 			visRecOvrvwDiv.append(visRecOvervwTable);
 			
+			// build the inline data adder popup for Visit Records
+			var visRecVisEditorName = $('<input>');
+			visRecVisEditorName.attr('type', 'text');
+			var visRecVisEditorRole = $('<input>');
+			visRecVisEditorRole.attr('type', 'text');
+			var visRecVisEditorPrimary = $('<select></select>')
+				.append($('<option>Yes</option>').attr('value', 'Yes'))
+				.append($('<option>No</option>').attr('value', 'No'));
+			
+			var visRecVisPopup = $('<fieldset></fieldset>')
+				.append($('<legend>Visitor Info:</legend>'))
+				.append($('<span>Name: </span>'))
+				.append(visRecVisEditorName)
+				.append($('<br />'))
+				.append($('<span>Role: </span>'))
+				.append(visRecVisEditorRole)
+				.append($('<br />'))
+				.append($('<span>Is Primary? </span>'))
+				.append(visRecVisEditorPrimary)
+				.append($('<br />'))
+				.append($('<button>Save</button>').button({
+					icons: {
+						primary: 'ui-icon-disk'
+					}
+				}).click(function() {
+					// TODO - Add code
+					
+					// default
+					visRecVisPopup.tooltip("close");
+				}))
+				.append($('<button>Cancel</button>').button({
+					icons: {
+						primary: 'ui-icon-cancel'
+					}
+				}).click(function() {
+					visRecVisPopup.tooltip("close");
+				}));
+			var visRecVisPopupTooltip = visRecVisPopup.tooltip();
+			
+			
+			// build the buttons for the Visit Records
 			var visRecVisAddBtn = $('<button>Add Visit</button>');
 			var visRecVisAddBtnWidget = visRecVisAddBtn.button({
 				icons: {
 					primary: 'ui-icon-plusthick'
 				}
+			}).click(function() {
+				// Handler code for when add button is clicked
+				visRecVisPopup.tooltip("open");
 			});
 			var visRecVisRemoveBtn = $('<button>Remove Visit</button>');
 			var visRecVisRemoveBtnWidget = visRecVisRemoveBtn.button({
 				icons: {
 					primary: 'ui-icon-minusthick'
 				}
+			}).click(function() {
+				// Handler code for when remove button is clicked
+				
 			});
 			
 			visRecVisDiv.append($('<div></div>')
 					.append(visRecVisAddBtn)
-					.append(visRecVisRemoveBtn));
-			visRecVisDiv.append($('<div></div>')
-					.append(visRecVisTable));
+					.append(visRecVisRemoveBtn))
+					.append($('<div></div>').append(visRecVisPopup))
+					.append($('<div></div>').append(visRecVisTable));
 			
 			var visRecItiAddBtn = $('<button>Add Itinerary</button>');
 			var visRecItiAddBtnWidget = visRecItiAddBtn.button({

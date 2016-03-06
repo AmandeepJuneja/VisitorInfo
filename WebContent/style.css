@@ -68,6 +68,10 @@ tbody tr:nth-child(odd) {
 	background-color: #e0f2f1;
 }
 
+div.container {
+	width: 100%;
+}
+
 .selected {
 	background-color: #03A9F4;
 	color: #ffffff;
