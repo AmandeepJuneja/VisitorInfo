@@ -929,63 +929,58 @@ function openSelectedVisitRecords() {
 			var visRecVisAddBtn = $('<button>Add Visit</button>');
 			var visRecVisAddBtnWidget = visRecVisAddBtn.button({
 				icons: {
-					primary: 'ui-icon-plus',
-					secondary: 'ui-icon-plusthick'
+					primary: 'ui-icon-plusthick'
 				}
 			});
 			var visRecVisRemoveBtn = $('<button>Remove Visit</button>');
 			var visRecVisRemoveBtnWidget = visRecVisRemoveBtn.button({
 				icons: {
-					primary: 'ui-icon-minus',
-					secondary: 'ui-icon-minusthick'
+					primary: 'ui-icon-minusthick'
 				}
 			});
 			
-			var visRecVisBtnSet = $('<div></div>');
-			visRecVisBtnSet.append(visRecVisAddBtn);
-			visRecVisBtnSet.append(visRecVisRemoveBtn);
-			visRecVisDiv.append(visRecVisBtnSet);
-			visRecVisDiv.append(visRecVisTable);
+			visRecVisDiv.append($('<div></div>')
+					.append(visRecVisAddBtn)
+					.append(visRecVisRemoveBtn));
+			visRecVisDiv.append($('<div></div>')
+					.append(visRecVisTable));
 			
 			var visRecItiAddBtn = $('<button>Add Itinerary</button>');
 			var visRecItiAddBtnWidget = visRecItiAddBtn.button({
 				icons: {
-					primary: 'ui-icon-plus',
-					secondary: 'ui-icon-plusthick'
+					primary: 'ui-icon-plusthick'
 				}
 			});
 			var visRecItiRemoveBtn = $('<button>Remove Itinerary</button>');
 			var visRecItiRemoveBtnWidget = visRecItiRemoveBtn.button({
 				icons: {
-					primary: 'ui-icon-minus',
-					secondary: 'ui-icon-minusthick'
+					primary: 'ui-icon-minusthick'
 				}
 			});
-			var visRecItiBtnSet = $('<div></div>');
-			visRecItiBtnSet.append(visRecItiAddBtn);
-			visRecItiBtnSet.append(visRecItiRemoveBtn);
-			visRecItiDiv.append(visRecItiBtnSet);
-			visRecItiDiv.append(visRecItiTable);
+			visRecItiDiv.append($('<div></div>')
+					.append(visRecItiAddBtn)
+					.append(visRecItiRemoveBtn));
+			visRecItiDiv.append($('<div></div>')
+					.append(visRecItiTable));
 			
 			var visRecLdrAddBtn = $('<button>Add Leadership Participation</button>');
 			var visRecLdrAddBtnWidget = visRecLdrAddBtn.button({
 				icons: {
-					primary: 'ui-icon-plus',
-					secondary: 'ui-icon-plusthick'
+					primary: 'ui-icon-plusthick'
 				}
 			});
 			var visRecLdrRemoveBtn = $('<button>Remove Leadership Participation</button>');
 			var visRecLdrRemoveBtnWidget = visRecLdrRemoveBtn.button({
 				icons: {
-					primary: 'ui-icon-minus',
-					secondary: 'ui-icon-minusthick'
+					primary: 'ui-icon-minusthick'
 				}
 			});
-			var visRecLdrBtnSet = $('<div></div>');
-			visRecLdrBtnSet.append(visRecLdrAddBtn);
-			visRecLdrBtnSet.append(visRecLdrRemoveBtn);
-			visRecLdrDiv.append(visRecLdrBtnSet);
-			visRecLdrDiv.append(visRecLdrTable);
+			
+			visRecLdrDiv.append($('<div></div>')
+					.append(visRecLdrAddBtn)
+					.append(visRecLdrRemoveBtn));
+			visRecLdrDiv.append($('<div></div>')
+					.append(visRecLdrTable));
 			visRecAudDiv.append(visRecAudTable);
 			
 			
