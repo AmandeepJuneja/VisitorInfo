@@ -790,21 +790,29 @@ function openSelectedVisitRecords() {
 					$('<tbody></tbody>')
 				);
 			
-			$.each(visitRec.visitorRecords, function(index, visitorRec){
-				visRecVisTable.find('tbody')
-				.append(
-					$('<tr></tr>')
-					.append(
-							$('<td>' + visitorRec.visitorName + '</td>')
-					)
-					.append(
-							$('<td>' + visitorRec.visitorRole + '</td>')
-					)
-					.append(
-							$('<td>' + visitorRec.visitorPrimary + '</td>')
-					)
-				);
+			var visRecVisTableDT = visRecVisTable.DataTable({
+				select: true
 			});
+			
+			$.each(visitRec.visitorRecords, function(index, visitorRec){
+//				visRecVisTable.find('tbody')
+//				.append(
+//					$('<tr></tr>')
+//					.append(
+//							$('<td>' + visitorRec.visitorName + '</td>')
+//					)
+//					.append(
+//							$('<td>' + visitorRec.visitorRole + '</td>')
+//					)
+//					.append(
+//							$('<td>' + visitorRec.visitorPrimary + '</td>')
+//					)
+//				);
+				visRecVisTableDT.row.add([visitorRec.visitorName,
+				                          visitorRec.visitorRole,
+				                          visitorRec.visitorPrimary]);				
+			});
+			visRecVisTableDT.draw();
 			
 			$.each(visitRec.itineraryRecords, function(index, itiRec) {
 				visRecItiTable.find('tbody')
