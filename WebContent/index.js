@@ -793,6 +793,7 @@ function openSelectedVisitRecords() {
 			visRecVisTable.addClass('cell-border');
 			visRecVisTable.addClass('hover');
 			visRecVisTable.addClass('display');
+			visRecVisTable.addClass('dyn-selectable-table');
 			visRecVisTable.find('tbody').on('click', 'tr', function() {
 				if ( $(this).hasClass('selected') ) {
 					$(this).removeClass('selected');
@@ -830,6 +831,7 @@ function openSelectedVisitRecords() {
 			visRecItiTable.addClass('cell-border');
 			visRecItiTable.addClass('hover');
 			visRecItiTable.addClass('display');
+			visRecItiTable.addClass('dyn-selectable-table');
 			visRecItiTable.find('tbody').on('click', 'tr', function() {
 				if ( $(this).hasClass('selected') ) {
 					$(this).removeClass('selected');
@@ -868,6 +870,7 @@ function openSelectedVisitRecords() {
 			visRecLdrTable.addClass('cell-border');
 			visRecLdrTable.addClass('hover');
 			visRecLdrTable.addClass('display');
+			visRecLdrTable.addClass('dyn-selectable-table');
 			visRecLdrTable.find('tbody').on('click', 'tr', function() {
 				if ( $(this).hasClass('selected') ) {
 					$(this).removeClass('selected');
@@ -922,8 +925,66 @@ function openSelectedVisitRecords() {
 						.append($('<td>' + visitRec.lastUpdatedBy + '</td>')));
 			
 			visRecOvrvwDiv.append(visRecOvervwTable);
+			
+			var visRecVisAddBtn = $('<button>Add Visit</button>');
+			var visRecVisAddBtnWidget = visRecVisAddBtn.button({
+				icons: {
+					primary: 'ui-icon-plus',
+					secondary: 'ui-icon-plusthick'
+				}
+			});
+			var visRecVisRemoveBtn = $('<button>Remove Visit</button>');
+			var visRecVisRemoveBtnWidget = visRecVisRemoveBtn.button({
+				icons: {
+					primary: 'ui-icon-minus',
+					secondary: 'ui-icon-minusthick'
+				}
+			});
+			
+			var visRecVisBtnSet = $('<div></div>');
+			visRecVisBtnSet.append(visRecVisAddBtn);
+			visRecVisBtnSet.append(visRecVisRemoveBtn);
+			visRecVisDiv.append(visRecVisBtnSet);
 			visRecVisDiv.append(visRecVisTable);
+			
+			var visRecItiAddBtn = $('<button>Add Itinerary</button>');
+			var visRecItiAddBtnWidget = visRecItiAddBtn.button({
+				icons: {
+					primary: 'ui-icon-plus',
+					secondary: 'ui-icon-plusthick'
+				}
+			});
+			var visRecItiRemoveBtn = $('<button>Remove Itinerary</button>');
+			var visRecItiRemoveBtnWidget = visRecItiRemoveBtn.button({
+				icons: {
+					primary: 'ui-icon-minus',
+					secondary: 'ui-icon-minusthick'
+				}
+			});
+			var visRecItiBtnSet = $('<div></div>');
+			visRecItiBtnSet.append(visRecItiAddBtn);
+			visRecItiBtnSet.append(visRecItiRemoveBtn);
+			visRecItiDiv.append(visRecItiBtnSet);
 			visRecItiDiv.append(visRecItiTable);
+			
+			var visRecLdrAddBtn = $('<button>Add Leadership Participation</button>');
+			var visRecLdrAddBtnWidget = visRecLdrAddBtn.button({
+				icons: {
+					primary: 'ui-icon-plus',
+					secondary: 'ui-icon-plusthick'
+				}
+			});
+			var visRecLdrRemoveBtn = $('<button>Remove Leadership Participation</button>');
+			var visRecLdrRemoveBtnWidget = visRecLdrRemoveBtn.button({
+				icons: {
+					primary: 'ui-icon-minus',
+					secondary: 'ui-icon-minusthick'
+				}
+			});
+			var visRecLdrBtnSet = $('<div></div>');
+			visRecLdrBtnSet.append(visRecLdrAddBtn);
+			visRecLdrBtnSet.append(visRecLdrRemoveBtn);
+			visRecLdrDiv.append(visRecLdrBtnSet);
 			visRecLdrDiv.append(visRecLdrTable);
 			visRecAudDiv.append(visRecAudTable);
 			
@@ -955,6 +1016,9 @@ function openSelectedVisitRecords() {
 				hide: 'clip',
 				show: 'clip',
 				buttons: {
+					'Save': function() {
+						
+					},
 					'Close': function() {
 						$(this).dialog('close');
 						$(this).dialog('destroy');

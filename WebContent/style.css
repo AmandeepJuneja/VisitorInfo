@@ -73,6 +73,10 @@ tbody tr:nth-child(odd) {
 	color: #ffffff;
 }
 
+.dyn-selectable-table tbody {
+	cursor: pointer;
+}
+
 .message-box {
 	padding: 4px;
 	margin: 4px;
