@@ -810,8 +810,9 @@ function openSelectedVisitRecords() {
 //				);
 				visRecVisTableDT.row.add([visitorRec.visitorName,
 				                          visitorRec.visitorRole,
-				                          visitorRec.visitorPrimary]);				
+				                          visitorRec.visitorPrimary]);
 			});
+			visRecVisTableDT.draw();
 			
 			$.each(visitRec.itineraryRecords, function(index, itiRec) {
 				visRecItiTable.find('tbody')
