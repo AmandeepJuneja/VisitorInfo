@@ -798,7 +798,7 @@ function openSelectedVisitRecords() {
 					$(this).removeClass('selected');
 					console.log('selection removed');
 				} else {
-					visRecVisTable.$('tr.selected').removeClass('selected');
+					visRecVisTable.find('tr.selected').removeClass('selected');
 					$(this).addClass('selected');
 					console.log('selection added');
 				}
@@ -835,7 +835,7 @@ function openSelectedVisitRecords() {
 					$(this).removeClass('selected');
 					console.log('selection removed');
 				} else {
-					visRecItiTable.$('tr.selected').removeClass('selected');
+					visRecItiTable.find('tr.selected').removeClass('selected');
 					$(this).addClass('selected');
 					console.log('selection added');
 				}
@@ -873,7 +873,7 @@ function openSelectedVisitRecords() {
 					$(this).removeClass('selected');
 					console.log('selection removed');
 				} else {
-					visRecLdrTable.$('tr.selected').removeClass('selected');
+					visRecLdrTable.find('tr.selected').removeClass('selected');
 					$(this).addClass('selected');
 					console.log('selection added');
 				}
