@@ -793,6 +793,7 @@ function openSelectedVisitRecords() {
 			visRecVisTable.addClass('cell-border');
 			visRecVisTable.addClass('hover');
 			visRecVisTable.addClass('display');
+			
 			var visRecVisTableDT = visRecVisTable.DataTable({
 				select: true
 			});
@@ -839,7 +840,6 @@ function openSelectedVisitRecords() {
 //						$('<td>' + itiRec.itiEnd + '</td>')
 //					)
 //				);
-				
 				visRecItiTableDT.row.add([itiRec.itiLoc,
 				                          itiRec.itiStart,
 				                          itiRec.itiEnd]);
@@ -853,6 +853,7 @@ function openSelectedVisitRecords() {
 			var visRecLdrTableDT = visRecLdrTable.DataTable({
 				select: true
 			});
+			
 			$.each(visitRec.leadershipRecords, function(index, ldrRec) {
 //				visRecLdrTable.find('tbody')
 //				.append(
@@ -873,11 +874,11 @@ function openSelectedVisitRecords() {
 //						$('<td>' + ldrRec.ldrDate + '</td>')
 //					)
 //				);
-				visRecLdrTableDT.row().add([ldrRec.ldrLNID, 
-				                            ldrRec.ldrBU, 
-				                            ldrRec.ldrAttnd,
-				                            ldrRec.ldrLoc,
-				                            ldrRec.ldrDate]);
+				visRecLdrTableDT.row.add([ldrRec.ldrLNID,
+				                          ldrRec.ldrBU,
+				                          ldrRec.ldrAttnd,
+				                          ldrRec.ldrLoc,
+				                          ldrRec.ldrDate]);
 			});
 			visRecLdrTableDT.draw();
 			
