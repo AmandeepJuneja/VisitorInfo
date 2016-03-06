@@ -789,14 +789,20 @@ function openSelectedVisitRecords() {
 				).append(
 					$('<tbody></tbody>')
 				);
-			
+						
 			visRecVisTable.addClass('cell-border');
 			visRecVisTable.addClass('hover');
 			visRecVisTable.addClass('display');
-			
-			visRecVisTable.addClass('cell-border');
-			visRecVisTable.addClass('hover');
-			visRecVisTable.addClass('display');
+			visRecVisTable.find('tbody').on('click', 'tr', function() {
+				if ( $(this).hasClass('selected') ) {
+					$(this).removeClass('selected');
+					console.log('selection removed');
+				} else {
+					visRecVisTable.$('tr.selected').removeClass('selected');
+					$(this).addClass('selected');
+					console.log('selection added');
+				}
+			});
 			var visRecVisTableDT = visRecVisTable.DataTable({
 				select: true
 			});
@@ -824,6 +830,16 @@ function openSelectedVisitRecords() {
 			visRecItiTable.addClass('cell-border');
 			visRecItiTable.addClass('hover');
 			visRecItiTable.addClass('display');
+			visRecItiTable.find('tbody').on('click', 'tr', function() {
+				if ( $(this).hasClass('selected') ) {
+					$(this).removeClass('selected');
+					console.log('selection removed');
+				} else {
+					visRecItiTable.$('tr.selected').removeClass('selected');
+					$(this).addClass('selected');
+					console.log('selection added');
+				}
+			});
 			
 			var visRecItiTableDT = visRecItiTable.DataTable({
 				select: true
@@ -852,6 +868,16 @@ function openSelectedVisitRecords() {
 			visRecLdrTable.addClass('cell-border');
 			visRecLdrTable.addClass('hover');
 			visRecLdrTable.addClass('display');
+			visRecLdrTable.find('tbody').on('click', 'tr', function() {
+				if ( $(this).hasClass('selected') ) {
+					$(this).removeClass('selected');
+					console.log('selection removed');
+				} else {
+					visRecLdrTable.$('tr.selected').removeClass('selected');
+					$(this).addClass('selected');
+					console.log('selection added');
+				}
+			});
 			
 			var visRecLdrTableDT = visRecLdrTable.DataTable({
 				select: true
