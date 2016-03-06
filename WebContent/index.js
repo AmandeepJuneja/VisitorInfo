@@ -790,10 +790,6 @@ function openSelectedVisitRecords() {
 					$('<tbody></tbody>')
 				);
 			
-			visRecVisTable.addClass('cell-border');
-			visRecVisTable.addClass('hover');
-			visRecVisTable.addClass('display');
-			
 			var visRecVisTableDT = visRecVisTable.DataTable({
 				select: true
 			});
@@ -824,63 +820,47 @@ function openSelectedVisitRecords() {
 			
 			var visRecItiTableDT = visRecItiTable.DataTable({
 				select: true
+				                          visitorRec.visitorPrimary]);
 			});
+			visRecVisTableDT.draw();
 			
 			$.each(visitRec.itineraryRecords, function(index, itiRec) {
-//				visRecItiTable.find('tbody')
-//				.append(
-//					$('<tr></tr>')
-//					.append(
-//						$('<td>' + itiRec.itiLoc + '</td>')
-//					)
-//					.append(
-//						$('<td>' + itiRec.itiStart + '</td>')
-//					)
-//					.append(
-//						$('<td>' + itiRec.itiEnd + '</td>')
-//					)
-//				);
-				visRecItiTableDT.row.add([itiRec.itiLoc,
-				                          itiRec.itiStart,
-				                          itiRec.itiEnd]);
-			});
-			visRecItiTableDT.draw();
-			
-			visRecLdrTable.addClass('cell-border');
-			visRecLdrTable.addClass('hover');
-			visRecLdrTable.addClass('display');
-			
-			var visRecLdrTableDT = visRecLdrTable.DataTable({
-				select: true
+				visRecItiTable.find('tbody')
+				.append(
+					$('<tr></tr>')
+					.append(
+						$('<td>' + itiRec.itiLoc + '</td>')
+					)
+					.append(
+						$('<td>' + itiRec.itiStart + '</td>')
+					)
+					.append(
+						$('<td>' + itiRec.itiEnd + '</td>')
+					)
+				);
 			});
 			
 			$.each(visitRec.leadershipRecords, function(index, ldrRec) {
-//				visRecLdrTable.find('tbody')
-//				.append(
-//					$('<tr></tr>')
-//					.append(
-//						$('<td>' + ldrRec.ldrLNID + '</td>')
-//					)
-//					.append(
-//						$('<td>' + ldrRec.ldrBU + '</td>')
-//					)
-//					.append(
-//						$('<td>' + ldrRec.ldrAttnd + '</td>')
-//					)
-//					.append(
-//						$('<td>' + ldrRec.ldrLoc + '</td>')
-//					)
-//					.append(
-//						$('<td>' + ldrRec.ldrDate + '</td>')
-//					)
-//				);
-				visRecLdrTableDT.row.add([ldrRec.ldrLNID,
-				                          ldrRec.ldrBU,
-				                          ldrRec.ldrAttnd,
-				                          ldrRec.ldrLoc,
-				                          ldrRec.ldrDate]);
+				visRecLdrTable.find('tbody')
+				.append(
+					$('<tr></tr>')
+					.append(
+						$('<td>' + ldrRec.ldrLNID + '</td>')
+					)
+					.append(
+						$('<td>' + ldrRec.ldrBU + '</td>')
+					)
+					.append(
+						$('<td>' + ldrRec.ldrAttnd + '</td>')
+					)
+					.append(
+						$('<td>' + ldrRec.ldrLoc + '</td>')
+					)
+					.append(
+						$('<td>' + ldrRec.ldrDate + '</td>')
+					)
+				);
 			});
-			visRecLdrTableDT.draw();
 			
 			var visRecAudTable = $('<table></table>');
 			visRecAudTable.append($('<tbody></tbody>'));
