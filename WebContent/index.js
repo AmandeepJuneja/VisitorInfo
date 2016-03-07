@@ -957,17 +957,17 @@ function openSelectedVisitRecords() {
 					// TODO - Add code
 					
 					// default
-					visRecVisPopup.tooltip("close");
+					visRecVisPopup.hide('scale');
 				}))
 				.append($('<button>Cancel</button>').button({
 					icons: {
 						primary: 'ui-icon-cancel'
 					}
 				}).click(function() {
-					visRecVisPopup.tooltip("close");
+					visRecVisPopup.hide('scale');
 				}));
-			var visRecVisPopupTooltip = visRecVisPopup.tooltip();
 			
+			visRecVisPopup.hide('scale');
 			
 			// build the buttons for the Visit Records
 			var visRecVisAddBtn = $('<button>Add Visit</button>');
@@ -977,7 +977,7 @@ function openSelectedVisitRecords() {
 				}
 			}).click(function() {
 				// Handler code for when add button is clicked
-				visRecVisPopup.tooltip("open");
+				visRecVisPopup.show('scale');
 			});
 			var visRecVisRemoveBtn = $('<button>Remove Visit</button>');
 			var visRecVisRemoveBtnWidget = visRecVisRemoveBtn.button({
