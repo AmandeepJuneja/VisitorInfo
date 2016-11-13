@@ -63,16 +63,7 @@ public class Testbed extends HttpServlet {
 		response.setContentType("text/plain");
 		PrintWriter pw = response.getWriter();
 		
-		List<JsonObject> viewDocs = database.getViewRequestBuilder("allVisitsDD", "all-visits").newRequest(Key.Type.STRING, Object.class)
-				.includeDocs(true)
-				.build()
-				.getResponse()
-				.getDocsAs(JsonObject.class);
-		
-		for ( JsonObject doc: viewDocs ) {
-			pw.println(doc.toString());
-			pw.println("**************************");
-		}
+		pw.println("Welcome User: " + request.getRemoteUser());
 		
 		pw.flush();
 	}
