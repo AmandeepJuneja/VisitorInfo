@@ -35,6 +35,7 @@ import org.json.JSONObject;
 import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
 import com.cloudant.client.api.model.Response;
+import com.cloudant.client.api.views.Key;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -173,19 +174,26 @@ public class CloudVisit {
 			retObj.addProperty("status", "success");
 			retObj.addProperty("count", "" + retArray.size());
 		} else { 
-			List<String> allDocIds;
 			try {
-				allDocIds = database.getAllDocsRequestBuilder().build().getResponse().getDocIds();
+				List<JsonObject> viewDocs = database.getViewRequestBuilder("allVisitsDD", "all-visits").newRequest(Key.Type.STRING, Object.class)
+						.includeDocs(true)
+						.build()
+						.getResponse()
+						.getDocsAs(JsonObject.class);
 				
-				for (String docId : allDocIds) {
-					JsonObject visitObj = database.find(JsonObject.class, docId);
+				for (JsonObject doc : viewDocs) {
+					
+					/*JsonObject visitObj = database.find(JsonObject.class, docId);
 					JsonElement visitObjType = visitObj.get(GlobalConsts.DOC_TYPE);
 					if (visitObjType == null 
 							|| GlobalConsts.VISIT_RECORD_TYPE.equals(
 									visitObjType.getAsString())) {
 						// only add if this is one of those visit records
 						retArray.add(visitObj);
-					}
+					}*/
+					
+					retArray.add(doc);
+					
 				}
 				
 				retObj.addProperty("status", "success");
