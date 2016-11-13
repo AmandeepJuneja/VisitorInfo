@@ -75,20 +75,12 @@ public class Testbed extends HttpServlet {
 		
 		try {
 			Subject s = WSSubject.getCallerSubject();
+			
 			if ( s != null ) {
 				Set<Principal> principals = s.getPrincipals();
 				if ( principals != null && principals.size() > 0 ) {
 					pw.println("Your WS principal: " + principals.iterator().next().getName());
-				}
-			}
-			
-			s = WSSubject.getRunAsSubject();
-			Set<Hashtable> privateHashCreds = s.getPrivateCredentials(Hashtable.class);
-			
-			for ( Hashtable privateHashCred : privateHashCreds ) {
-				for ( Object privateHash : privateHashCred.keySet() ) {
-					System.out.println(privateHash + ":" + 
-							privateHashCred.get(privateHash));
+					pw.println(s.getPublicCredentials().iterator().next());
 				}
 			}
 			
