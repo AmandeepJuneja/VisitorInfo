@@ -96,8 +96,8 @@ public class CloudVisit {
 		
 		JsonObject visitObj = new JsonObject();
 		
-		visitObj.addProperty("_id", IdGenerator.nextVisitId());
-		visitObj.addProperty("type", "com.ibm.vis.visit_record");
+		visitObj.addProperty(GlobalConsts.DOC_ID, IdGenerator.nextVisitId());
+		visitObj.addProperty(GlobalConsts.DOC_TYPE, GlobalConsts.VISIT_RECORD_TYPE);
 		visitObj.addProperty("lastUpdatedBy", req.getRemoteUser());
 		visitObj.addProperty("createdBy", req.getRemoteUser());
 		visitObj.addProperty("visitTypeChoice", visitTypeChoice);
@@ -153,7 +153,7 @@ public class CloudVisit {
 		
 		// TODO add some error handling mechanism here
 		visitObj.addProperty("save_response", response.toString());
-		visitObj.addProperty("_id", response.getId());
+		visitObj.addProperty(GlobalConsts.DOC_ID, response.getId());
 		
 		return visitObj.toString();
 	}
@@ -179,7 +179,13 @@ public class CloudVisit {
 				
 				for (String docId : allDocIds) {
 					JsonObject visitObj = database.find(JsonObject.class, docId);
-					retArray.add(visitObj);
+					JsonElement visitObjType = visitObj.get(GlobalConsts.DOC_TYPE);
+					if (visitObjType == null 
+							|| GlobalConsts.VISIT_RECORD_TYPE.equals(
+									visitObjType.getAsString())) {
+						// only add if this is one of those visit records
+						retArray.add(visitObj);
+					}
 				}
 				
 				retObj.addProperty("status", "success");
