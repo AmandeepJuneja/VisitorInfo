@@ -63,15 +63,15 @@ public class Testbed extends HttpServlet {
 		response.setContentType("text/plain");
 		PrintWriter pw = response.getWriter();
 		
-		List<Document> viewDocs = database.getViewRequestBuilder("allVisitsDD", "all-visits").newRequest(Key.Type.STRING, Object.class)
+		List<JsonObject> viewDocs = database.getViewRequestBuilder("allVisitsDD", "all-visits").newRequest(Key.Type.STRING, Object.class)
 				.includeDocs(true)
 				.build()
 				.getResponse()
-				.getDocs();
+				.getDocsAs(JsonObject.class);
 		
-		for ( Document doc : viewDocs ) {
-			pw.println("<b>doc-id:</b>" + doc.getId() + "<br/>");
-			pw.println(parser.parse(doc.toString()));
+		for ( JsonObject doc: viewDocs ) {
+			pw.println(doc.toString());
+			pw.println("**************************");
 		}
 		
 		pw.flush();
