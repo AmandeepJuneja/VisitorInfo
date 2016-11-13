@@ -27,6 +27,7 @@ import com.cloudant.client.api.views.Key;
 import com.cloudant.client.api.views.ViewRequestBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.ibm.vis.utils.CloudDBUtil;
 import com.ibm.vis.utils.GlobalConsts;
 import com.ibm.vis.utils.IdGenerator;
@@ -40,6 +41,7 @@ import com.ibm.vis.utils.IdGenerator;
 public class Testbed extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Database database;
+	private JsonParser parser;
 	
        
     /**
@@ -50,6 +52,7 @@ public class Testbed extends HttpServlet {
         super();
         database = CloudDBUtil.createInstance()
 				.getDB(GlobalConsts.CLOUDANT_DB_NAME, false);
+        parser = new JsonParser();
     }
 
 	/**
@@ -68,6 +71,7 @@ public class Testbed extends HttpServlet {
 		
 		for ( Document doc : viewDocs ) {
 			pw.println("<b>doc-id:</b>" + doc.getId() + "<br/>");
+			pw.println(parser.parse(doc.toString()));
 		}
 		
 		pw.flush();
