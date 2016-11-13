@@ -60,7 +60,7 @@ public class Testbed extends HttpServlet {
 		response.setContentType("text/plain");
 		PrintWriter pw = response.getWriter();
 		
-		List<Document> viewDocs = database.getViewRequestBuilder("pastVisitsDD", "past-visits").newRequest(Key.Type.STRING, Object.class)
+		List<Document> viewDocs = database.getViewRequestBuilder("allVisitsDD", "all-visits").newRequest(Key.Type.STRING, Object.class)
 				.includeDocs(true)
 				.build()
 				.getResponse()
