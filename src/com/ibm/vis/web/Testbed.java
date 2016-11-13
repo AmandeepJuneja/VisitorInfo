@@ -63,7 +63,8 @@ public class Testbed extends HttpServlet {
 		response.setContentType("text/plain");
 		PrintWriter pw = response.getWriter();
 		
-		pw.println("Welcome User: " + request.getRemoteUser());
+		pw.println("Welcome User: " + request.getRemoteUser());		
+		pw.println("Your Principal: " + request.getUserPrincipal());
 		
 		pw.flush();
 	}
