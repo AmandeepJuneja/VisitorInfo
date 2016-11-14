@@ -1724,12 +1724,12 @@ $(function() {
 	// activate tooltips
 	$( document ).tooltip();
 	
-	$('#createVisitBtn').button().click(openVisitDialog);
-	$('#openVisitBtn').button().click(openSelectedVisitRecords);
+	$('#createVisitBtn').button({icons: {primary: 'ui-icon-plus'}}).click(openVisitDialog);
+	$('#openVisitBtn').button({icons: {primary: 'ui-icon-folder-open'}}).click(openSelectedVisitRecords);
 	$('#searchVisitBtn').button();
 	$('#addVisitorBtn').button().click(addVisitor);
-	$('#deleteVisitBtn').button().click(openDeleteConfirmationDialog);
-	$('#exportRptBtn').button().click(exportReport);
+	$('#deleteVisitBtn').button({icons: {primary: 'ui-icon-trash'}}).click(openDeleteConfirmationDialog);
+	$('#exportRptBtn').button({icons: {primary: 'ui-icon-arrowthickstop-1-s'}}).click(exportReport);
 	$('#removeVisitorsBtn').button().click(removeVisitor);
 	$('#itiAddBtn').button().click(addItinerary);
 	$('#itiRemoveBtn').button().click(removeItinerary);
