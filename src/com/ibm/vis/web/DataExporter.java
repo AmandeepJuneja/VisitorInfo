@@ -245,11 +245,11 @@ public class DataExporter extends HttpServlet {
 				String deliveryTypeChoice = visitObj.get("deliveryTypeChoice").getAsString();
 				if (deliveryTypeChoice != null) {
 					if ( deliveryTypeChoice.equals("E") ) {
-						dataRow.createCell(12).setCellValue("Existing Delivery");
+						dataRow.createCell(colNum++).setCellValue("Existing Delivery");
 					} else if ( deliveryTypeChoice.equals("N") ) {
-						dataRow.createCell(12).setCellValue("New Opportunity");
+						dataRow.createCell(colNum++).setCellValue("New Opportunity");
 					} else {
-						dataRow.createCell(12).setCellValue("Unknown");
+						dataRow.createCell(colNum++).setCellValue("Unknown");
 					}
 				} else {
 					dataRow.createCell(colNum++).setCellValue("Null");
