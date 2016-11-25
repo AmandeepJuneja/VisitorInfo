@@ -102,17 +102,13 @@ public class DataExporter extends HttpServlet {
 			
 			if ( visitObj.get("visitTypeChoice") != null ) {
 				String visitTypeChoice = visitObj.get("visitTypeChoice").getAsString();
-				switch ( visitTypeChoice ) {
-				case GlobalConsts.VISIT_TYPE_CHOICE_IBM:
+				if ( GlobalConsts.VISIT_TYPE_CHOICE_IBM.equals(visitTypeChoice) ) {
 					dataRow.createCell(colNum++).setCellValue(GlobalConsts.VISIT_TYPE_CHOICE_IBM_VALUE);
-					break;
-				case GlobalConsts.VISIT_TYPE_CHOICE_CLIENT:
+				} else if ( GlobalConsts.VISIT_TYPE_CHOICE_CLIENT.equals(visitTypeChoice) ) {
 					dataRow.createCell(colNum++).setCellValue(GlobalConsts.VISIT_TYPE_CHOICE_CLIENT_VALUE);
-					break;
-				case GlobalConsts.VISIT_TYPE_CHOICE_BOTH:
+				} else if ( GlobalConsts.VISIT_TYPE_CHOICE_BOTH.equals(visitTypeChoice) ) {
 					dataRow.createCell(colNum++).setCellValue(GlobalConsts.VISIT_TYPE_CHOICE_BOTH_VALUE);
-					break;
-				default:
+				} else {
 					dataRow.createCell(colNum++).setCellValue("");
 				}
 			}
