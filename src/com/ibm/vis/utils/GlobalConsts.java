@@ -34,4 +34,12 @@ public final class GlobalConsts {
 	
 	/* JSON Field Values */
 	public static final String VISIT_RECORD_TYPE = "com.ibm.vis.visit_record";
+	
+	/* Visit Type Choices */
+	public static final String VISIT_TYPE_CHOICE_CLIENT = "C";
+	public static final String VISIT_TYPE_CHOICE_CLIENT_VALUE = "Client Only";
+	public static final String VISIT_TYPE_CHOICE_IBM = "I";
+	public static final String VISIT_TYPE_CHOICE_IBM_VALUE = "IBM Only";
+	public static final String VISIT_TYPE_CHOICE_BOTH = "B";
+	public static final String VISIT_TYPE_CHOICE_BOTH_VALUE = "Both Client & IBM";
 }

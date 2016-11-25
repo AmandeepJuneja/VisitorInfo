@@ -17,8 +17,10 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.json.JSONObject;
 
 import com.cloudant.client.api.Database;
+import com.cloudant.client.api.views.Key;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -34,6 +36,25 @@ public class DataExporter extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected Logger logger = Logger.getLogger(CloudVisit.class.getName());
 	protected Database database;
+	protected static final String[] HEADER_ROWS = {
+			"VISIT ID",
+			"VISIT TYPE",
+			"SECTOR",
+			"INDUSTRY",
+			"ACCOUNT NAME",
+			"PAL/LFE",
+			"CBC",
+			"HOSTING MANAGER", 
+			"VISIT AGENDA",
+			"VISITORS",
+			"ITINERARY",
+			"LEADERSHIP PARTICIPATION",
+			"EXECUTIVE OWNER(TCV > 10 Million)",
+			"OPPORTUNITY TCV(in $M)",
+			"DELIVERY TYPE",
+			"CREATED BY",
+			"LAST MODIFIED BY"
+	};
        
     /**
      * @throws MalformedURLException 
@@ -54,66 +75,101 @@ public class DataExporter extends HttpServlet {
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		Sheet sheet = workbook.createSheet("VIS DUMP");
 		
-		List<String> allDocIds = database.getAllDocsRequestBuilder().build().getResponse().getDocIds();
-		int rowNum = 0;
-		Row headerRow = sheet.createRow(rowNum++);
-		headerRow.createCell(0).setCellValue("VISIT ID");
-		headerRow.createCell(1).setCellValue("INDUSTRY");
-		headerRow.createCell(2).setCellValue("ACCOUNT NAME");
-		headerRow.createCell(3).setCellValue("PAL/LFE");
-		headerRow.createCell(4).setCellValue("CBC");
-		headerRow.createCell(5).setCellValue("HOSTING MANAGER");
-		headerRow.createCell(6).setCellValue("VISIT AGENDA");
-		headerRow.createCell(7).setCellValue("VISITORS");
-		headerRow.createCell(8).setCellValue("ITINERARY");
-		headerRow.createCell(9).setCellValue("LEADERSHIP PARTICIPATION");
-		headerRow.createCell(10).setCellValue("EXECUTIVE OWNER(TCV > 10 Million)");
-		headerRow.createCell(11).setCellValue("OPPORTUNITY TCV(in $M)");
-		headerRow.createCell(12).setCellValue("DELIVERY TYPE");
+//		List<String> allDocIds = database.getAllDocsRequestBuilder().build().getResponse().getDocIds();
 		
-		for (String docId : allDocIds) {
-			JsonObject visitObj = database.find(JsonObject.class, docId);
-			
+		List<JsonObject> allDocuments = database.getViewRequestBuilder("allVisitsDD", "all-visits").newRequest(Key.Type.STRING, Object.class)
+				.includeDocs(true)
+				.build()
+				.getResponse()
+				.getDocsAs(JsonObject.class);
+		int rowNum = 0;
+		
+		Row headerRow = sheet.createRow(rowNum++);
+		int colNum = 0;
+		for ( String header : HEADER_ROWS ) {
+			headerRow.createCell(colNum++).setCellValue(header);
+		}
+		
+		for (JsonObject visitObj : allDocuments) {
+			colNum = 0;
 			Row dataRow = sheet.createRow(rowNum++);
 			if ( visitObj.get("_id") != null ) {
 				String id = visitObj.get("_id").getAsString();
-				dataRow.createCell(0).setCellValue(id);
+				dataRow.createCell(colNum++).setCellValue(id);
+			} else {
+				dataRow.createCell(colNum++).setCellValue("");
+			}
+			
+			if ( visitObj.get("visitTypeChoice") != null ) {
+				String visitTypeChoice = visitObj.get("visitTypeChoice").getAsString();
+				switch ( visitTypeChoice ) {
+				case GlobalConsts.VISIT_TYPE_CHOICE_IBM:
+					dataRow.createCell(colNum++).setCellValue(GlobalConsts.VISIT_TYPE_CHOICE_IBM_VALUE);
+					break;
+				case GlobalConsts.VISIT_TYPE_CHOICE_CLIENT:
+					dataRow.createCell(colNum++).setCellValue(GlobalConsts.VISIT_TYPE_CHOICE_CLIENT_VALUE);
+					break;
+				case GlobalConsts.VISIT_TYPE_CHOICE_BOTH:
+					dataRow.createCell(colNum++).setCellValue(GlobalConsts.VISIT_TYPE_CHOICE_BOTH_VALUE);
+					break;
+				default:
+					dataRow.createCell(colNum++).setCellValue("");
+				}
 			}
 			
 			if ( visitObj.get("industry") != null ) {
 				String industry = visitObj.get("industry").getAsString();
-				dataRow.createCell(1).setCellValue(industry);
+				dataRow.createCell(colNum++).setCellValue(industry);
+			} else {
+				dataRow.createCell(colNum++).setCellValue("");
+			}
+			
+			if ( visitObj.get("sector") != null ) {
+				String sector = visitObj.get("sector").getAsString();
+				dataRow.createCell(colNum++).setCellValue(sector);
+			} else {
+				dataRow.createCell(colNum++).setCellValue("");
 			}
 			
 			if ( visitObj.get("accName") != null ) {
 				String accName = visitObj.get("accName").getAsString();
-				dataRow.createCell(2).setCellValue(accName);
+				dataRow.createCell(colNum++).setCellValue(accName);
+			} else {
+				dataRow.createCell(colNum++).setCellValue("");
 			}
 			
 			if ( visitObj.get("palLFE") != null ) {
 				String palLFE = visitObj.get("palLFE").getAsString();
-				dataRow.createCell(3).setCellValue(palLFE);
+				dataRow.createCell(colNum++).setCellValue(palLFE);
+			} else {
+				dataRow.createCell(colNum++).setCellValue("");
 			}
 			
 			if ( visitObj.get("cbc") != null ) {
 				String cbc = visitObj.get("cbc").getAsString();
-				dataRow.createCell(4).setCellValue(cbc);
+				dataRow.createCell(colNum++).setCellValue(cbc);
+			} else {
+				dataRow.createCell(colNum++).setCellValue("");
 			}
 			
 			if ( visitObj.get("hostMgr") != null ) {
 				String hostMgr = visitObj.get("hostMgr").getAsString();
-				dataRow.createCell(5).setCellValue(hostMgr);
+				dataRow.createCell(colNum++).setCellValue(hostMgr);
+			} else {
+				dataRow.createCell(colNum++).setCellValue("");
 			}
 			
 			if ( visitObj.get("visitAgenda") != null ) {
 				String visitAgenda = visitObj.get("visitAgenda").getAsString();
-				dataRow.createCell(6).setCellValue(visitAgenda);
+				dataRow.createCell(colNum++).setCellValue(visitAgenda);
+			} else {
+				dataRow.createCell(colNum++).setCellValue("");
 			}
 			
 			// NESTED FIELD -- VISITORS
 			if ( visitObj.get("visitorRecords") != null ) {
 				JsonArray visitorRecords = visitObj.get("visitorRecords").getAsJsonArray();
-				Cell cell = dataRow.createCell(7);
+				Cell cell = dataRow.createCell(colNum++);
 //				CellStyle style = workbook.createCellStyle();
 //			    style.setWrapText(true);
 //			    cell.setCellStyle(style);
@@ -131,12 +187,14 @@ public class DataExporter extends HttpServlet {
 					visitorsBuffer.append("\n");
 				}
 				cell.setCellValue(visitorsBuffer.toString());
+			} else {
+				dataRow.createCell(colNum++).setCellValue("");
 			}
 			
 			// NESTED FIELD -- ITINERARY
 			if ( visitObj.get("itineraryRecords") != null ) {
 				JsonArray itineraryRecords = visitObj.get("itineraryRecords").getAsJsonArray();
-				Cell cell = dataRow.createCell(8);
+				Cell cell = dataRow.createCell(colNum++);
 //				CellStyle style = workbook.createCellStyle();
 //			    style.setWrapText(true);
 //			    cell.setCellStyle(style);
@@ -148,12 +206,14 @@ public class DataExporter extends HttpServlet {
 			    	itineraryBuffer.append("\n");
 			    }
 			    cell.setCellValue(itineraryBuffer.toString());
+			} else {
+				dataRow.createCell(colNum++).setCellValue("");
 			}
 			
 			// NESTED FIELD -- LEADERSHIP PARTICIPATION
 			if ( visitObj.get("leadershipRecords") != null ) {
 				JsonArray leadershipRecords = visitObj.get("leadershipRecords").getAsJsonArray();
-				Cell cell = dataRow.createCell(9);
+				Cell cell = dataRow.createCell(colNum++);
 //				CellStyle style = workbook.createCellStyle();
 //			    style.setWrapText(true);
 //			    cell.setCellStyle(style);
@@ -167,16 +227,22 @@ public class DataExporter extends HttpServlet {
 			    	leadershipBuffer.append("\n");
 			    }
 			    cell.setCellValue(leadershipBuffer.toString());
+			} else {
+				dataRow.createCell(colNum++).setCellValue("");
 			}
 			
 			if ( visitObj.get("execOwnerTCV") != null ) {
 				String execOwnerTCV = visitObj.get("execOwnerTCV").getAsString();
-				dataRow.createCell(10).setCellValue(execOwnerTCV);
+				dataRow.createCell(colNum++).setCellValue(execOwnerTCV);
+			} else {
+				dataRow.createCell(colNum++).setCellValue("");
 			}
 			
 			if ( visitObj.get("opportunityTCV") != null ) {
 				String opportunityTCV = visitObj.get("opportunityTCV").getAsString();
-				dataRow.createCell(11).setCellValue(opportunityTCV);
+				dataRow.createCell(colNum++).setCellValue(opportunityTCV);
+			} else {
+				dataRow.createCell(colNum++).setCellValue("");
 			}
 			
 			if ( visitObj.get("deliveryTypeChoice") != null ) {
@@ -192,8 +258,24 @@ public class DataExporter extends HttpServlet {
 				} else {
 					dataRow.createCell(12).setCellValue("Null");
 				}
-				
+			} else {
+				dataRow.createCell(colNum++).setCellValue("");
 			}
+			
+			if ( visitObj.get("createdBy") != null ) {
+				String createdBy = visitObj.get("createdBy").getAsString();
+				dataRow.createCell(colNum++).setCellValue(createdBy);
+			} else {
+				dataRow.createCell(colNum++).setCellValue("");
+			}
+			
+			if ( visitObj.get("lastUpdatedBy") != null ) {
+				String lastUpdatedBy = visitObj.get("lastUpdatedBy").getAsString();
+				dataRow.createCell(colNum++).setCellValue(lastUpdatedBy);
+			} else {
+				dataRow.createCell(colNum++).setCellValue("");
+			}
+			
 		}
 		
 		// STEP 2 - Send the Excel file
