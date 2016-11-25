@@ -252,7 +252,7 @@ public class DataExporter extends HttpServlet {
 						dataRow.createCell(12).setCellValue("Unknown");
 					}
 				} else {
-					dataRow.createCell(12).setCellValue("Null");
+					dataRow.createCell(colNum++).setCellValue("Null");
 				}
 			} else {
 				dataRow.createCell(colNum++).setCellValue("");
