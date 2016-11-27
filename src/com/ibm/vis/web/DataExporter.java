@@ -75,9 +75,13 @@ public class DataExporter extends HttpServlet {
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		Sheet sheet = workbook.createSheet("VIS DUMP");
 		
-//		List<String> allDocIds = database.getAllDocsRequestBuilder().build().getResponse().getDocIds();
+		String mode = request.getParameter(GlobalConsts.SERVLET_PARAM_EXPORTER_MODE);
+		String designDoc = (mode != null && GlobalConsts.SERVLET_PARAM_EXPORTER_MODE_VALUE_ARCHIVE.equals(mode))?
+				GlobalConsts.CLOUDANT_DD_PAST_VISITS:GlobalConsts.CLOUDANT_DD_ALL_VISITS;
+		String view = (mode != null && GlobalConsts.SERVLET_PARAM_EXPORTER_MODE_VALUE_ARCHIVE.equals(mode))?
+				GlobalConsts.CLOUDANT_VIEW_PAST_VISITS:GlobalConsts.CLOUDANT_VIEW_ALL_VISITS;
 		
-		List<JsonObject> allDocuments = database.getViewRequestBuilder("allVisitsDD", "all-visits").newRequest(Key.Type.STRING, Object.class)
+		List<JsonObject> allDocuments = database.getViewRequestBuilder(designDoc, view).newRequest(Key.Type.STRING, Object.class)
 				.includeDocs(true)
 				.build()
 				.getResponse()

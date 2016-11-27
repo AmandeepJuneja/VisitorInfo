@@ -45,6 +45,29 @@ var deleteConfirmationDialog = $('#deleteConfirmationDialog').dialog({
 	}]
 });
 
+var rkonDialog = $('#rkonDialog').dialog({
+	autoOpen: false,
+	resizable: false,
+	height: 240,
+	width: 400,
+	hide: 'clip',
+	show: 'clip',
+	modal: true,
+	buttons: [{
+		text: "Archive",
+		click: function() {
+			$(this).dialog( "close" );
+			
+		}},
+		{
+		text: "Export",	
+		click: function() {
+			$(this).dialog( "close" );
+			exportReport();
+		}
+	}]
+});
+
 
 var  form = dialog.find('form').on('submit', function(evt) {
 	evt.preventDefault();
@@ -102,6 +125,10 @@ function openVisitDialog() {
 
 function openDeleteConfirmationDialog() {
 	deleteConfirmationDialog.dialog('open');
+}
+
+function openArchiveConfirmationDialog() {
+	rkonDialog.dialog('open');
 }
 
 // This function is used to retrieve all visit records from the backend upon startup.
@@ -1635,6 +1662,11 @@ function exportReport() {
 	
 }
 
+// Archive (instead of export) handler
+function archiveReport() {
+	
+}
+
 // Retrieve the Sector-Industry Mapping configuration from the server
 function fetchSectorMap() {
 	console.log('Fetching sector - industry mapping...');
@@ -1729,7 +1761,7 @@ $(function() {
 	$('#searchVisitBtn').button();
 	$('#addVisitorBtn').button().click(addVisitor);
 	$('#deleteVisitBtn').button({icons: {primary: 'ui-icon-trash'}}).click(openDeleteConfirmationDialog);
-	$('#exportRptBtn').button({icons: {primary: 'ui-icon-arrowthickstop-1-s'}}).click(exportReport);
+	$('#exportRptBtn').button({icons: {primary: 'ui-icon-arrowthickstop-1-s'}}).click(openArchiveConfirmationDialog);
 	$('#removeVisitorsBtn').button().click(removeVisitor);
 	$('#itiAddBtn').button().click(addItinerary);
 	$('#itiRemoveBtn').button().click(removeItinerary);

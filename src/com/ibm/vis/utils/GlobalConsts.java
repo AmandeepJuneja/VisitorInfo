@@ -42,4 +42,17 @@ public final class GlobalConsts {
 	public static final String VISIT_TYPE_CHOICE_IBM_VALUE = "IBM Only";
 	public static final String VISIT_TYPE_CHOICE_BOTH = "B";
 	public static final String VISIT_TYPE_CHOICE_BOTH_VALUE = "Both Client & IBM";
+	
+	/* Cloudant DB Design Docs */
+	public static final String CLOUDANT_DD_ALL_VISITS = "allVisitsDD";
+	public static final String CLOUDANT_DD_PAST_VISITS = "pastVisitsDD";
+	
+	/* Cloudant DB Views */
+	public static final String CLOUDANT_VIEW_ALL_VISITS = "all-visits";
+	public static final String CLOUDANT_VIEW_PAST_VISITS = "past-visits";
+	public static final String CLOUDANT_VIEW_FUTURE_VISITS = "future-visits";
+	
+	/* Servlet Parameters */
+	public static final String SERVLET_PARAM_EXPORTER_MODE = "mode";
+	public static final String SERVLET_PARAM_EXPORTER_MODE_VALUE_ARCHIVE = "archive";
 }
