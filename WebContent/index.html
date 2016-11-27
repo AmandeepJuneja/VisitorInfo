@@ -43,6 +43,7 @@
 			<input type="button" id="openVisitBtn" value="Open" title="Opens all selected visit record(s) details.">
 			<input type="button" id="deleteVisitBtn" value="Delete" title="Delete all selected visit records from database.">
 			<input type="button" id="exportRptBtn" value="Export" title="Export an excel dump of the existing visit record database.">
+			<input type="button" id="purgeBtn" value="Purge" title="Purge old records from the database. *Requires password.">
 		</div>
 		
 		<div id="searchDiv">
@@ -102,6 +103,17 @@
 			<p>
 				Exporting will dump the full data set in the database currently. <br />
 				Archiving will only dump records older than today.
+			</p>
+		</div>
+		
+		<div id="purgeDialog" title="Purge Confirmation">
+			<p>
+				<span class="ui-state-highlight">
+					<em>WARNING!</em> This will remove/delete all visit records from the database which have already ended by today!
+				</span>
+				
+				Please enter the secret passphrase to continue:
+				
 			</p>
 		</div>
 		

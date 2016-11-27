@@ -68,6 +68,28 @@ var rkonDialog = $('#rkonDialog').dialog({
 	}]
 });
 
+var purgeDialog = $('#purgeDialog').dialog({
+	autoOpen: false,
+	resizable: false,
+	height: 240,
+	width: 400,
+	hide: 'clip',
+	show: 'clip',
+	modal: true,
+	buttons: [{
+		text: "Purge",
+		click: function() {
+			$(this).dialog( "close" );
+			
+		}},
+		{
+		text: "Cancel",	
+		click: function() {
+			$(this).dialog( "close" );
+		}
+	}]
+});
+
 
 var  form = dialog.find('form').on('submit', function(evt) {
 	evt.preventDefault();
@@ -129,6 +151,10 @@ function openDeleteConfirmationDialog() {
 
 function openArchiveConfirmationDialog() {
 	rkonDialog.dialog('open');
+}
+
+function openPurgeConfirmationDialog() {
+	purgeDialog.dialog('open');
 }
 
 // This function is used to retrieve all visit records from the backend upon startup.
@@ -1760,6 +1786,7 @@ $(function() {
 	$('#createVisitBtn').button({icons: {primary: 'ui-icon-plus'}}).click(openVisitDialog);
 	$('#openVisitBtn').button({icons: {primary: 'ui-icon-folder-open'}}).click(openSelectedVisitRecords);
 	$('#searchVisitBtn').button();
+	$('#purgeBtn').button().click(openPurgeConfirmationDialog);
 	$('#addVisitorBtn').button().click(addVisitor);
 	$('#deleteVisitBtn').button({icons: {primary: 'ui-icon-trash'}}).click(openDeleteConfirmationDialog);
 	$('#exportRptBtn').button({icons: {primary: 'ui-icon-arrowthickstop-1-s'}}).click(openArchiveConfirmationDialog);
