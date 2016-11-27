@@ -57,7 +57,7 @@ var rkonDialog = $('#rkonDialog').dialog({
 		text: "Archive",
 		click: function() {
 			$(this).dialog( "close" );
-			
+			archiveReport();
 		}},
 		{
 		text: "Export",	
@@ -1664,6 +1664,7 @@ function exportReport() {
 
 // Archive (instead of export) handler
 function archiveReport() {
+	var exportWindow = window.open("/xport?mode=archive", "ExportWindow", "location=no,resizable=no,scrollbars=no");
 	
 }
 
