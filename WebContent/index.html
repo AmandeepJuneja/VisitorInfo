@@ -107,14 +107,16 @@
 		</div>
 		
 		<div id="purgeDialog" title="Purge Confirmation">
-			<p>
-				<span class="ui-state-highlight">
-					<em>WARNING!</em> This will remove/delete all visit records from the database which have already ended by today!
-				</span>
+			<div class="ui-state-highlight">
+				<img src="./images/exclamation.png">
+				<em>WARNING!</em> 
+				This will remove/delete all visit records from the database which have already ended by today!
+			</div>
+			
+			
+			<label for="purgePass">Please enter the secret passphrase to continue:</label>
+			<input type="password" id="purgePass">
 				
-				Please enter the secret passphrase to continue:
-				
-			</p>
 		</div>
 		
 		<div id="createVisitDialog" title="Visitor Information Sheet">
