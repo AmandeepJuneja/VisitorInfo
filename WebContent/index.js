@@ -71,7 +71,7 @@ var rkonDialog = $('#rkonDialog').dialog({
 var purgeDialog = $('#purgeDialog').dialog({
 	autoOpen: false,
 	resizable: false,
-	height: 400,
+	height: 300,
 	width: 400,
 	hide: 'clip',
 	show: 'clip',
@@ -80,7 +80,12 @@ var purgeDialog = $('#purgeDialog').dialog({
 		text: "Purge",
 		click: function() {
 			$(this).dialog( "close" );
+			// Show the working ribbon
 			
+			// Get the password
+			
+			
+			// Send an AJAX request
 		}},
 		{
 		text: "Cancel",	
