@@ -1733,6 +1733,8 @@ function fetchSectorMap() {
 				}
 			});
 			
+			sectorSelect.val($('#sector option:first').val());
+			
 			$('#messagesDiv').empty();
 			$('#messagesDiv').empty().append(
 					$('<p><img src="./images/complete_status.gif">'
