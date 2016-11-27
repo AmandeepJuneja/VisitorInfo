@@ -1720,6 +1720,16 @@ function fetchSectorMap() {
 				sectorSelect.append(sectorOpt);
 			}
 			
+			var selectedSector = $('#sector option:first').text();
+			$('#industry').empty();
+			for ( var i = 0; i < sectorMap[selectedSector].length; i++ ) {
+				var industry = sectorMap[selectedSector][i];
+				console.log(industry);
+				var industryOpt = $('<option>' + industry + '</option>');
+				industryOpt.attr('value', industry);
+				industrySelect.append(industryOpt);
+			}
+			
 			sectorSelect.change(function() {
 				var selectedSector = $('#sector option:selected').text();
 				$('#industry').empty();
@@ -1733,7 +1743,7 @@ function fetchSectorMap() {
 				}
 			});
 			
-			sectorSelect.val($('#sector option:first').val());
+			
 			
 			$('#messagesDiv').empty();
 			$('#messagesDiv').empty().append(
