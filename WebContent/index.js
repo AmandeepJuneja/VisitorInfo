@@ -71,7 +71,7 @@ var rkonDialog = $('#rkonDialog').dialog({
 var purgeDialog = $('#purgeDialog').dialog({
 	autoOpen: false,
 	resizable: false,
-	height: 240,
+	height: 400,
 	width: 400,
 	hide: 'clip',
 	show: 'clip',

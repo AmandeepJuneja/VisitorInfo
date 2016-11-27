@@ -27,6 +27,7 @@ public final class GlobalConsts {
 	public static final String ENV_SEED = "ID_GEN_SEED";
 	public static final String ENV_PREFIX = "ID_GEN_PREFIX";
 	public static final String ENV_SECTOR_INDUSTRY_MAP = "SECTOR_INDUSTRY_MAP";
+	public static final String PURGE_PASS = "PURGE_PASS"; // password for purging old records.
 	
 	/* JSON Fields */
 	public static final String DOC_TYPE = "type";
