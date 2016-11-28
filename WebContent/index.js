@@ -80,7 +80,7 @@ var purgeDialog = $('#purgeDialog').dialog({
 		text: "Purge",
 		click: function() {
 			$(this).dialog( "close" );
-			
+			purge();
 		}},
 		{
 		text: "Cancel",	
