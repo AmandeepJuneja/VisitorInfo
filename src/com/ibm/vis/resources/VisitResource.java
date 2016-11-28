@@ -38,7 +38,7 @@ import com.mongodb.DBObject;
 @Path("/visit")
 public class VisitResource {
 	DBCollection collection = DBUtil.createInstance()
-			.getCollection(GlobalConsts.MDB_VISIT_REC_COLLECTION_NAME);	
+			.getCollection(Global.MDB_VISIT_REC_COLLECTION_NAME);	
 	
 	/**
 	 * This method is used to create new Visit record instances.

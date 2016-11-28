@@ -58,7 +58,7 @@ public class CloudVisit {
 	public CloudVisit() throws MalformedURLException {
 		super();
 		database = CloudDBUtil.createInstance()
-				.getDB(GlobalConsts.CLOUDANT_DB_NAME, false);
+				.getDB(Global.CLOUDANT_DB_NAME, false);
 	}
 	
 	/**
@@ -97,8 +97,8 @@ public class CloudVisit {
 		
 		JsonObject visitObj = new JsonObject();
 		
-		visitObj.addProperty(GlobalConsts.DOC_ID, IdGenerator.nextVisitId());
-		visitObj.addProperty(GlobalConsts.DOC_TYPE, GlobalConsts.VISIT_RECORD_TYPE);
+		visitObj.addProperty(Global.DOC_ID, IdGenerator.nextVisitId());
+		visitObj.addProperty(Global.DOC_TYPE, Global.VISIT_RECORD_TYPE);
 		visitObj.addProperty("lastUpdatedBy", req.getRemoteUser());
 		visitObj.addProperty("createdBy", req.getRemoteUser());
 		visitObj.addProperty("visitTypeChoice", visitTypeChoice);
@@ -154,7 +154,7 @@ public class CloudVisit {
 		
 		// TODO add some error handling mechanism here
 		visitObj.addProperty("save_response", response.toString());
-		visitObj.addProperty(GlobalConsts.DOC_ID, response.getId());
+		visitObj.addProperty(Global.DOC_ID, response.getId());
 		
 		return visitObj.toString();
 	}
@@ -175,7 +175,9 @@ public class CloudVisit {
 			retObj.addProperty("count", "" + retArray.size());
 		} else { 
 			try {
-				List<JsonObject> viewDocs = database.getViewRequestBuilder("allVisitsDD", "all-visits").newRequest(Key.Type.STRING, Object.class)
+				List<JsonObject> viewDocs = database.getViewRequestBuilder(
+						Global.CLOUDANT_DD_ALL_VISITS, Global.CLOUDANT_VIEW_ALL_VISITS)
+						.newRequest(Key.Type.STRING, Object.class)
 						.includeDocs(true)
 						.build()
 						.getResponse()

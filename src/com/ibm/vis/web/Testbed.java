@@ -33,7 +33,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ibm.vis.utils.CloudDBUtil;
-import com.ibm.vis.utils.GlobalConsts;
+import com.ibm.vis.utils.Global;
 import com.ibm.vis.utils.IdGenerator;
 import com.ibm.websphere.security.WSSecurityException;
 import com.ibm.websphere.security.auth.WSSubject;
@@ -57,7 +57,7 @@ public class Testbed extends HttpServlet {
     public Testbed() throws MalformedURLException {
         super();
         database = CloudDBUtil.createInstance()
-				.getDB(GlobalConsts.CLOUDANT_DB_NAME, false);
+				.getDB(Global.CLOUDANT_DB_NAME, false);
         parser = new JsonParser();
     }
 

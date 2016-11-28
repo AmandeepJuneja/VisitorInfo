@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.apache.log4j.Logger;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.cloudant.client.api.ClientBuilder;
@@ -34,15 +35,7 @@ public class CloudDBUtil {
 		if ( client == null ) {
 			logger.debug("initializing cloudant client and connection...");
 			logger.debug("reading configuration...");
-			String vcap = System.getenv("VCAP_SERVICES");
-			if ( vcap == null ) {
-				logger.error("could not find VCAP variable");
-				throw new IllegalStateException("VCAP env var not defined");
-			} else {
-				logger.info("VCAP found");
-			}
-
-			JSONObject serviceObj = new JSONObject(vcap);
+			JSONObject serviceObj = Global.getVCAP();
 			JSONObject creds = serviceObj.getJSONArray("cloudantNoSQLDB")
 					.getJSONObject(0)
 					.getJSONObject("credentials");

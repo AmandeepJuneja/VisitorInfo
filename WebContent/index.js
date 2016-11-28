@@ -80,12 +80,7 @@ var purgeDialog = $('#purgeDialog').dialog({
 		text: "Purge",
 		click: function() {
 			$(this).dialog( "close" );
-			// Show the working ribbon
 			
-			// Get the password
-			
-			
-			// Send an AJAX request
 		}},
 		{
 		text: "Cancel",	
@@ -303,7 +298,6 @@ function createVisitRecord() {
 	console.log('Inside create visit record');
 	var visitTypeChoice = $('input[name="visitTypeChoice"]:checked').val();
 	var industry = $('#industry').val();
-	var sector = $('#sector').val();
 	var sector = $('#sector').val();
 	var accName = $('#accName').val();
 	var palLFE = $('#palLFE').val();
@@ -1699,6 +1693,68 @@ function archiveReport() {
 	
 }
 
+// Purge function
+function purge() {
+	// Show the working ribbon
+	$('#messagesDiv').empty().append(
+			$('<p><img src="./images/spinner.gif"> Purging records...'
+			+ '' + '</p>')).show('scale');
+	
+	// Get the password
+	var purgePass = $('#purgePass').val();
+	postData = {'purgePass': purgePass};
+	
+	// Send an AJAX request
+	$.ajax({
+		url: './purge',
+		type: 'POST',
+		traditional: true,
+		data: postData,
+		dataType: 'json',
+		success: function(data, status, xhr) {
+			console.log('Success', data, status, xhr);
+			$('#messagesDiv').empty().append(
+					$('<p><img src="./images/complete_status.gif">'
+					+ ' Data purged successfully.</p>')).show('scale')
+				.delay(3000)
+				.hide('scale');
+			console.log(data, status, xhr);
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			if ( textStatus != null && textStatus != undefined && textStatus == 'parsererror') {
+				console.log('Possible timeout scenario detected...');
+				$('#messagesDiv').empty();
+				$('#messagesDiv').empty().append(
+						$('<p><img src="./images/session_redirect"> Session timedout, redirecting to login screen...'
+						+ '' + '</p>')).show('scale')
+					.delay(3000)
+					.hide('scale');
+				
+				if ( jqXHR.responseText != undefined && jqXHR.responseText != null ) {
+					var retHTML = $(jqXHR.responseText);
+					retHTML.filter('script').each(function(){
+			            $.globalEval(this.text || this.textContent || this.innerHTML || '');
+			        });					
+				} else {
+					console.log('Doomed! no jqXHR.responseText');
+				}
+				
+				return;
+			}
+			
+			$('#messagesDiv').empty();
+			$('#messagesDiv').empty().append(
+					$('<p><img src="./images/complete_error.gif">'
+					+ 'Operation Failed: ' 
+					+ errorThrown + '</p>')).show('scale')
+				.delay(3000)
+				.hide('scale');
+		}
+	});
+	
+	// Remove the spinner
+}
+
 // Retrieve the Sector-Industry Mapping configuration from the server
 function fetchSectorMap() {
 	console.log('Fetching sector - industry mapping...');
@@ -1758,7 +1814,7 @@ function fetchSectorMap() {
 				console.log('Possible timeout scenario detected...');
 				$('#messagesDiv').empty();
 				$('#messagesDiv').empty().append(
-						$('<p><img src="./images/session_redirect"> Session timedout, redirecting to login screen...'
+						$('<p><img src="./images/session_redirect.png"> Session timedout, redirecting to login screen...'
 						+ '' + '</p>')).show('scale')
 					.delay(3000)
 					.hide('scale');

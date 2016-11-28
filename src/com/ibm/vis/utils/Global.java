@@ -7,12 +7,15 @@
  */
 package com.ibm.vis.utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * This class contains all of the Global Constants for the Application.
  * @author <a href="mailto:siddhartha.ghosh@in.ibm.com">Siddhartha Ghosh</a>
  *
  */
-public final class GlobalConsts {
+public final class Global {
 	/* Mongo DB Settings */
 	public static final String MDB_USER_ID = "ucm";
 	public static final String MDB_PASSWORD = "iluvSAP2014$$";
@@ -56,4 +59,16 @@ public final class GlobalConsts {
 	/* Servlet Parameters */
 	public static final String SERVLET_PARAM_EXPORTER_MODE = "mode";
 	public static final String SERVLET_PARAM_EXPORTER_MODE_VALUE_ARCHIVE = "archive";
+	public static final String SERVLET_PARAM_PURGE_PASS = "purgePass";
+	
+	/* Global service methods */
+	public static final JSONObject getVCAP() throws IllegalStateException, JSONException {
+		String vcap = System.getenv("VCAP_SERVICES");
+		if ( vcap == null ) {
+			throw new IllegalStateException("VCAP env var not defined");
+		} 
+		
+		JSONObject serviceObj = new JSONObject(vcap);
+		return serviceObj;
+	}
 }

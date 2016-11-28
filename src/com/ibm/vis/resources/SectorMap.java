@@ -14,7 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.ibm.vis.utils.GlobalConsts;
+import com.ibm.vis.utils.Global;
 
 /**
  * This is a utility service to retrieve the sector-industry mapping as configured
@@ -28,7 +28,7 @@ public class SectorMap {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getSectorMap() {
-		String sectorMapStr = System.getenv(GlobalConsts.ENV_SECTOR_INDUSTRY_MAP);
+		String sectorMapStr = System.getenv(Global.ENV_SECTOR_INDUSTRY_MAP);
 		return sectorMapStr;
 	}
 }

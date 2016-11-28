@@ -34,15 +34,9 @@ public class DBUtil {
 		if (singletonMe == null) {
 			singletonMe = new DBUtil();
 			logger.info("Creating DBUtil instance for cloudorr...");
-			String vcap = System.getenv("VCAP_SERVICES");
-			if ( vcap == null ) {
-				throw new IllegalStateException("VCAP_SERVICES not configured");
-			}
-			
-			logger.info("VCAP_SERVICES found");
 			
 			try {
-				JSONObject serviceObj = new JSONObject(vcap);
+				JSONObject serviceObj = Global.getVCAP();
 								
 				String mongoUriTxt = serviceObj.getJSONArray("mongolab").getJSONObject(0).getJSONObject("credentials").getString("uri");
 				
@@ -57,7 +51,7 @@ public class DBUtil {
 				singletonMe.client = new Mongo(uri);
 				singletonMe.db = singletonMe.client.getDB(uri.getDatabase());
 				
-				if ( singletonMe.db.authenticate(GlobalConsts.MDB_USER_ID, GlobalConsts.MDB_PASSWORD.toCharArray()) ) {
+				if ( singletonMe.db.authenticate(Global.MDB_USER_ID, Global.MDB_PASSWORD.toCharArray()) ) {
 					logger.info("Authenticated successfully.");
 				} else { 
 					throw new IllegalStateException("Failed to authenticate");

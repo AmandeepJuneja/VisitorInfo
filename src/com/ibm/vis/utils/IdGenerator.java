@@ -22,7 +22,7 @@ public class IdGenerator {
 	private static int counter;
 	
 	static { 
-		seed = System.getenv(GlobalConsts.ENV_SEED);
+		seed = System.getenv(Global.ENV_SEED);
 		counter = Integer.parseInt(seed);
 	}
 
@@ -32,8 +32,8 @@ public class IdGenerator {
 	 * @return the next visit id in sequence in the format VIS_DDYY-CC
 	 */
 	public static String nextVisitId() {
-		String seed = System.getenv(GlobalConsts.ENV_SEED);
-		String prefix = System.getenv(GlobalConsts.ENV_PREFIX);
+		String seed = System.getenv(Global.ENV_SEED);
+		String prefix = System.getenv(Global.ENV_PREFIX);
 		
 		Calendar cal = Calendar.getInstance();
 		String dayOfYear = "" + cal.get(Calendar.DAY_OF_YEAR);

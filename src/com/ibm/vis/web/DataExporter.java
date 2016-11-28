@@ -26,7 +26,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.ibm.vis.resources.CloudVisit;
 import com.ibm.vis.utils.CloudDBUtil;
-import com.ibm.vis.utils.GlobalConsts;
+import com.ibm.vis.utils.Global;
 
 /**
  * Servlet implementation class DataExporter
@@ -64,7 +64,7 @@ public class DataExporter extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
         database = CloudDBUtil.createInstance()
-				.getDB(GlobalConsts.CLOUDANT_DB_NAME, false);
+				.getDB(Global.CLOUDANT_DB_NAME, false);
     }
 
 	/**
@@ -75,11 +75,11 @@ public class DataExporter extends HttpServlet {
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		Sheet sheet = workbook.createSheet("VIS DUMP");
 		
-		String mode = request.getParameter(GlobalConsts.SERVLET_PARAM_EXPORTER_MODE);
-		String designDoc = (mode != null && GlobalConsts.SERVLET_PARAM_EXPORTER_MODE_VALUE_ARCHIVE.equals(mode))?
-				GlobalConsts.CLOUDANT_DD_PAST_VISITS:GlobalConsts.CLOUDANT_DD_ALL_VISITS;
-		String view = (mode != null && GlobalConsts.SERVLET_PARAM_EXPORTER_MODE_VALUE_ARCHIVE.equals(mode))?
-				GlobalConsts.CLOUDANT_VIEW_PAST_VISITS:GlobalConsts.CLOUDANT_VIEW_ALL_VISITS;
+		String mode = request.getParameter(Global.SERVLET_PARAM_EXPORTER_MODE);
+		String designDoc = (mode != null && Global.SERVLET_PARAM_EXPORTER_MODE_VALUE_ARCHIVE.equals(mode))?
+				Global.CLOUDANT_DD_PAST_VISITS:Global.CLOUDANT_DD_ALL_VISITS;
+		String view = (mode != null && Global.SERVLET_PARAM_EXPORTER_MODE_VALUE_ARCHIVE.equals(mode))?
+				Global.CLOUDANT_VIEW_PAST_VISITS:Global.CLOUDANT_VIEW_ALL_VISITS;
 		
 		List<JsonObject> allDocuments = database.getViewRequestBuilder(designDoc, view).newRequest(Key.Type.STRING, Object.class)
 				.includeDocs(true)
@@ -106,12 +106,12 @@ public class DataExporter extends HttpServlet {
 			
 			if ( visitObj.get("visitTypeChoice") != null ) {
 				String visitTypeChoice = visitObj.get("visitTypeChoice").getAsString();
-				if ( GlobalConsts.VISIT_TYPE_CHOICE_IBM.equals(visitTypeChoice) ) {
-					dataRow.createCell(colNum++).setCellValue(GlobalConsts.VISIT_TYPE_CHOICE_IBM_VALUE);
-				} else if ( GlobalConsts.VISIT_TYPE_CHOICE_CLIENT.equals(visitTypeChoice) ) {
-					dataRow.createCell(colNum++).setCellValue(GlobalConsts.VISIT_TYPE_CHOICE_CLIENT_VALUE);
-				} else if ( GlobalConsts.VISIT_TYPE_CHOICE_BOTH.equals(visitTypeChoice) ) {
-					dataRow.createCell(colNum++).setCellValue(GlobalConsts.VISIT_TYPE_CHOICE_BOTH_VALUE);
+				if ( Global.VISIT_TYPE_CHOICE_IBM.equals(visitTypeChoice) ) {
+					dataRow.createCell(colNum++).setCellValue(Global.VISIT_TYPE_CHOICE_IBM_VALUE);
+				} else if ( Global.VISIT_TYPE_CHOICE_CLIENT.equals(visitTypeChoice) ) {
+					dataRow.createCell(colNum++).setCellValue(Global.VISIT_TYPE_CHOICE_CLIENT_VALUE);
+				} else if ( Global.VISIT_TYPE_CHOICE_BOTH.equals(visitTypeChoice) ) {
+					dataRow.createCell(colNum++).setCellValue(Global.VISIT_TYPE_CHOICE_BOTH_VALUE);
 				} else {
 					dataRow.createCell(colNum++).setCellValue("");
 				}
